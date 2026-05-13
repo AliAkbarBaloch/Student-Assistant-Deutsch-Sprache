@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { font-family: "Inter", system-ui, sans-serif; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { @apply bg-gray-700 rounded; }
+  .dark ::-webkit-scrollbar-thumb { @apply bg-gray-600; }
+}
+
+@layer utilities {
+  .chat-scroll { scroll-behavior: smooth; }
+}
+
+/* Mic ring pulse animation */
+@keyframes ripple {
+  0%   { transform: scale(0.7); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.ring-pulse { animation: ripple 1.4s ease-out infinite; }
+.ring-pulse-2 { animation: ripple 1.4s ease-out 0.25s infinite; }
+.ring-pulse-3 { animation: ripple 1.4s ease-out 0.5s infinite; }
+
+/* Typing dots */
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%           { transform: translateY(-6px); }
+}
+
+.dot-1 { animation: bounce-dot 0.9s infinite; }
+.dot-2 { animation: bounce-dot 0.9s 0.15s infinite; }
+.dot-3 { animation: bounce-dot 0.9s 0.30s infinite; }
+
+/* Bubble fade-in */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bubble-enter { animation: fadeUp 0.25s ease both; }
