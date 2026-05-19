@@ -8,13 +8,12 @@ librosa==0.10.2.post1
 soundfile==0.13.1
 numpy==2.0.2
 
-# Step 1 — Speech-to-Text via Qwen3-ASR (state-of-the-art, German, Jan 2026)
-# Requires Python 3.12+ — create a new venv if on older Python
-qwen-asr>=0.1.0
-torch>=2.6.0
+# Step 1 — Speech-to-Text via Whisper (transformers pipeline)
+torch>=2.1.0
+transformers>=4.35.0
 
-# Step 2 — LLM German conversation via Groq (Llama-3.3-70b)
-groq>=0.9.0
+# Step 2 — LLM German conversation via professor's OpenAI-compatible API
+openai>=1.0.0
 
 # Step 3 — German Text-to-Speech via Microsoft Edge TTS (free, no API key)
 edge-tts>=6.1.9

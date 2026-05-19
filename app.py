@@ -35,6 +35,8 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
+import openai
+
 from database import Message, User, create_tables, get_db
 from services import auth_service, llm_service, stt_service, tts_service
 
@@ -286,10 +288,13 @@ async def chat_text(
 
     cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
 
-    ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
-    tts_path    = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
+    try:
+        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
+    except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
+        raise HTTPException(503, f"AI service temporarily unavailable: {e}")
 
-    # Save to DB if logged in
+    tts_path = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
+
     current_user = _get_user_from_header(authorization, db)
     if current_user:
         _save_turn(db, current_user.id, user_text, ai_response["german"], ai_response["english"])
@@ -319,8 +324,13 @@ async def chat(
     user_text   = stt_service.transcribe_german(audio_array, sample_rate=TARGET_SR)
 
     cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
-    ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
-    tts_path    = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
+
+    try:
+        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
+    except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
+        raise HTTPException(503, f"AI service temporarily unavailable: {e}")
+
+    tts_path = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
 
     current_user = _get_user_from_header(authorization, db)
     if current_user:
@@ -357,7 +367,10 @@ async def pronunciation_feedback(
     if not transcribed or not transcribed.strip():
         raise HTTPException(400, "Kein Deutsch erkannt. Bitte erneut versuchen.")
 
-    feedback = llm_service.pronunciation_feedback(transcribed, target_text)
+    try:
+        feedback = llm_service.pronunciation_feedback(transcribed, target_text)
+    except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
+        raise HTTPException(503, f"AI service temporarily unavailable: {e}")
     return feedback
 
 

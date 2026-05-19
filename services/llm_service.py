@@ -1,10 +1,9 @@
 """
-LLM Service  —  Groq (German Conversation)
-===========================================
-Sends the user's transcribed text + conversation history to Groq
-and returns a German response with English translation.
-
-Model: llama-3.3-70b-versatile  (current Groq recommended model, 2026)
+LLM Service  —  Professor's OpenAI-compatible API
+==================================================
+Endpoint : https://llms.innkube.fim.uni-passau.de/v1
+Model    : controlled by PROF_MODEL in .env
+Thinking : disabled via extra_body for faster responses
 """
 from __future__ import annotations
 
@@ -13,7 +12,8 @@ import os
 import re
 from typing import Optional
 
-from groq import Groq
+import openai
+from openai import OpenAI
 
 from services.vocab_service import CefrLevel, get_level_description, get_sample_for_prompt
 
@@ -39,15 +39,51 @@ ABSOLUTE REGELN:
 # Maximum conversation turns to keep in context (prevents token overflow)
 _MAX_HISTORY_TURNS = 10
 
+# Disable thinking mode for faster responses (Qwen3 / Gemma4)
+_EXTRA_BODY = {"chat_template_kwargs": {"enable_thinking": False}}
+
+# Fallback order — first available model wins
+_FALLBACK_MODELS = ["gemma4-31b-it", "qwen3-next-80b-a3b-instruct"]
+
+
+def _get_client() -> OpenAI:
+    api_key  = os.getenv("PROF_API_KEY")
+    base_url = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+    if not api_key:
+        raise RuntimeError("PROF_API_KEY is not set in .env")
+    return OpenAI(api_key=api_key, base_url=base_url)
+
+
+def _get_model() -> str:
+    return os.getenv("PROF_MODEL", "gemma4-31b-it")
+
+
+def _create_with_fallback(client: OpenAI, messages: list, temperature: float, max_tokens: int) -> object:
+    """Try the configured model first, then fall back through _FALLBACK_MODELS."""
+    primary = _get_model()
+    queue = [primary] + [m for m in _FALLBACK_MODELS if m != primary]
+    last_err: Exception = RuntimeError("No models available")
+    for model in queue:
+        try:
+            return client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                extra_body=_EXTRA_BODY,
+            )
+        except (openai.InternalServerError, openai.APIConnectionError, openai.APITimeoutError) as e:
+            last_err = e
+    raise last_err
+
 
 def _build_system_prompt(level: CefrLevel) -> str:
     """
     Build the full system prompt by appending CEFR-level vocabulary rules
     and a sample of allowed word stems to the base prompt.
-    This grounds the LLM to use only vocabulary appropriate for the learner.
     """
-    level_desc   = get_level_description(level)
-    stem_sample  = get_sample_for_prompt(level)
+    level_desc  = get_level_description(level)
+    stem_sample = get_sample_for_prompt(level)
 
     prompt = _BASE_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
 
@@ -74,29 +110,16 @@ def chat_german(user_text: str, history: list[dict], level: Optional[CefrLevel] 
     Returns:
         {"german": "...", "english": "..."}
     """
-    api_key = os.getenv("GROQ_API_KEY")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY is not set in .env")
+    client = _get_client()
 
-    client = Groq(api_key=api_key)
-
-    # Keep only the last N turns so we don't exceed context limits
     trimmed_history = history[-(2 * _MAX_HISTORY_TURNS):]
-
-    # Build level-aware system prompt
-    system_prompt = _build_system_prompt(level or "B1")
+    system_prompt   = _build_system_prompt(level or "B1")
 
     messages = [{"role": "system", "content": system_prompt}]
     messages.extend(trimmed_history)
     messages.append({"role": "user", "content": user_text})
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",   # current Groq flagship, 2026
-        messages=messages,
-        temperature=0.7,
-        max_tokens=300,
-    )
-
+    response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
     raw = response.choices[0].message.content.strip()
     return _parse_json_response(raw)
 
@@ -140,33 +163,23 @@ def pronunciation_feedback(transcribed_text: str, target_text: str = "") -> dict
     Returns:
         {transcribed, score, overall, issues, tips, feedback_en}
     """
-    api_key = os.getenv("GROQ_API_KEY")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY is not set in .env")
-
-    client = Groq(api_key=api_key)
+    client = _get_client()
 
     user_content = f'Whisper transcription: "{transcribed_text}"'
     if target_text.strip():
         user_content += f'\nThe learner intended to say: "{target_text.strip()}"'
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {"role": "system", "content": _FEEDBACK_SYSTEM_PROMPT},
-            {"role": "user",   "content": user_content},
-        ],
-        temperature=0.4,   # lower temp for more consistent structured output
-        max_tokens=600,
-    )
-
+    messages = [
+        {"role": "system", "content": _FEEDBACK_SYSTEM_PROMPT},
+        {"role": "user",   "content": user_content},
+    ]
+    response = _create_with_fallback(client, messages, temperature=0.4, max_tokens=600)
     raw = response.choices[0].message.content.strip()
     return _parse_feedback_response(raw, transcribed_text)
 
 
 def _parse_feedback_response(text: str, fallback_transcribed: str) -> dict:
     """Robustly parse the pronunciation feedback JSON from the LLM."""
-    # Strip markdown code blocks if present
     text = re.sub(r"```json?\s*", "", text)
     text = re.sub(r"```", "", text).strip()
 
@@ -183,7 +196,6 @@ def _parse_feedback_response(text: str, fallback_transcribed: str) -> dict:
     except Exception:
         pass
 
-    # Regex fallback for partial JSON
     match = re.search(r'\{.*\}', text, re.DOTALL)
     if match:
         try:
@@ -214,11 +226,9 @@ def _parse_json_response(text: str) -> dict:
     Robustly extract {german, english} from the LLM output.
     Handles markdown code fences and extra surrounding text.
     """
-    # Strip markdown code blocks if present
     text = re.sub(r"```json?\s*", "", text)
     text = re.sub(r"```", "", text).strip()
 
-    # Direct JSON parse
     try:
         data = json.loads(text)
         if "german" in data and "english" in data:
@@ -226,7 +236,6 @@ def _parse_json_response(text: str) -> dict:
     except Exception:
         pass
 
-    # Find JSON object with regex fallback
     match = re.search(r'\{[^{}]*"german"[^{}]*"english"[^{}]*\}', text, re.DOTALL)
     if match:
         try:
@@ -239,5 +248,4 @@ def _parse_json_response(text: str) -> dict:
         except Exception:
             pass
 
-    # Last resort — return the raw text as German with no translation
     return {"german": text, "english": ""}

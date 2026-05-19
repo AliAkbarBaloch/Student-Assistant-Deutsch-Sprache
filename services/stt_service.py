@@ -10,8 +10,6 @@ venv and run: pip install qwen-asr
 from __future__ import annotations
 
 import numpy as np
-import torch
-from transformers import pipeline
 
 _pipeline = None
 
@@ -20,9 +18,11 @@ _MODEL = "openai/whisper-large-v3-turbo"
 
 
 def _get_pipeline():
-    """Lazily load Whisper on first call (downloads ~1.5 GB on first use)."""
+    """Lazily load Whisper and its heavy dependencies on first call."""
     global _pipeline
     if _pipeline is None:
+        import torch
+        from transformers import pipeline
         device = 0 if torch.cuda.is_available() else -1
         _pipeline = pipeline(
             "automatic-speech-recognition",
