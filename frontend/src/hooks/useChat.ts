@@ -59,15 +59,13 @@ export function useChat() {
    * Full voice pipeline: sends audio, adds BOTH user + AI messages when done.
    * (We can't show user text immediately since it must be transcribed first.)
    */
-  const sendVoice = useCallback(async (blob: Blob, level = "B1"): Promise<ChatResponse | null> => {
+  const sendVoice = useCallback(async (blob: Blob, level = "B1"): Promise<ChatResponse> => {
     setProcessing(true);
     try {
       const data = await api.sendVoiceMessage(blob, historyRef.current, level);
       addMessage({ role: "user",      content_de: data.user_text,  content_en: "" });
       addMessage({ role: "assistant", content_de: data.ai_text_de, content_en: data.ai_text_en });
       return data;
-    } catch {
-      return null;
     } finally {
       setProcessing(false);
     }

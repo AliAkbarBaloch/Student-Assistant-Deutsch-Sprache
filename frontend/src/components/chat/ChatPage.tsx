@@ -133,10 +133,15 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
       stream.getTracks().forEach((t) => t.stop());
       setMicState("processing");
       setStatus("processing");
-      const result = await chat.sendVoice(new Blob(chunksRef.current, { type: "audio/webm" }), level);
-      if (result) await chat.playAudio(result.tts_audio_url);
-      setMicState("idle");
-      setStatus("idle");
+      try {
+        const result = await chat.sendVoice(new Blob(chunksRef.current, { type: "audio/webm" }), level);
+        await chat.playAudio(result.tts_audio_url);
+      } catch {
+        showToast("Spracherkennung fehlgeschlagen. Bitte erneut versuchen.", "error");
+      } finally {
+        setMicState("idle");
+        setStatus("idle");
+      }
     };
 
     rec.start();

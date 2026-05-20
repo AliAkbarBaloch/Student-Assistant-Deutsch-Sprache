@@ -87,7 +87,7 @@ export function AuthPage() {
                     : "text-gray-400 hover:text-white"
                 }`}
               >
-                {t === "login" ? "Anmelden" : "Registrieren"}
+                {t === "login" ? "Login" : "Anmelden"}
               </button>
             ))}
           </div>

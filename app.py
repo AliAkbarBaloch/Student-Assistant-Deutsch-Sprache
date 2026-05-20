@@ -326,7 +326,7 @@ async def chat(
     cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
 
     try:
-        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
+        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr, voice=True)
     except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {e}")
 
@@ -381,8 +381,8 @@ async def pronunciation_feedback(
 async def _read_audio(upload: UploadFile) -> np.ndarray:
     """
     Decode uploaded audio to 16 kHz mono float32 numpy array.
-    Stage 1 — soundfile (WAV/FLAC/OGG).
-    Stage 2 — librosa + ffmpeg fallback (WebM/Opus/MP3).
+    Stage 1 — soundfile (WAV/FLAC/OGG, fast path).
+    Stage 2 — PyAV (WebM/Opus/MP3 from browser — no temp files, no deprecated audioread).
     """
     data = await upload.read()
     if not data:
@@ -393,26 +393,31 @@ async def _read_audio(upload: UploadFile) -> np.ndarray:
     audio: np.ndarray | None = None
     sr:    int | None        = None
 
-    # Stage 1
+    # Stage 1: soundfile handles WAV/FLAC/OGG instantly
     try:
         audio, sr = sf.read(BytesIO(data), dtype="float32", always_2d=False)
     except Exception:
         pass
 
-    # Stage 2
+    # Stage 2: PyAV handles WebM/Opus/MP3 recorded by browsers
     if audio is None:
-        ct  = upload.content_type or ""
-        ext = ".webm" if "webm" in ct else ".mp3" if "mpeg" in ct else ".webm"
-        tmp = BASE_DIR / f"_tmp{ext}"
         try:
-            tmp.write_bytes(data)
-            audio, sr = librosa.load(str(tmp), sr=None, mono=False)
-            audio = audio.astype(np.float32)
+            import av
+            container = av.open(BytesIO(data))
+            resampler = av.AudioResampler(format="fltp", layout="mono", rate=TARGET_SR)
+            chunks: list[np.ndarray] = []
+            for frame in container.decode(audio=0):
+                for out in resampler.resample(frame):
+                    chunks.append(out.to_ndarray()[0])
+            for out in resampler.resample(None):  # flush remaining samples
+                chunks.append(out.to_ndarray()[0])
+            container.close()
+            if not chunks:
+                raise ValueError("No audio frames decoded")
+            audio = np.concatenate(chunks).astype(np.float32)
+            sr = TARGET_SR  # already resampled by PyAV
         except Exception as exc:
-            raise HTTPException(400, "Cannot decode audio. Ensure ffmpeg is installed.") from exc
-        finally:
-            if tmp.exists():
-                tmp.unlink()
+            raise HTTPException(400, "Cannot decode audio. Use WAV, WebM, or MP3.") from exc
 
     if audio.ndim > 1:
         axis  = 0 if audio.shape[0] < audio.shape[-1] else 1

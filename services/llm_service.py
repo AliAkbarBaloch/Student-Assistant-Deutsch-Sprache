@@ -58,6 +58,11 @@ def _get_model() -> str:
     return os.getenv("PROF_MODEL", "gemma4-31b-it")
 
 
+def _get_voice_model() -> str:
+    # Separate faster model for voice: lower latency matters more than raw quality
+    return os.getenv("VOICE_MODEL", "qwen3-next-35b-a3b-fp8")
+
+
 def _create_with_fallback(client: OpenAI, messages: list, temperature: float, max_tokens: int) -> object:
     """Try the configured model first, then fall back through _FALLBACK_MODELS."""
     primary = _get_model()
@@ -98,14 +103,20 @@ def _build_system_prompt(level: CefrLevel) -> str:
     return prompt
 
 
-def chat_german(user_text: str, history: list[dict], level: Optional[CefrLevel] = "B1") -> dict:
+def chat_german(
+    user_text: str,
+    history: list[dict],
+    level: Optional[CefrLevel] = "B1",
+    voice: bool = False,
+) -> dict:
     """
     Generate a German AI response for the user's message.
 
     Args:
-        user_text:  What the user said (transcribed by Whisper).
+        user_text:  What the user said / typed.
         history:    Previous turns as [{"role": "user"|"assistant", "content": "..."}].
         level:      CEFR level of the learner — controls vocabulary complexity.
+        voice:      True for voice pipeline — uses VOICE_MODEL and shorter responses.
 
     Returns:
         {"german": "...", "english": "..."}
@@ -115,11 +126,39 @@ def chat_german(user_text: str, history: list[dict], level: Optional[CefrLevel] 
     trimmed_history = history[-(2 * _MAX_HISTORY_TURNS):]
     system_prompt   = _build_system_prompt(level or "B1")
 
+    # Voice responses must be short so TTS stays fast
+    if voice:
+        system_prompt = system_prompt.replace("2–4 Sätze", "1–2 Sätze")
+
     messages = [{"role": "system", "content": system_prompt}]
     messages.extend(trimmed_history)
     messages.append({"role": "user", "content": user_text})
 
-    response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
+    # Voice uses a dedicated faster model; text chat uses the primary model
+    if voice:
+        voice_model = _get_voice_model()
+        queue = [voice_model] + [m for m in _FALLBACK_MODELS if m != voice_model]
+        last_err: Exception = RuntimeError("No models available")
+        for model in queue:
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=150,
+                    extra_body=_EXTRA_BODY,
+                )
+                print(f"[voice LLM] using model: {model}")
+                break
+            except openai.APIError as e:
+                # catches NotFoundError, RateLimitError, InternalServerError, etc.
+                print(f"[voice LLM] model {model!r} failed: {e} — trying next")
+                last_err = e
+        else:
+            raise last_err
+    else:
+        response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
+
     raw = response.choices[0].message.content.strip()
     return _parse_json_response(raw)
 

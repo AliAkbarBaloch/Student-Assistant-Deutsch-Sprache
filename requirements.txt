@@ -6,13 +6,15 @@ python-multipart==0.0.20
 # Audio processing
 librosa==0.10.2.post1
 soundfile==0.13.1
-numpy==2.0.2
+numpy<2                        # numpy 2.x breaks librosa
 
-# Step 1 — Speech-to-Text via Whisper (transformers pipeline)
-torch>=2.1.0
-transformers>=4.35.0
+# Step 1 — Speech-to-Text: faster-whisper (CTranslate2, no GPU required)
+faster-whisper>=1.0.0          # ~4× faster than openai-whisper; int8 quantized on CPU
+av>=9.0                        # PyAV: decodes WebM/Opus/MP3 from browser recordings
+ctranslate2>=4.0,<5            # CTranslate2 backend used by faster-whisper
+torch>=2.2.0                   # 2.4+ not available on this macOS; transformers warning is harmless
 
-# Step 2 — LLM German conversation via professor's OpenAI-compatible API
+# Step 2 — LLM German conversation via OpenAI-compatible API
 openai>=1.0.0
 
 # Step 3 — German Text-to-Speech via Microsoft Edge TTS (free, no API key)
