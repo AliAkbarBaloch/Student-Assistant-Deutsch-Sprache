@@ -35,6 +35,6 @@ def transcribe_german(audio: np.ndarray, sample_rate: int = 16_000) -> str:  # n
         Transcribed German text. Returns "(unclear)" if nothing recognized.
     """
     model = _get_model()
-    segments, _ = model.transcribe(audio, language="de", beam_size=5)
+    segments, _ = model.transcribe(audio, language="de", beam_size=1, vad_filter=True)
     text = " ".join(seg.text for seg in segments).strip().strip(".,!?")
     return text if text else "(unclear)"

@@ -29,3 +29,10 @@ sqlalchemy>=2.0.0
 # Authentication (JWT + bcrypt password hashing)
 PyJWT>=2.8.0
 bcrypt==4.0.1
+
+# LiveKit real-time voice agent (low-latency Phone call button)
+livekit>=0.16
+livekit-agents>=0.14
+livekit-plugins-openai>=0.10
+livekit-plugins-silero>=0.7
+livekit-plugins-turn-detector>=0.5

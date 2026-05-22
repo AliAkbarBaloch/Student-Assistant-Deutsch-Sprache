@@ -26,7 +26,7 @@ export function VoiceControls({ micState, callState, onMicClick, onCallClick }: 
           )}
           <button
             onClick={onMicClick}
-            disabled={inCall || micState === "processing"}
+            disabled={(inCall && micState !== "recording") || micState === "processing"}
             className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg ${
               micState === "recording"
                 ? "bg-red-500 text-white shadow-red-500/30"

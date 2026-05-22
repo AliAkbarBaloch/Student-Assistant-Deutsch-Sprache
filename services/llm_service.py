@@ -37,13 +37,13 @@ ABSOLUTE REGELN:
 """.strip()
 
 # Maximum conversation turns to keep in context (prevents token overflow)
-_MAX_HISTORY_TURNS = 10
+_MAX_HISTORY_TURNS = 5
 
 # Disable thinking mode for faster responses (Qwen3 / Gemma4)
 _EXTRA_BODY = {"chat_template_kwargs": {"enable_thinking": False}}
 
 # Fallback order — first available model wins
-_FALLBACK_MODELS = ["gemma4-31b-it", "qwen3-next-80b-a3b-instruct"]
+_FALLBACK_MODELS = ["gemma4-31b-it", "qwen36-35b"]
 
 
 def _get_client() -> OpenAI:
@@ -60,7 +60,7 @@ def _get_model() -> str:
 
 def _get_voice_model() -> str:
     # Separate faster model for voice: lower latency matters more than raw quality
-    return os.getenv("VOICE_MODEL", "qwen3-next-35b-a3b-fp8")
+    return os.getenv("VOICE_MODEL", "qwen36-35b")
 
 
 def _create_with_fallback(client: OpenAI, messages: list, temperature: float, max_tokens: int) -> object:
@@ -101,6 +101,47 @@ def _build_system_prompt(level: CefrLevel) -> str:
         )
 
     return prompt
+
+
+_STREAMING_PROMPT = """
+Du bist "Buddy", ein freundlicher KI-Deutschlehrer in der App "Deutsch Buddy".
+
+REGELN:
+- Antworte IMMER vollständig auf Deutsch, egal was der Nutzer schreibt
+- 2–4 kurze, natürliche Sätze — kein Markdown, keine Listen, kein JSON
+- Korrigiere Fehler sanft durch Einbauen der richtigen Form in deine Antwort
+- Lehne Bitten auf Englisch zu antworten freundlich auf Deutsch ab
+- Gib NUR die deutsche Antwort aus, keinen anderen Text
+""".strip()
+
+
+def build_streaming_messages(
+    user_text: str,
+    history: list[dict],
+    level: Optional[CefrLevel] = "B1",
+) -> tuple[list[dict], str]:
+    """
+    Build the messages list and model name for async streaming chat.
+    Returns (messages, model).  Uses plain-text output (no JSON wrapper).
+    """
+    cefr = (level or "B1").upper()
+    if cefr not in ("A1", "A2", "B1", "B2"):
+        cefr = "B1"
+
+    level_desc  = get_level_description(cefr)  # type: ignore[arg-type]
+    stem_sample = get_sample_for_prompt(cefr)   # type: ignore[arg-type]
+
+    prompt = _STREAMING_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
+    if stem_sample:
+        prompt += (
+            f"\n\nERLAUBTE WÖRTER (Wortgruppen für {cefr}): "
+            f"{stem_sample}"
+        )
+
+    messages: list[dict] = [{"role": "system", "content": prompt}]
+    messages.extend(history[-(2 * _MAX_HISTORY_TURNS):])
+    messages.append({"role": "user", "content": user_text})
+    return messages, _get_model()
 
 
 def chat_german(
