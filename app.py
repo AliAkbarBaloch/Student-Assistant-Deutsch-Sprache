@@ -7,19 +7,6 @@ os.environ.setdefault("OMP_NUM_THREADS",        "1")
 os.environ.setdefault("KMP_AFFINITY",           "disabled")
 os.environ.setdefault("MKL_THREADING_LAYER",    "GNU")
 
-"""
-Deutsch Buddy  ·  app.py
-==========================
-Endpoints:
-  POST  /api/auth/register   — create account
-  POST  /api/auth/login      — login, returns JWT
-  GET   /api/auth/me         — get current user info
-  POST  /api/chat            — voice chat (STT → LLM → TTS)
-  POST  /api/chat-text       — text chat  (LLM → TTS)
-  GET   /api/history         — load last 60 messages for logged-in user
-  DELETE /api/history        — clear all messages for logged-in user
-"""
-
 import asyncio
 import json
 import re
@@ -69,15 +56,8 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Auth helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _get_user_from_header(authorization: Optional[str], db: Session) -> Optional[User]:
-    """
-    Extract and verify the Bearer JWT from the Authorization header.
-    Returns the User ORM object or None if missing/invalid.
-    """
+    """Pull the user from a Bearer JWT header. Returns None if missing or invalid."""
     if not authorization or not authorization.startswith("Bearer "):
         return None
     token   = authorization.split(" ", 1)[1]
@@ -95,9 +75,7 @@ def _require_user(authorization: Optional[str] = Header(None), db: Session = Dep
     return user
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Static / root
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.get("/")
 def root() -> FileResponse:
@@ -109,9 +87,7 @@ def health() -> dict:
     return {"status": "ok"}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Auth routes
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.post("/api/auth/register")
 def register(
@@ -171,10 +147,7 @@ async def update_profile(
     current_user: User = Depends(_require_user),
     db: Session = Depends(get_db),
 ) -> dict:
-    """
-    Update the authenticated user's display name and/or profile picture.
-    Avatar is saved to static/avatars/{user_id}.<ext> and the URL stored in DB.
-    """
+    """Update display name and/or avatar. Avatar saved to static/avatars/."""
     current_user.name = name.strip() or current_user.name
 
     if avatar and avatar.filename:
@@ -203,19 +176,14 @@ async def update_profile(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Conversation history
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.get("/api/history")
 def get_history(
     current_user: User = Depends(_require_user),
     db: Session = Depends(get_db),
 ) -> dict:
-    """
-    Return the last 60 messages for the authenticated user,
-    oldest first — ready to render as a chat timeline.
-    """
+    """Return last 60 messages, oldest first."""
     messages = (
         db.query(Message)
         .filter(Message.user_id == current_user.id)
@@ -249,9 +217,7 @@ def clear_history(
     return {"detail": "Verlauf gelöscht."}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# LiveKit token — used by the Phone (Live-Anruf) button
-# ─────────────────────────────────────────────────────────────────────────────
+# LiveKit token — used by both voice buttons
 
 @app.post("/api/livekit-token")
 async def livekit_token(
@@ -259,10 +225,7 @@ async def livekit_token(
     authorization: Optional[str] = Header(None),
     db: Session = Depends(get_db),
 ) -> dict:
-    """
-    Issue a LiveKit access token and dispatch the Deutsch-Buddy agent to the room.
-    The frontend uses this token to connect via WebRTC for low-latency voice chat.
-    """
+    """Issue a LiveKit token and dispatch the voice agent to the room."""
     lk_key    = os.getenv("LIVEKIT_API_KEY")
     lk_secret = os.getenv("LIVEKIT_API_SECRET")
     lk_url    = os.getenv("LIVEKIT_URL")
@@ -298,9 +261,7 @@ async def livekit_token(
     return {"token": token, "url": lk_url, "room": room}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Chat helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _save_turn(db: Session, user_id: int, user_text: str, ai_de: str, ai_en: str) -> None:
     """Persist one conversation turn (user message + assistant reply) to the DB."""
@@ -318,9 +279,7 @@ def _build_history(history_json: str) -> list[dict]:
         return []
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Chat endpoints
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.post("/api/chat-text")
 async def chat_text(
@@ -492,9 +451,9 @@ async def chat(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+#
 # Pronunciation feedback endpoint
-# ─────────────────────────────────────────────────────────────────────────────
+#
 
 @app.post("/api/pronunciation-feedback")
 async def pronunciation_feedback(
@@ -522,9 +481,9 @@ async def pronunciation_feedback(
     return feedback
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+#
 # Audio decoding helper
-# ─────────────────────────────────────────────────────────────────────────────
+#
 
 async def _read_audio(upload: UploadFile) -> np.ndarray:
     """

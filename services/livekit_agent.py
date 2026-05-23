@@ -1,16 +1,8 @@
-"""
-Deutsch Buddy — LiveKit Voice Agent
-=====================================
-Low-latency German voice pipeline:
-  WebRTC audio → Deepgram STT (real-time) → Professor LLM → Cartesia TTS (streaming)
-
-Run separately from the FastAPI server:
-    python services/livekit_agent.py start
-
-Env vars used (same .env as the main app):
-    LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET
-    PROF_API_BASE, PROF_API_KEY, VOICE_MODEL
-"""
+# LiveKit voice agent for Deutsch Buddy.
+# Run separately: python services/livekit_agent.py start
+#
+# Pipeline: WebRTC audio → Deepgram STT → LLM → Cartesia TTS
+# CEFR level is passed via dispatch metadata from /api/livekit-token.
 from __future__ import annotations
 
 import json
@@ -37,7 +29,6 @@ _PROF_BASE = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/
 _PROF_KEY  = os.getenv("PROF_API_KEY", "")
 _LLM_MODEL = os.getenv("VOICE_MODEL", "qwen36-35b")
 
-# CEFR level descriptions injected into the system prompt
 _LEVEL_DESCRIPTIONS: dict[str, str] = {
     "A1": (
         "Der Nutzer ist ANFÄNGER (A1). "
@@ -100,10 +91,9 @@ server.setup_fnc = prewarm
 
 @server.rtc_session(agent_name="deutsch-buddy")
 async def entrypoint(ctx: JobContext) -> None:
-    # Read CEFR level from the dispatch metadata (set by the token endpoint)
     level = "B1"
     try:
-        meta = json.loads(ctx.job.metadata or "{}")
+        meta  = json.loads(ctx.job.metadata or "{}")
         level = meta.get("level", "B1")
     except Exception:
         pass
@@ -114,12 +104,11 @@ async def entrypoint(ctx: JobContext) -> None:
             model=_LLM_MODEL,
             base_url=_PROF_BASE,
             api_key=_PROF_KEY,
-            # Disable thinking mode on Qwen/Gemma for faster responses
             extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         ),
         tts=inference.TTS(model="cartesia/sonic-3", language="de"),
         vad=ctx.proc.userdata["vad"],
-        preemptive_generation=True,  # LLM starts before user finishes speaking
+        preemptive_generation=True,
     )
 
     await session.start(

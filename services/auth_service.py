@@ -1,9 +1,5 @@
-"""
-Auth Service  —  JWT + bcrypt (direct, no passlib)
-====================================================
-Handles password hashing and JWT token creation / verification.
-Uses bcrypt directly to avoid passlib version compatibility issues.
-"""
+# JWT auth + bcrypt password hashing.
+# Uses bcrypt directly to avoid passlib version issues.
 from __future__ import annotations
 
 import datetime
@@ -13,20 +9,17 @@ from typing import Optional
 import bcrypt
 import jwt
 
-# Use a strong secret from .env in production; fallback for dev only
 _SECRET_KEY  = os.getenv("SECRET_KEY", "deutsch-buddy-dev-secret-2026")
 _ALGORITHM   = "HS256"
 _EXPIRE_DAYS = 30
 
 
 def hash_password(plain: str) -> str:
-    """Return bcrypt hash of a plain-text password."""
     hashed = bcrypt.hashpw(plain.encode("utf-8"), bcrypt.gensalt())
     return hashed.decode("utf-8")
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    """Return True if plain matches the stored bcrypt hash."""
     return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
 
 
@@ -41,10 +34,7 @@ def create_token(user_id: int, email: str) -> str:
 
 
 def decode_token(token: str) -> Optional[dict]:
-    """
-    Decode and verify a JWT.
-    Returns the payload dict or None if invalid / expired.
-    """
+    """Returns the payload dict or None if the token is invalid / expired."""
     try:
         return jwt.decode(token, _SECRET_KEY, algorithms=[_ALGORITHM])
     except Exception:
