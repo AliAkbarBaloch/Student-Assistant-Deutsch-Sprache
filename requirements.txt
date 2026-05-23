@@ -1,0 +1,29 @@
+# Web framework
+fastapi==0.115.7
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Audio processing
+librosa==0.10.2.post1
+soundfile==0.13.1
+numpy==2.0.2
+
+# Step 1 — Speech-to-Text via Whisper (transformers pipeline)
+torch>=2.1.0
+transformers>=4.35.0
+
+# Step 2 — LLM German conversation via professor's OpenAI-compatible API
+openai>=1.0.0
+
+# Step 3 — German Text-to-Speech via Microsoft Edge TTS (free, no API key)
+edge-tts>=6.1.9
+
+# Environment variable management (.env file loading)
+python-dotenv>=1.0.0
+
+# Database (SQLite via SQLAlchemy ORM)
+sqlalchemy>=2.0.0
+
+# Authentication (JWT + bcrypt password hashing)
+PyJWT>=2.8.0
+bcrypt==4.0.1
