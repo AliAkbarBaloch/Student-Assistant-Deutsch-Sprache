@@ -1,0 +1,273 @@
+# AI Usage Documentation — Deutsch Buddy
+### Student Assistant for German Language Learning
+**Project:** Deutsch Buddy | **Course:** Applied AI Lab | **Team:** Ali Akbar
+
+---
+
+## Entry #1 — Setting Up the Full STT → LLM → TTS Voice Pipeline
+
+**Date:** 2026-04-15
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+We wanted the app to let users speak German and get a spoken response back. The basic idea was simple — record audio, transcribe it, send to LLM, speak the response. But actually wiring all three stages together in FastAPI while handling browser audio formats (WebM, Opus) was a nightmare. The browser sends audio in formats Whisper doesn't understand out of the box.
+
+### Prompt / Task
+
+> "I have a FastAPI backend. The browser records audio using MediaRecorder which produces WebM/Opus blobs. I need to:
+> 1. Accept the audio upload
+> 2. Decode it to a numpy float32 array at 16kHz (what Whisper expects)
+> 3. Run faster-whisper transcription
+> 4. Send the transcript to an OpenAI-compatible LLM API
+> 5. Convert the LLM response to speech using edge-tts and return the MP3 URL
+>
+> The tricky part: soundfile cannot open WebM. I don't want to install ffmpeg as a system dependency. How do I decode WebM/Opus in pure Python? Show me the full audio decoding pipeline with fallback stages."
+
+### AI Output Summary
+
+Claude suggested a two-stage decode: first try `soundfile` (handles WAV/FLAC), then fall back to `av` (PyAV) for WebM/Opus. The PyAV approach decodes the container frame-by-frame, resamples to 16kHz mono, and converts to float32 — all without needing system ffmpeg. Also generated the full `_read_audio()` function in `app.py` and the edge-tts async wrapper in `tts_service.py`.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The two-stage fallback idea was exactly what we needed. We adjusted the resampling logic slightly because the original assumed stereo input and our browser was sending mono. Also added error logging so we'd know which stage actually ran. Tested with actual browser recordings before merging.
+
+### Impact
+
+This was the single hardest integration problem in the project. Would have taken days without the AI suggestion about PyAV. The pipeline now reliably handles WebM from Chrome/Firefox and WAV from testing tools. Saved at least a full day of digging through audio library docs.
+
+---
+
+## Entry #2 — CEFR Vocabulary Grounding for the LLM
+
+**Date:** 2026-04-22
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+The LLM kept using vocabulary that was way too advanced for A1/A2 learners. We had a CSV with ~3000 German word stems mapped to CEFR levels. The challenge was injecting the right subset into the LLM system prompt without making the prompt so large it hurt response quality or hit token limits.
+
+### Prompt / Task
+
+> "I have a CSV with columns: stem, level (A1/A2/B1/B2), frequency_rank. I want to:
+> 1. Load it once at startup (not on every request)
+> 2. For each request, sample ~80 stems from the user's CEFR level grouped by frequency — higher frequency words first
+> 3. Format them as a compact string for injection into the LLM system prompt
+> 4. For B2, skip the restriction entirely (advanced learners shouldn't be limited)
+> 5. The whole thing should be a stateless module with no side effects between requests
+>
+> What's a clean Python architecture for this? The CSV is ~200KB so loading it repeatedly is not acceptable."
+
+### AI Output Summary
+
+Claude designed `vocab_service.py` with a module-level `_df` variable loaded at import time via `pandas`. The `get_sample_for_prompt(level)` function returns a comma-separated string of stems, sorted by frequency rank, with B2 returning empty string (no restriction). Also suggested using `@functools.lru_cache` on the level-specific filtering to avoid re-filtering the DataFrame on every request.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+We dropped the `lru_cache` suggestion because CEFR levels are only 4 values — just precomputing all 4 at load time was simpler and more predictable than cache invalidation. The rest was used as-is. Checked the CSV column names matched before trusting the pandas code.
+
+### Impact
+
+Response quality for A1/A2 learners improved noticeably. Before this, "Buddy" would casually use words like "Begeisterung" and "unvermeidlich" in A1 mode. After, it stayed within simple vocabulary. The module also turned out useful for the pronunciation feedback endpoint.
+
+---
+
+## Entry #3 — LLM Streaming + Concurrent TTS (The Hard One)
+
+**Date:** 2026-05-08
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+Text chat had a bad UX: user sends message → nothing visible for 3-5 seconds → full response appears + audio plays. We wanted ChatGPT-style streaming where text appears word by word, AND the audio delay should be minimal after the text finishes. The hard part: edge-tts is async but the LLM stream is also async — you need both running concurrently without blocking each other or playing audio out of order.
+
+### Prompt / Task
+
+> "I have a FastAPI SSE endpoint that streams LLM tokens using AsyncOpenAI. After all tokens arrive, I generate a single TTS file and send its URL. This creates a 1.5s audio delay after text finishes.
+>
+> I want to start generating TTS in the background AS the LLM streams, splitting on sentence boundaries (`.!?` with min 20 chars), so that by the time the last token arrives, most TTS chunks are already done.
+>
+> Requirements:
+> - Use `asyncio.create_task()` for concurrent TTS generation
+> - Send `{"type": "audio", "tts_url": "..."}` events AFTER the stream ends, IN ORDER (chunk 1 audio before chunk 2 audio)
+> - The frontend uses `audioChain = audioChain.then(() => playAudio(url))` so order matters
+> - Don't send audio events during streaming — only after `{"type": "done"}` signal from LLM
+>
+> Show me the complete FastAPI SSE generator function and the matching TypeScript frontend code to consume it."
+
+### AI Output Summary
+
+Claude wrote the full `event_stream()` async generator in `app.py`. The key insight: `asyncio.create_task()` schedules TTS generation concurrently but `await task` is deferred until after the LLM stream closes. This means audio generation overlaps with LLM streaming time. Also wrote `sendTextMessageStream()` in `api.ts` with `onToken` and `onAudio` callbacks, and the `sendTextStream()` hook method in `useChat.ts` with the audio chain pattern.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+Had to fix a TypeScript bug: `catch {} throw;` (bare rethrow) is not valid — changed to `catch (err) { throw err; }`. Also had to add `sendTextStream` to the hook's return object (AI forgot to export it). The core async pattern was correct and worked first try after those fixes.
+
+### Impact
+
+Audio now starts playing within ~0.3s after text finishes (down from 1.5s). The text itself appears word-by-word in real time. This was the biggest UX improvement of the whole project. The concurrent async pattern is non-trivial — without AI help this would have taken significant research time.
+
+---
+
+## Entry #4 — LiveKit WebRTC Voice Agent with CEFR Context Passing
+
+**Date:** 2026-05-14
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+We wanted a real-time voice call feature — not push-to-talk, but actual live conversation where the AI listens continuously and responds like a phone call. LiveKit agents handle the WebRTC side, but connecting it to our custom LLM (university API, not OpenAI) and passing the user's CEFR level from the frontend to the agent was unclear from the docs.
+
+### Prompt / Task
+
+> "I'm building a LiveKit voice agent. The agent uses:
+> - Deepgram Nova-3 for STT (German language)
+> - An OpenAI-compatible LLM at a custom base_url (not OpenAI's servers)
+> - Cartesia Sonic-3 for TTS
+> - Silero VAD for voice activity detection
+>
+> The frontend generates a token via `POST /api/livekit-token` and passes the user's CEFR level (A1/A2/B1/B2) to the agent.
+>
+> Problems I can't figure out from docs:
+> 1. How do I pass arbitrary metadata (the CEFR level) from the token endpoint to the agent process?
+> 2. The agent must greet the user automatically on connect — how does `on_enter` work vs `on_user_turn_completed`?
+> 3. How do I configure `lk_openai.LLM` to use a custom base_url with a non-standard model name?
+> 4. How do I disable 'thinking mode' tokens in the custom LLM (it supports `chat_template_kwargs`)?
+>
+> Show me the complete agent file and the FastAPI token endpoint."
+
+### AI Output Summary
+
+Claude wrote `services/livekit_agent.py` and the `/api/livekit-token` endpoint in `app.py`. The CEFR level passes via `job.metadata` (JSON string in the dispatch call) — the agent reads it in `entrypoint()`. Used `on_enter()` with `generate_reply()` for the greeting. The `lk_openai.LLM` constructor accepts `base_url` and `api_key` directly. `enable_thinking: False` goes in `extra_body`.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The metadata approach (JSON in `ctx.job.metadata`) was something we wouldn't have found without AI — it's not obvious in the LiveKit docs. Adjusted the system prompt instructions per CEFR level, added the `_LEVEL_DESCRIPTIONS` dict ourselves. Also added Silero VAD prewarming in `prewarm()` to avoid cold start latency on first call.
+
+### Impact
+
+The live call feature works with proper CEFR-aware responses. The agent correctly greets users and adapts vocabulary to level. Passing metadata through the job context was the key unlock — worth documenting specifically for other teams using LiveKit with custom LLMs.
+
+---
+
+## Entry #5 — Pronunciation Feedback with Phoneme-Level Scoring
+
+**Date:** 2026-05-10
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+We wanted real pronunciation feedback — not just "your pronunciation was okay" but specific phoneme-level issues. The plan was: user records themselves saying a word → Whisper transcribes it → LLM analyses pronunciation → optional BFA (Bournemouth Forced Aligner) for phoneme timestamps. Getting all three layers to return a single coherent JSON response without the LLM hallucinating phoneme data was the problem.
+
+### Prompt / Task
+
+> "I'm building a pronunciation feedback system. The pipeline is:
+> 1. User records audio
+> 2. Whisper (faster-whisper, German, large-v3-turbo) transcribes it
+> 3. LLM receives the transcription + the intended target text and returns structured feedback
+>
+> The LLM must return ONLY this JSON (no markdown, no extra text):
+> `{"transcribed": "...", "score": 1-10, "overall": "...", "issues": ["..."], "tips": ["..."], "feedback_en": "..."}`
+>
+> Problems:
+> 1. The LLM sometimes wraps JSON in markdown code fences — how to handle this robustly?
+> 2. The `issues` array should contain specific phoneme-level observations in German (e.g. 'Das ch in ich klingt wie sh') — how do I prompt for this without the LLM making things up when it can't actually hear the audio?
+> 3. If the LLM returns malformed JSON, what's a safe fallback that doesn't crash?
+>
+> Write the full LLM prompt and the Python parsing function."
+
+### AI Output Summary
+
+Claude wrote `_FEEDBACK_SYSTEM_PROMPT` with explicit field rules and the two-stage parser in `_parse_feedback_response()`: first try `json.loads()` on the full text, then strip markdown fences with regex and retry, then fall back to regex search for `{...}`. For the hallucination problem, it suggested framing the prompt as "analyse based on what Whisper detected" rather than "describe what you heard" — this keeps the LLM grounded in the transcription, not inventing phoneme data.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The two-stage fallback parser was used exactly as written. Adjusted the system prompt to make `issues` and `tips` lists in German but `feedback_en` in English (easier for non-German-speaking graders to review). Also added the `target_text` parameter to the endpoint so users can optionally specify what they intended to say — the LLM then diffs what was said vs intended.
+
+### Impact
+
+The feedback screen became one of the most useful features. Users get a score, specific German-language observations about their pronunciation issues, and English-language tips. The anti-hallucination framing in the prompt was a genuinely non-obvious insight — without it, the LLM fabricated specific phoneme errors that didn't match the actual audio.
+
+---
+
+## Entry #6 — Cleaning Git History to Remove a Leaked Secret
+
+**Date:** 2026-05-20
+
+**Team member(s):** Ali Akbar
+
+**AI Tool used:** Claude Code
+
+### Context
+
+When trying to push to GitHub, push protection rejected the push because a GitHub Personal Access Token was present in `.claude/settings.local.json` inside commit `e44a10a`. The secret was buried in history — not in the current working tree. Normal commits couldn't fix it; the whole history needed rewriting.
+
+### Prompt / Task
+
+> "GitHub push protection blocked my push with: 'A secret has been detected in your repository history in commit e44a10a, file .claude/settings.local.json'
+>
+> I cannot use `git filter-repo` (not installed). The commit is 2nd in a 7-commit chain.
+> I need to:
+> 1. Create a clean history with no secrets in ANY commit
+> 2. Keep all my code changes intact
+> 3. Not break the working tree state
+> 4. Push to a repo where someone else is the owner (I have push access but not admin)
+>
+> The secret is already rotated/revoked. What's the safest strategy that avoids touching every commit individually?"
+
+### AI Output Summary
+
+Claude suggested creating an orphan branch: `git checkout --orphan clean-main`, staging all current files in one single commit (clean snapshot, no history at all), then force-pushing to the target remote. This sidesteps filter-repo entirely and guarantees no secrets exist in any prior commit because there are no prior commits.
+
+### Decision
+
+- [x] Accepted as-is
+
+### Reasoning
+
+The orphan approach was simpler and more reliable than rebasing or cherry-picking. Since we wanted to push to a fresh GitHub repo anyway, losing the 7-commit history was acceptable. The `--allow-unrelated-histories` flag was needed later when the target repo already had commits.
+
+### Impact
+
+Push went through after the orphan branch strategy. Added `.claude/` to `.gitignore` immediately after. Useful lesson: local AI tool config directories (`.claude/`, `.cursor/`) should always be in `.gitignore` from day one — they frequently contain tokens.
+
+---
+
+*Template for future entries below this line*
+
+---
