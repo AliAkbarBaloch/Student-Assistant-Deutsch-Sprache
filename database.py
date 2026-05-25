@@ -1,10 +1,5 @@
-"""
-Database  —  SQLite + SQLAlchemy
-=================================
-Models:
-  User    — registered accounts (email, name, hashed password)
-  Message — every chat turn saved per user (role, German text, English translation)
-"""
+# SQLite database via SQLAlchemy.
+# Two tables: User (accounts) and Message (chat history per user).
 from __future__ import annotations
 
 import datetime

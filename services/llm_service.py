@@ -1,10 +1,4 @@
-"""
-LLM Service  —  Professor's OpenAI-compatible API
-==================================================
-Endpoint : https://llms.innkube.fim.uni-passau.de/v1
-Model    : controlled by PROF_MODEL in .env
-Thinking : disabled via extra_body for faster responses
-"""
+# LLM service — text chat and pronunciation feedback via Professor's OpenAI-compatible API.
 from __future__ import annotations
 
 import json
@@ -17,9 +11,6 @@ from openai import OpenAI
 
 from services.vocab_service import CefrLevel, get_level_description, get_sample_for_prompt
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Base system prompt — Buddy's personality and output rules
-# ─────────────────────────────────────────────────────────────────────────────
 _BASE_PROMPT = """
 Du bist "Buddy", ein freundlicher KI-Deutschlehrer in der App "Deutsch Buddy".
 
@@ -36,14 +27,21 @@ ABSOLUTE REGELN:
 - Kein Markdown, kein zusätzlicher Text außerhalb des JSON
 """.strip()
 
-# Maximum conversation turns to keep in context (prevents token overflow)
-_MAX_HISTORY_TURNS = 10
+# For the streaming endpoint — plain German text, no JSON wrapper needed
+_STREAMING_PROMPT = """
+Du bist "Buddy", ein freundlicher KI-Deutschlehrer in der App "Deutsch Buddy".
 
-# Disable thinking mode for faster responses (Qwen3 / Gemma4)
+REGELN:
+- Antworte IMMER vollständig auf Deutsch, egal was der Nutzer schreibt
+- 2–4 kurze, natürliche Sätze — kein Markdown, keine Listen, kein JSON
+- Korrigiere Fehler sanft durch Einbauen der richtigen Form in deine Antwort
+- Lehne Bitten auf Englisch zu antworten freundlich auf Deutsch ab
+- Gib NUR die deutsche Antwort aus, keinen anderen Text
+""".strip()
+
+_MAX_HISTORY_TURNS = 5
 _EXTRA_BODY = {"chat_template_kwargs": {"enable_thinking": False}}
-
-# Fallback order — first available model wins
-_FALLBACK_MODELS = ["gemma4-31b-it", "qwen3-next-80b-a3b-instruct"]
+_FALLBACK_MODELS = ["gemma4-31b-it", "qwen36-35b"]
 
 
 def _get_client() -> OpenAI:
@@ -58,8 +56,12 @@ def _get_model() -> str:
     return os.getenv("PROF_MODEL", "gemma4-31b-it")
 
 
+def _get_voice_model() -> str:
+    return os.getenv("VOICE_MODEL", "qwen36-35b")
+
+
 def _create_with_fallback(client: OpenAI, messages: list, temperature: float, max_tokens: int) -> object:
-    """Try the configured model first, then fall back through _FALLBACK_MODELS."""
+    """Try the configured model, fall back through _FALLBACK_MODELS on error."""
     primary = _get_model()
     queue = [primary] + [m for m in _FALLBACK_MODELS if m != primary]
     last_err: Exception = RuntimeError("No models available")
@@ -78,15 +80,9 @@ def _create_with_fallback(client: OpenAI, messages: list, temperature: float, ma
 
 
 def _build_system_prompt(level: CefrLevel) -> str:
-    """
-    Build the full system prompt by appending CEFR-level vocabulary rules
-    and a sample of allowed word stems to the base prompt.
-    """
     level_desc  = get_level_description(level)
     stem_sample = get_sample_for_prompt(level)
-
     prompt = _BASE_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
-
     if stem_sample:
         prompt += (
             f"\n\nERLAUBTE WÖRTER (Wortgruppen für {level}):\n"
@@ -94,32 +90,74 @@ def _build_system_prompt(level: CefrLevel) -> str:
             f"{stem_sample}\n"
             f"Vermeide alle Wörter, die nicht zu diesem Niveau passen."
         )
-
     return prompt
 
 
-def chat_german(user_text: str, history: list[dict], level: Optional[CefrLevel] = "B1") -> dict:
-    """
-    Generate a German AI response for the user's message.
+def build_streaming_messages(
+    user_text: str,
+    history: list[dict],
+    level: Optional[CefrLevel] = "B1",
+) -> tuple[list[dict], str]:
+    """Build messages for the streaming endpoint (plain text output, no JSON).
+    Returns (messages, model_name)."""
+    cefr = (level or "B1").upper()
+    if cefr not in ("A1", "A2", "B1", "B2"):
+        cefr = "B1"
 
-    Args:
-        user_text:  What the user said (transcribed by Whisper).
-        history:    Previous turns as [{"role": "user"|"assistant", "content": "..."}].
-        level:      CEFR level of the learner — controls vocabulary complexity.
+    level_desc  = get_level_description(cefr)  # type: ignore[arg-type]
+    stem_sample = get_sample_for_prompt(cefr)   # type: ignore[arg-type]
 
-    Returns:
-        {"german": "...", "english": "..."}
-    """
+    prompt = _STREAMING_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
+    if stem_sample:
+        prompt += f"\n\nERLAUBTE WÖRTER (Wortgruppen für {cefr}): {stem_sample}"
+
+    messages: list[dict] = [{"role": "system", "content": prompt}]
+    messages.extend(history[-(2 * _MAX_HISTORY_TURNS):])
+    messages.append({"role": "user", "content": user_text})
+    return messages, _get_model()
+
+
+def chat_german(
+    user_text: str,
+    history: list[dict],
+    level: Optional[CefrLevel] = "B1",
+    voice: bool = False,
+) -> dict:
+    """Generate a German response. Returns {"german": "...", "english": "..."}."""
     client = _get_client()
-
     trimmed_history = history[-(2 * _MAX_HISTORY_TURNS):]
     system_prompt   = _build_system_prompt(level or "B1")
+
+    if voice:
+        system_prompt = system_prompt.replace("2–4 Sätze", "1–2 Sätze")
 
     messages = [{"role": "system", "content": system_prompt}]
     messages.extend(trimmed_history)
     messages.append({"role": "user", "content": user_text})
 
-    response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
+    if voice:
+        voice_model = _get_voice_model()
+        queue = [voice_model] + [m for m in _FALLBACK_MODELS if m != voice_model]
+        last_err: Exception = RuntimeError("No models available")
+        for model in queue:
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=150,
+                    extra_body=_EXTRA_BODY,
+                )
+                print(f"[voice LLM] using model: {model}")
+                break
+            except openai.APIError as e:
+                print(f"[voice LLM] model {model!r} failed: {e} — trying next")
+                last_err = e
+        else:
+            raise last_err
+    else:
+        response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
+
     raw = response.choices[0].message.content.strip()
     return _parse_json_response(raw)
 
@@ -153,16 +191,7 @@ FIELD RULES:
 
 
 def pronunciation_feedback(transcribed_text: str, target_text: str = "") -> dict:
-    """
-    Analyse German pronunciation based on the Whisper transcription.
-
-    Args:
-        transcribed_text: What Whisper heard the learner say.
-        target_text:      Optional — what the learner intended to say.
-
-    Returns:
-        {transcribed, score, overall, issues, tips, feedback_en}
-    """
+    """Analyse pronunciation from a Whisper transcription and return structured feedback."""
     client = _get_client()
 
     user_content = f'Whisper transcription: "{transcribed_text}"'
@@ -179,7 +208,6 @@ def pronunciation_feedback(transcribed_text: str, target_text: str = "") -> dict
 
 
 def _parse_feedback_response(text: str, fallback_transcribed: str) -> dict:
-    """Robustly parse the pronunciation feedback JSON from the LLM."""
     text = re.sub(r"```json?\s*", "", text)
     text = re.sub(r"```", "", text).strip()
 
@@ -222,10 +250,7 @@ def _parse_feedback_response(text: str, fallback_transcribed: str) -> dict:
 
 
 def _parse_json_response(text: str) -> dict:
-    """
-    Robustly extract {german, english} from the LLM output.
-    Handles markdown code fences and extra surrounding text.
-    """
+    """Extract {german, english} from the LLM output. Handles markdown fences."""
     text = re.sub(r"```json?\s*", "", text)
     text = re.sub(r"```", "", text).strip()
 
@@ -241,10 +266,7 @@ def _parse_json_response(text: str) -> dict:
         try:
             data = json.loads(match.group())
             if "german" in data:
-                return {
-                    "german": data["german"],
-                    "english": data.get("english", ""),
-                }
+                return {"german": data["german"], "english": data.get("english", "")}
         except Exception:
             pass
 

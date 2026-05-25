@@ -7,20 +7,10 @@ os.environ.setdefault("OMP_NUM_THREADS",        "1")
 os.environ.setdefault("KMP_AFFINITY",           "disabled")
 os.environ.setdefault("MKL_THREADING_LAYER",    "GNU")
 
-"""
-Deutsch Buddy  ·  app.py
-==========================
-Endpoints:
-  POST  /api/auth/register   — create account
-  POST  /api/auth/login      — login, returns JWT
-  GET   /api/auth/me         — get current user info
-  POST  /api/chat            — voice chat (STT → LLM → TTS)
-  POST  /api/chat-text       — text chat  (LLM → TTS)
-  GET   /api/history         — load last 60 messages for logged-in user
-  DELETE /api/history        — clear all messages for logged-in user
-"""
-
+import asyncio
 import json
+import re
+import uuid
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Optional
@@ -31,8 +21,9 @@ import soundfile as sf
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from openai import AsyncOpenAI
 from sqlalchemy.orm import Session
 
 import openai
@@ -65,15 +56,8 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Auth helpers
-# ─────────────────────────────────────────────────────────────────────────────
-
 def _get_user_from_header(authorization: Optional[str], db: Session) -> Optional[User]:
-    """
-    Extract and verify the Bearer JWT from the Authorization header.
-    Returns the User ORM object or None if missing/invalid.
-    """
+    """Pull the user from a Bearer JWT header. Returns None if missing or invalid."""
     if not authorization or not authorization.startswith("Bearer "):
         return None
     token   = authorization.split(" ", 1)[1]
@@ -91,9 +75,7 @@ def _require_user(authorization: Optional[str] = Header(None), db: Session = Dep
     return user
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Static / root
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.get("/")
 def root() -> FileResponse:
@@ -105,9 +87,7 @@ def health() -> dict:
     return {"status": "ok"}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Auth routes
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.post("/api/auth/register")
 def register(
@@ -167,10 +147,7 @@ async def update_profile(
     current_user: User = Depends(_require_user),
     db: Session = Depends(get_db),
 ) -> dict:
-    """
-    Update the authenticated user's display name and/or profile picture.
-    Avatar is saved to static/avatars/{user_id}.<ext> and the URL stored in DB.
-    """
+    """Update display name and/or avatar. Avatar saved to static/avatars/."""
     current_user.name = name.strip() or current_user.name
 
     if avatar and avatar.filename:
@@ -199,19 +176,14 @@ async def update_profile(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Conversation history
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.get("/api/history")
 def get_history(
     current_user: User = Depends(_require_user),
     db: Session = Depends(get_db),
 ) -> dict:
-    """
-    Return the last 60 messages for the authenticated user,
-    oldest first — ready to render as a chat timeline.
-    """
+    """Return last 60 messages, oldest first."""
     messages = (
         db.query(Message)
         .filter(Message.user_id == current_user.id)
@@ -245,9 +217,51 @@ def clear_history(
     return {"detail": "Verlauf gelöscht."}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# LiveKit token — used by both voice buttons
+
+@app.post("/api/livekit-token")
+async def livekit_token(
+    level:         str = Form("B1"),
+    authorization: Optional[str] = Header(None),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Issue a LiveKit token and dispatch the voice agent to the room."""
+    lk_key    = os.getenv("LIVEKIT_API_KEY")
+    lk_secret = os.getenv("LIVEKIT_API_SECRET")
+    lk_url    = os.getenv("LIVEKIT_URL")
+    if not lk_key or not lk_secret or not lk_url:
+        raise HTTPException(503, "LiveKit ist nicht konfiguriert.")
+
+    from livekit import api as lk_api
+
+    user     = _get_user_from_header(authorization, db)
+    identity = f"user-{user.id}" if user else f"anon-{uuid.uuid4().hex[:8]}"
+    name     = user.name if user else "Gast"
+    room     = f"buddy-{identity}"
+    cefr     = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
+
+    token = (
+        lk_api.AccessToken(lk_key, lk_secret)
+        .with_identity(identity)
+        .with_name(name)
+        .with_grants(lk_api.VideoGrants(room_join=True, room=room))
+        .to_jwt()
+    )
+
+    # Dispatch the Buddy agent to this room with the user's CEFR level
+    async with lk_api.LiveKitAPI(lk_url, lk_key, lk_secret) as lk:
+        await lk.agent_dispatch.create_dispatch(
+            lk_api.CreateAgentDispatchRequest(
+                agent_name="deutsch-buddy",
+                room=room,
+                metadata=json.dumps({"level": cefr}),
+            )
+        )
+
+    return {"token": token, "url": lk_url, "room": room}
+
+
 # Chat helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _save_turn(db: Session, user_id: int, user_text: str, ai_de: str, ai_en: str) -> None:
     """Persist one conversation turn (user message + assistant reply) to the DB."""
@@ -265,9 +279,7 @@ def _build_history(history_json: str) -> list[dict]:
         return []
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Chat endpoints
-# ─────────────────────────────────────────────────────────────────────────────
 
 @app.post("/api/chat-text")
 async def chat_text(
@@ -307,6 +319,101 @@ async def chat_text(
     }
 
 
+@app.post("/api/chat-text-stream")
+async def chat_text_stream(
+    message:       str = Form(...),
+    history:       str = Form("[]"),
+    level:         str = Form("B1"),
+    authorization: Optional[str] = Header(None),
+    db: Session = Depends(get_db),
+) -> StreamingResponse:
+    """
+    Streaming text chat — SSE endpoint.
+    Streams LLM tokens immediately; kicks off TTS in the background each time a
+    sentence boundary is detected.  By the time the last token arrives, most
+    audio is already generated, so playback starts with minimal delay.
+
+    Events:
+      {"type": "token", "text": "..."}   — one LLM token (streamed live)
+      {"type": "audio", "tts_url": "..."} — one TTS chunk ready to play (in order)
+      {"type": "done"}                   — all events sent
+      {"type": "error", "message": "..."} — something went wrong
+    """
+    user_text = message.strip()
+    if not user_text:
+        raise HTTPException(400, "Nachricht darf nicht leer sein.")
+
+    cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
+    messages, model = llm_service.build_streaming_messages(
+        user_text, _build_history(history), level=cefr
+    )
+
+    api_key  = os.getenv("PROF_API_KEY")
+    base_url = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+
+    current_user = _get_user_from_header(authorization, db)
+
+    async def _tts_chunk(text: str) -> str:
+        path = await tts_service.generate_tts_audio(text, TTS_DIR)
+        return f"/static/tts/{path.name}"
+
+    async def event_stream():
+        full_text  = ""
+        tts_buffer = ""
+        tts_tasks: list[asyncio.Task] = []
+
+        async_client = AsyncOpenAI(api_key=api_key, base_url=base_url)
+        try:
+            stream = await async_client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=0.7,
+                max_tokens=300,
+                stream=True,
+                extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+            )
+            async for chunk in stream:
+                delta = (chunk.choices[0].delta.content or "") if chunk.choices else ""
+                if delta:
+                    full_text  += delta
+                    tts_buffer += delta
+                    yield f"data: {json.dumps({'type': 'token', 'text': delta})}\n\n"
+
+                    # When a sentence ends and we have enough text, start TTS in
+                    # the background — it generates while the LLM keeps streaming.
+                    stripped = tts_buffer.strip()
+                    if len(stripped) >= 20 and stripped[-1] in ".!?":
+                        tts_tasks.append(asyncio.create_task(_tts_chunk(stripped)))
+                        tts_buffer = ""
+
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+            return
+
+        if not full_text.strip():
+            return
+
+        # Flush any remaining text that didn't end with punctuation
+        if tts_buffer.strip():
+            tts_tasks.append(asyncio.create_task(_tts_chunk(tts_buffer.strip())))
+
+        # Yield audio URLs in order — most tasks are already done by now
+        for task in tts_tasks:
+            tts_url = await task
+            yield f"data: {json.dumps({'type': 'audio', 'tts_url': tts_url})}\n\n"
+
+        if current_user:
+            _save_turn(db, current_user.id, user_text, full_text.strip(), "")
+
+        yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+    return StreamingResponse(
+        event_stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
 @app.post("/api/chat")
 async def chat(
     audio:         UploadFile = File(...),
@@ -326,7 +433,7 @@ async def chat(
     cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
 
     try:
-        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
+        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr, voice=True)
     except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {e}")
 
@@ -344,9 +451,9 @@ async def chat(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+#
 # Pronunciation feedback endpoint
-# ─────────────────────────────────────────────────────────────────────────────
+#
 
 @app.post("/api/pronunciation-feedback")
 async def pronunciation_feedback(
@@ -374,15 +481,15 @@ async def pronunciation_feedback(
     return feedback
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+#
 # Audio decoding helper
-# ─────────────────────────────────────────────────────────────────────────────
+#
 
 async def _read_audio(upload: UploadFile) -> np.ndarray:
     """
     Decode uploaded audio to 16 kHz mono float32 numpy array.
-    Stage 1 — soundfile (WAV/FLAC/OGG).
-    Stage 2 — librosa + ffmpeg fallback (WebM/Opus/MP3).
+    Stage 1 — soundfile (WAV/FLAC/OGG, fast path).
+    Stage 2 — PyAV (WebM/Opus/MP3 from browser — no temp files, no deprecated audioread).
     """
     data = await upload.read()
     if not data:
@@ -393,26 +500,31 @@ async def _read_audio(upload: UploadFile) -> np.ndarray:
     audio: np.ndarray | None = None
     sr:    int | None        = None
 
-    # Stage 1
+    # Stage 1: soundfile handles WAV/FLAC/OGG instantly
     try:
         audio, sr = sf.read(BytesIO(data), dtype="float32", always_2d=False)
     except Exception:
         pass
 
-    # Stage 2
+    # Stage 2: PyAV handles WebM/Opus/MP3 recorded by browsers
     if audio is None:
-        ct  = upload.content_type or ""
-        ext = ".webm" if "webm" in ct else ".mp3" if "mpeg" in ct else ".webm"
-        tmp = BASE_DIR / f"_tmp{ext}"
         try:
-            tmp.write_bytes(data)
-            audio, sr = librosa.load(str(tmp), sr=None, mono=False)
-            audio = audio.astype(np.float32)
+            import av
+            container = av.open(BytesIO(data))
+            resampler = av.AudioResampler(format="fltp", layout="mono", rate=TARGET_SR)
+            chunks: list[np.ndarray] = []
+            for frame in container.decode(audio=0):
+                for out in resampler.resample(frame):
+                    chunks.append(out.to_ndarray()[0])
+            for out in resampler.resample(None):  # flush remaining samples
+                chunks.append(out.to_ndarray()[0])
+            container.close()
+            if not chunks:
+                raise ValueError("No audio frames decoded")
+            audio = np.concatenate(chunks).astype(np.float32)
+            sr = TARGET_SR  # already resampled by PyAV
         except Exception as exc:
-            raise HTTPException(400, "Cannot decode audio. Ensure ffmpeg is installed.") from exc
-        finally:
-            if tmp.exists():
-                tmp.unlink()
+            raise HTTPException(400, "Cannot decode audio. Use WAV, WebM, or MP3.") from exc
 
     if audio.ndim > 1:
         axis  = 0 if audio.shape[0] < audio.shape[-1] else 1

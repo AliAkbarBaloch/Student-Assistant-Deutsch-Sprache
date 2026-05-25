@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLevel } from "../../contexts/LevelContext";
 import { useChat } from "../../hooks/useChat";
-import { useVAD } from "../../hooks/useVAD";
+import { useLiveKitCall } from "../../hooks/useLiveKitCall";
 import { Navbar } from "./Navbar";
 import { MessageBubble, TypingBubble } from "./MessageBubble";
 import { TextBar } from "./TextBar";
@@ -10,9 +10,7 @@ import { VoiceControls } from "./VoiceControls";
 import { ConfirmDialog } from "../ui/ConfirmDialog";
 import { Toast, type ToastData } from "../ui/Toast";
 import * as api from "../../services/api";
-import type { MicState, CallState } from "../../types";
-
-const MIN_SPEECH_MS = 400;
+import type { MicState } from "../../types";
 
 interface Props {
   onOpenProfile: () => void;
@@ -23,30 +21,42 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
   const { user } = useAuth();
   const { level } = useLevel();
   const chat = useChat();
-  const vad  = useVAD();
 
-  const [micState,  setMicState]  = useState<MicState>("idle");
-  const [callState, setCallState] = useState<CallState>("idle");
-  const [status,    setStatus]    = useState("idle");
-  const [callTime,  setCallTime]  = useState(0);
+  const [micState, setMicState] = useState<MicState>("idle");
+  const [status,   setStatus]   = useState("idle");
+  const [callTime, setCallTime] = useState(0);
 
   // Dialog + toast state
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteLoading,    setDeleteLoading]    = useState(false);
   const [toast,            setToast]            = useState<ToastData | null>(null);
 
-  // Refs for live call
-  const callStreamRef    = useRef<MediaStream | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const chunksRef        = useRef<Blob[]>([]);
-  const speechStartRef   = useRef<number>(0);
-  const callTimerRef     = useRef<ReturnType<typeof setInterval> | null>(null);
+  const callTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null);
+  // "sprechen" = mic button started the call, "anruf" = phone button started it
+  const callSourceRef = useRef<"sprechen" | "anruf" | null>(null);
+  const scrollRef     = useRef<HTMLDivElement>(null);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // onTranscript fires for every call — only add to chat when Sprechen started it
+  const lk = useLiveKitCall((text, role) => {
+    if (callSourceRef.current === "sprechen") {
+      chat.addMessage({ role, content_de: text, content_en: "" });
+    }
+  });
 
   function showToast(message: string, type: ToastData["type"]) {
     setToast({ id: Date.now(), message, type });
   }
+
+  // ── Reset all call state when LiveKit disconnects (from any source) ────────
+  useEffect(() => {
+    if (lk.callState === "idle") {
+      setMicState("idle");
+      if (callTimerRef.current) clearInterval(callTimerRef.current);
+      setCallTime(0);
+      setStatus("idle");
+      callSourceRef.current = null;
+    }
+  }, [lk.callState]);
 
   // ── Load history on mount ──────────────────────────────────────────────────
   useEffect(() => {
@@ -72,14 +82,10 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
   // ── Text chat — user message appears immediately ───────────────────────────
   async function handleTextSend(text: string) {
     if (chat.isProcessing) return;
-
-    // 1. Show user message right away — no waiting for API
     chat.addMessage({ role: "user", content_de: text, content_en: "" });
     setStatus("processing");
-
     try {
-      // 2. Call API — sendTextToAPI adds only the AI reply
-      await chat.sendTextToAPI(text, level);
+      await chat.sendTextStream(text, level);
     } catch {
       showToast("Fehler beim Senden der Nachricht.", "error");
     } finally {
@@ -107,110 +113,53 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
     }
   }
 
-  // ── Tap-to-talk ───────────────────────────────────────────────────────────
-  async function toggleRecording() {
-    if (chat.isProcessing || callState !== "idle") return;
-
-    if (micState === "recording") {
-      mediaRecorderRef.current?.stop();
-      return;
-    }
-
-    let stream: MediaStream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch {
-      showToast("Mikrofon-Zugriff verweigert.", "error");
-      return;
-    }
-
-    chunksRef.current = [];
-    const rec = new MediaRecorder(stream);
-    mediaRecorderRef.current = rec;
-
-    rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
-    rec.onstop = async () => {
-      stream.getTracks().forEach((t) => t.stop());
-      setMicState("processing");
-      setStatus("processing");
-      const result = await chat.sendVoice(new Blob(chunksRef.current, { type: "audio/webm" }), level);
-      if (result) await chat.playAudio(result.tts_audio_url);
-      setMicState("idle");
-      setStatus("idle");
-    };
-
-    rec.start();
-    setMicState("recording");
-  }
-
-  // ── Live call ─────────────────────────────────────────────────────────────
-  async function toggleCall() {
-    if (callState !== "idle") { endCall(); return; }
-
-    let stream: MediaStream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch {
-      showToast("Mikrofon-Zugriff verweigert.", "error");
-      return;
-    }
-
-    callStreamRef.current = stream;
-    setCallState("listening");
+  // ── Shared: connect to a LiveKit room and start the call timer ────────────
+  async function _startCall() {
     setStatus("call");
     callTimerRef.current = setInterval(() => setCallTime((t) => t + 1), 1000);
-
-    vad.start({
-      stream,
-      onSpeechStart: () => {
-        speechStartRef.current = Date.now();
-        chunksRef.current = [];
-        const rec = new MediaRecorder(stream);
-        mediaRecorderRef.current = rec;
-
-        rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
-        rec.onstop = async () => {
-          if (Date.now() - speechStartRef.current < MIN_SPEECH_MS) {
-            if (callStreamRef.current) setCallState("listening");
-            return;
-          }
-          setCallState("processing");
-          setStatus("processing");
-
-          try {
-            const data = await api.sendVoiceMessage(new Blob(chunksRef.current, { type: "audio/webm" }), [], level);
-            chat.addMessage({ role: "user",      content_de: data.user_text,  content_en: "" });
-            chat.addMessage({ role: "assistant", content_de: data.ai_text_de, content_en: data.ai_text_en });
-            setCallState("speaking");
-            setStatus("speaking");
-            await chat.playAudio(data.tts_audio_url);
-          } catch { /* continue call */ }
-
-          if (callStreamRef.current) { setCallState("listening"); setStatus("call"); }
-        };
-
-        rec.start();
-      },
-      onSpeechEnd: () => {
-        if (mediaRecorderRef.current?.state === "recording") {
-          mediaRecorderRef.current.stop();
-        }
-      },
-    });
+    const { token, url } = await api.getLiveKitToken(level);
+    await lk.connect(url, token);
   }
 
-  const endCall = useCallback(() => {
-    vad.stop();
-    if (mediaRecorderRef.current?.state === "recording") mediaRecorderRef.current.stop();
-    callStreamRef.current?.getTracks().forEach((t) => t.stop());
-    callStreamRef.current = null;
-    if (callTimerRef.current) clearInterval(callTimerRef.current);
-    setCallTime(0);
-    setCallState("idle");
-    setStatus("idle");
-  }, [vad]);
+  // ── Sprechen button — now uses LiveKit (same speed as Live-Anruf) ─────────
+  async function toggleRecording() {
+    // If a Sprechen-initiated call is active, stop it
+    if (lk.callState !== "idle") {
+      lk.disconnect(); // useEffect handles cleanup
+      return;
+    }
 
-  const timerStr = `${Math.floor(callTime / 60)}:${String(callTime % 60).padStart(2, "0")}`;
+    callSourceRef.current = "sprechen";
+    setMicState("recording"); // show red mic + pulse animation
+
+    try {
+      await _startCall();
+    } catch {
+      showToast("Verbindungsfehler. Bitte erneut versuchen.", "error");
+      lk.disconnect();
+    }
+  }
+
+  // ── Live-Anruf button — same pipeline ─────────────────────────────────────
+  async function toggleCall() {
+    // If any call is active (sprechen or anruf), stop it
+    if (lk.callState !== "idle") {
+      lk.disconnect(); // useEffect handles cleanup
+      return;
+    }
+
+    callSourceRef.current = "anruf";
+
+    try {
+      await _startCall();
+    } catch {
+      showToast("Live-Anruf fehlgeschlagen. Bitte erneut versuchen.", "error");
+      lk.disconnect();
+    }
+  }
+
+  const callState = lk.callState;
+  const timerStr  = `${Math.floor(callTime / 60)}:${String(callTime % 60).padStart(2, "0")}`;
 
   return (
     <div className="h-screen flex flex-col bg-gray-50 dark:bg-black overflow-hidden">
@@ -250,7 +199,6 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
         onCallClick={toggleCall}
       />
 
-      {/* Delete confirmation dialog */}
       <ConfirmDialog
         open={showDeleteDialog}
         title="Verlauf löschen"
@@ -261,7 +209,6 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
         onCancel={() => !deleteLoading && setShowDeleteDialog(false)}
       />
 
-      {/* Toast notifications */}
       <Toast toast={toast} onClose={() => setToast(null)} />
 
     </div>
