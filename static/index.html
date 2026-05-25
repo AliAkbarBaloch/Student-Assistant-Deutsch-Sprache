@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deutsch Buddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- AUTH PAGE                                                           -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <div id="authPage" class="auth-page">
+      <div class="auth-card">
+
+        <!-- Logo -->
+        <div class="auth-logo">
+          <img src="/static/mascot.jpg" class="auth-mascot" alt="Buddy" />
+          <h1 class="auth-title">Deutsch <span class="green">Buddy</span></h1>
+          <p class="auth-subtitle">Dein KI-Deutsch-Gesprächspartner</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tabLogin"  onclick="switchTab('login')">Anmelden</button>
+          <button class="auth-tab"        id="tabSignup" onclick="switchTab('signup')">Registrieren</button>
+        </div>
+
+        <!-- Login form -->
+        <form id="loginForm" class="auth-form" onsubmit="submitLogin(event)">
+          <div class="field">
+            <label>E-Mail</label>
+            <input type="email" id="loginEmail" placeholder="name@beispiel.de" required />
+          </div>
+          <div class="field">
+            <label>Passwort</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required />
+          </div>
+          <p class="auth-error hidden" id="loginError"></p>
+          <button type="submit" class="auth-submit" id="loginBtn">Anmelden</button>
+        </form>
+
+        <!-- Signup form -->
+        <form id="signupForm" class="auth-form hidden" onsubmit="submitSignup(event)">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" id="signupName" placeholder="Dein Name" required />
+          </div>
+          <div class="field">
+            <label>E-Mail</label>
+            <input type="email" id="signupEmail" placeholder="name@beispiel.de" required />
+          </div>
+          <div class="field">
+            <label>Passwort</label>
+            <input type="password" id="signupPassword" placeholder="Mindestens 6 Zeichen" minlength="6" required />
+          </div>
+          <p class="auth-error hidden" id="signupError"></p>
+          <button type="submit" class="auth-submit" id="signupBtn">Konto erstellen</button>
+        </form>
+
+      </div>
+
+      <!-- Theme toggle on auth page -->
+      <button class="theme-toggle-float" onclick="toggleTheme()" title="Theme wechseln">
+        <span id="themeIconAuth">☀️</span>
+      </button>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- MAIN APP                                                            -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <div id="appPage" class="hidden">
+
+      <!-- ── Navbar ──────────────────────────────────────────────────────── -->
+      <header class="navbar">
+        <div class="nav-brand">
+          <img src="/static/mascot.jpg" class="buddy-avatar" alt="Buddy" />
+          <div>
+            <span class="brand-name">Deutsch <span class="brand-buddy">Buddy</span></span>
+            <span class="brand-sub">Dein KI-Deutsch-Gesprächspartner</span>
+          </div>
+        </div>
+        <div class="nav-right">
+          <!-- Theme toggle -->
+          <button class="icon-btn" onclick="toggleTheme()" title="Theme wechseln">
+            <span id="themeIcon">☀️</span>
+          </button>
+          <!-- Clear history -->
+          <button class="icon-btn danger-btn" onclick="clearHistory()" title="Verlauf löschen">🗑</button>
+          <!-- User info + logout -->
+          <div class="user-chip">
+            <span id="userNameBadge">…</span>
+            <button class="logout-btn" onclick="logout()">Abmelden</button>
+          </div>
+          <!-- Status -->
+          <div class="nav-status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusLabel">Bereit</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ── Chat window ────────────────────────────────────────────────── -->
+      <div class="chat-wrapper">
+        <div class="chat-scroll" id="chatScroll"></div>
+      </div>
+
+      <!-- ── Call banner ───────────────────────────────────────────────── -->
+      <div class="call-banner hidden" id="callBanner">
+        <span class="call-dot"></span>
+        <span id="callStatus">Warte auf Sprache…</span>
+        <span class="call-timer" id="callTimer">0:00</span>
+      </div>
+
+      <!-- ── Text input ────────────────────────────────────────────────── -->
+      <div class="text-bar">
+        <input
+          type="text"
+          id="textInput"
+          class="text-input"
+          placeholder="Schreib auf Deutsch…"
+          autocomplete="off"
+          onkeydown="handleTextKey(event)"
+        />
+        <button class="send-btn" id="sendBtn" onclick="sendText()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ── Voice controls ────────────────────────────────────────────── -->
+      <div class="bottom-bar">
+        <div class="controls">
+
+          <!-- Tap-to-talk -->
+          <div class="ctrl-group">
+            <div class="mic-area">
+              <div class="rings" id="rings">
+                <div class="ring r1"></div>
+                <div class="ring r2"></div>
+                <div class="ring r3"></div>
+              </div>
+              <button id="micBtn" class="ctrl-btn mic-btn" onclick="toggleRecording()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 1a4 4 0 0 0-4 4v7a4 4 0 0 0 8 0V5a4 4 0 0 0-4-4zm6 10a1 1 0 0 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-2 0 6 6 0 0 0 5 5.92V19H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-2.08A6 6 0 0 0 18 11z"/>
+                </svg>
+              </button>
+            </div>
+            <p class="ctrl-label" id="micHint">Sprechen</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Live call -->
+          <div class="ctrl-group">
+            <button id="callBtn" class="ctrl-btn call-btn" onclick="toggleCall()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+              </svg>
+            </button>
+            <p class="ctrl-label" id="callHint">Live-Anruf</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- end #appPage -->
+
+    <audio id="aiAudio" style="display:none"></audio>
+    <script src="/static/script.js"></script>
+  </body>
+</html>
