@@ -13,5 +13,3 @@ frontend/dist/
 # Generated TTS audio files — regenerated at runtime
 static/tts/*.mp3
 
-# Claude Code project file — local only
-CLAUDE.md
