@@ -4,6 +4,19 @@ An AI-powered German language learning app with real-time voice conversation, te
 
 ---
 
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Text Chat** | Chat with Buddy in German — streamed responses with live TTS audio |
+| **Voice Chat** | Record your voice → Whisper STT → LLM reply → Edge TTS audio |
+| **Live Voice Call** | Real-time phone-call style conversation via LiveKit (Deepgram + Cartesia) |
+| **Pronunciation Feedback** | Upload MP3/WAV or record yourself → AI scores your pronunciation 1-10 with tips |
+| **CEFR Levels** | Adjustable language difficulty: A1 / A2 / B1 / B2 |
+| **User Accounts** | Register, login, avatar upload, chat history per user |
+
+---
+
 ## Project Structure
 
 ```
@@ -18,9 +31,11 @@ student-assistant-deutsch-sprache/
 
 ## Prerequisites
 
-- **Python 3.11+** — download from https://www.python.org/downloads/
+- **Python 3.11+** — download from https://www.python.org/downloads/release/python-3119/ (macOS universal2 installer)
 - **Node.js 18+** — download from https://nodejs.org/
 - A `.env` file at the project root (see [Environment Variables](#environment-variables))
+
+> **Note for macOS users:** `python3 -m venv .venv` may default to Python 3.9 (Anaconda). Use `python3.11 -m venv .venv` after installing Python 3.11 from the link above to ensure compatibility with the LiveKit agent.
 
 ---
 
@@ -53,15 +68,15 @@ The Flask/FastAPI server handles REST API, authentication, text chat, STT, TTS, 
 ```bash
 cd backend
 
-# Create virtual environment (requires Python 3.11+)
-python3 -m venv .venv
+# Create virtual environment — use python3.11 explicitly (3.9 will NOT work for the LiveKit agent)
+python3.11 -m venv .venv
 
 # Activate — Mac/Linux:
 source .venv/bin/activate
 # Activate — Windows:
 # .venv\Scripts\activate
 
-# Install dependencies
+# Install dependencies (first run downloads the Whisper base model ~145 MB)
 pip install -r requirements.txt
 
 # Start the server
@@ -69,6 +84,8 @@ python app.py
 ```
 
 The backend runs at **http://localhost:8000**
+
+> On first use of the Pronunciation Feedback feature, the Whisper `base` model (~145 MB) will be downloaded automatically. Subsequent runs are instant.
 
 ### Key files
 
@@ -146,7 +163,7 @@ frontend/
     ├── components/
     │   ├── auth/        ← Login / Register page
     │   ├── chat/        ← Main chat UI, voice controls, message bubbles
-    │   ├── feedback/    ← Pronunciation feedback page
+    │   ├── feedback/    ← Pronunciation feedback (upload MP3/WAV or record via mic)
     │   └── profile/     ← User profile page
     ├── contexts/        ← Auth, Level, Theme React contexts
     ├── hooks/
@@ -166,12 +183,14 @@ Pipeline: **WebRTC audio → Deepgram STT → LLM → Cartesia TTS**
 
 This must be running **at the same time as the backend** for voice calls to work.
 
+> **Requires Python 3.10+.** The LiveKit agent will fail on Python 3.9.
+
 ### Setup
 
 ```bash
 cd livekit_agent
 
-# Reuse the backend virtual environment — Mac/Linux:
+# Reuse the backend virtual environment (must be Python 3.11) — Mac/Linux:
 source ../backend/.venv/bin/activate
 # Windows:
 # ..\backend\.venv\Scripts\activate
@@ -179,6 +198,11 @@ source ../backend/.venv/bin/activate
 # Start the agent (connects to LiveKit Cloud automatically)
 python livekit_agent.py start
 ```
+
+> **macOS SSL fix (one-time):** If you see `SSLCertVerificationError`, run:
+> ```bash
+> /Applications/Python\ 3.11/Install\ Certificates.command
+> ```
 
 ### Key files
 
@@ -202,7 +226,7 @@ cd backend && source .venv/bin/activate && python app.py
 # Terminal 2 — Frontend
 cd frontend && npm run dev
 
-# Terminal 3 — LiveKit Agent
+# Terminal 3 — LiveKit Agent (required for live voice calls)
 cd livekit_agent && source ../backend/.venv/bin/activate && python livekit_agent.py start
 ```
 
@@ -214,11 +238,13 @@ cd backend && .venv\Scripts\activate && python app.py
 # Terminal 2 — Frontend
 cd frontend && npm run dev
 
-# Terminal 3 — LiveKit Agent
+# Terminal 3 — LiveKit Agent (required for live voice calls)
 cd livekit_agent && ..\backend\.venv\Scripts\activate && python livekit_agent.py start
 ```
 
 Then open **http://localhost:5173** in your browser.
+
+> The frontend and backend are the minimum required to run the app. The LiveKit agent is only needed if you want to use the live voice call feature.
 
 ---
 
@@ -230,6 +256,6 @@ Then open **http://localhost:5173** in your browser.
 | Frontend | React, TypeScript, Vite, Tailwind CSS |
 | Voice Agent | LiveKit Agents, Deepgram Nova-3 STT, Cartesia Sonic-3 TTS |
 | LLM | OpenAI-compatible API (Qwen / Gemma via Professor's server) |
-| STT (text chat) | faster-whisper large-v3-turbo (offline, CPU) |
+| STT (pronunciation) | faster-whisper base (offline, CPU) |
 | TTS (text chat) | Microsoft Edge TTS (de-DE-KatjaNeural, free) |
 | Auth | JWT (HS256) + bcrypt |
