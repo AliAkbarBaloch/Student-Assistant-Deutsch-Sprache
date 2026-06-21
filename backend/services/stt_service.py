@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 
 _model = None
-_MODEL_SIZE = "large-v3-turbo"
+_MODEL_SIZE = "base"
 
 
 def _get_model():

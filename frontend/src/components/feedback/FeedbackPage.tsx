@@ -3,7 +3,7 @@
  * User uploads an MP3/WAV file OR records via microphone.
  * The AI transcribes the audio and returns a detailed pronunciation analysis.
  */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft, Upload, Mic, MicOff, CheckCircle,
   AlertCircle, Lightbulb, BarChart2, RefreshCw,
@@ -24,9 +24,48 @@ export function FeedbackPage({ onBack }: Props) {
   const [fileName,   setFileName]   = useState("");
   const [showEn,     setShowEn]     = useState(false);
 
-  const fileRef          = useRef<HTMLInputElement>(null);
-  const mediaRecRef      = useRef<MediaRecorder | null>(null);
-  const chunksRef        = useRef<Blob[]>([]);
+  const [progress, setProgress] = useState(0);
+
+  const fileRef      = useRef<HTMLInputElement>(null);
+  const mediaRecRef  = useRef<MediaRecorder | null>(null);
+  const chunksRef    = useRef<Blob[]>([]);
+  const intervalRef  = useRef<number | null>(null);
+
+  // ── Progress stage labels ────────────────────────────────────────────────────
+
+  const STAGES = [
+    { upTo: 20, msg: "Audio wird hochgeladen…"         },
+    { upTo: 60, msg: "Transkription läuft (Whisper)…"  },
+    { upTo: 85, msg: "KI analysiert Aussprache…"       },
+    { upTo: 96, msg: "Feedback wird zusammengestellt…" },
+  ];
+
+  function getStageMsg(pct: number): string {
+    return STAGES.find((s) => pct <= s.upTo)?.msg ?? STAGES[STAGES.length - 1].msg;
+  }
+
+  function startProgress() {
+    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+    setProgress(0);
+
+    // Functional updater avoids stale closure — React always passes latest state
+    intervalRef.current = window.setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 96) {
+          clearInterval(intervalRef.current!);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 180);
+  }
+
+  function stopProgress() {
+    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+    setProgress(100);
+  }
+
+  useEffect(() => () => { if (intervalRef.current !== null) clearInterval(intervalRef.current); }, []);
 
   // ── File upload ─────────────────────────────────────────────────────────────
 
@@ -85,11 +124,14 @@ export function FeedbackPage({ onBack }: Props) {
     setResult(null);
     setErrorMsg("");
     setShowEn(false);
+    startProgress();
     try {
       const data = await getPronunciationFeedback(audio, targetText);
+      stopProgress();
       setResult(data);
       setPageState("done");
     } catch (err: unknown) {
+      stopProgress();
       setErrorMsg(err instanceof Error ? err.message : "Analyse fehlgeschlagen.");
       setPageState("error");
     }
@@ -101,6 +143,7 @@ export function FeedbackPage({ onBack }: Props) {
     setErrorMsg("");
     setFileName("");
     setShowEn(false);
+    setProgress(0);
     if (fileRef.current) fileRef.current.value = "";
   }
 
@@ -244,16 +287,31 @@ export function FeedbackPage({ onBack }: Props) {
             </>
           )}
 
-          {/* ── Analysing spinner ── */}
+          {/* ── Analysing progress bar ── */}
           {pageState === "analysing" && (
-            <div className="flex flex-col items-center gap-5 py-16">
+            <div className="flex flex-col items-center gap-6 py-16 px-4">
+              {/* Animated icon */}
               <div className="w-16 h-16 rounded-full border-4 border-brand-500/30 border-t-brand-500 animate-spin" />
-              <div className="text-center">
-                <p className="font-bold text-gray-900 dark:text-white">Buddy analysiert…</p>
-                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
-                  Transkription + KI-Feedback wird erstellt
-                </p>
+
+              {/* Title */}
+              <div className="text-center space-y-1">
+                <p className="font-bold text-gray-900 dark:text-white text-lg">Buddy analysiert…</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">{getStageMsg(progress)}</p>
               </div>
+
+              {/* Progress bar */}
+              <div className="w-full max-w-sm">
+                <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="h-2.5 rounded-full bg-brand-500 transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+
+              <p className="text-xs text-gray-400 dark:text-gray-600 text-center">
+                Dies kann bei längeren Aufnahmen einige Sekunden dauern.
+              </p>
             </div>
           )}
 
