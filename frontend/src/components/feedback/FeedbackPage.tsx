@@ -20,7 +20,6 @@ export function FeedbackPage({ onBack }: Props) {
   const [pageState,  setPageState]  = useState<PageState>("idle");
   const [result,     setResult]     = useState<FeedbackResponse | null>(null);
   const [errorMsg,   setErrorMsg]   = useState("");
-  const [targetText, setTargetText] = useState("");
   const [fileName,   setFileName]   = useState("");
   const [showEn,     setShowEn]     = useState(false);
 
@@ -92,28 +91,54 @@ export function FeedbackPage({ onBack }: Props) {
       return;
     }
 
-    let stream: MediaStream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch {
-      setErrorMsg("Mikrofon-Zugriff verweigert.");
+    // Check browser support
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setErrorMsg("Dein Browser unterstützt keine Audioaufnahme. Bitte Chrome oder Firefox verwenden.");
       setPageState("error");
       return;
     }
 
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      const msg = err instanceof DOMException && err.name === "NotAllowedError"
+        ? "Mikrofon-Zugriff verweigert. Bitte Berechtigung in den Browser-Einstellungen erteilen."
+        : "Mikrofon konnte nicht gestartet werden.";
+      setErrorMsg(msg);
+      setPageState("error");
+      return;
+    }
+
+    // Pick a MIME type supported by this browser (Safari uses mp4, Chrome/Firefox use webm)
+    const mimeType = ["audio/webm", "audio/mp4", "audio/ogg"].find(
+      (m) => MediaRecorder.isTypeSupported(m)
+    ) ?? "";
+
+    let rec: MediaRecorder;
+    try {
+      rec = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+    } catch {
+      setErrorMsg("MediaRecorder wird von diesem Browser nicht unterstützt.");
+      setPageState("error");
+      stream.getTracks().forEach((t) => t.stop());
+      return;
+    }
+
     chunksRef.current = [];
-    const rec = new MediaRecorder(stream);
     mediaRecRef.current = rec;
 
+    // timeslice=250 flushes data every 250ms for cross-browser reliability
     rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
     rec.onstop = () => {
       stream.getTracks().forEach((t) => t.stop());
-      const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-      setFileName("Aufnahme.webm");
+      const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
+      const ext  = (rec.mimeType || "audio/webm").includes("mp4") ? "m4a" : "webm";
+      setFileName(`Aufnahme.${ext}`);
       analyseAudio(blob);
     };
 
-    rec.start();
+    rec.start(250);
     setPageState("recording");
   }
 
@@ -126,7 +151,7 @@ export function FeedbackPage({ onBack }: Props) {
     setShowEn(false);
     startProgress();
     try {
-      const data = await getPronunciationFeedback(audio, targetText);
+      const data = await getPronunciationFeedback(audio, "");
       stopProgress();
       setResult(data);
       setPageState("done");
@@ -211,20 +236,6 @@ export function FeedbackPage({ onBack }: Props) {
                 </p>
               </div>
 
-              {/* Optional target text */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Was hast du versucht zu sagen? <span className="font-normal normal-case">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  value={targetText}
-                  onChange={(e) => setTargetText(e.target.value)}
-                  placeholder='z. B. "Ich möchte einen Kaffee, bitte."'
-                  className="w-full rounded-xl px-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 placeholder-gray-400"
-                />
-              </div>
-
               {/* Upload zone */}
               <div
                 onDragOver={(e) => e.preventDefault()}
@@ -264,7 +275,8 @@ export function FeedbackPage({ onBack }: Props) {
 
               {/* Record button */}
               <button
-                onClick={toggleRecording}
+                type="button"
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleRecording(); }}
                 className={`w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold border-2 transition-all ${
                   pageState === "recording"
                     ? "bg-red-500/10 border-red-500 text-red-500 animate-pulse"
