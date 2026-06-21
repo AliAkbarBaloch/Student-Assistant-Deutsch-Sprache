@@ -12,7 +12,7 @@
 #                            text chat audio — generates MP3 files in static/tts/
 #                            runs concurrently per sentence for lower perceived latency
 #
-#   livekit_agent        →  Standalone LiveKit voice agent (run separately)
+#   livekit_agent        →  Standalone LiveKit voice agent (moved to livekit_agent/ folder)
 #                            Deepgram Nova-3 STT → LLM → Cartesia Sonic-3 TTS
 #                            powers both Sprechen and Live-Anruf buttons
 #

@@ -1,269 +1,235 @@
-# Deutsch Buddy
+# Deutsch Buddy — AI German Learning Assistant
 
-An AI-powered German language learning app with ultra-low-latency voice conversation practice. Speak or type in German, and Buddy responds with natural German speech — correcting your mistakes gently and adapting to your CEFR level (A1 → B2).
-
-## How It Works
-
-```
-Voice (Sprechen / Live-Anruf)
-  WebRTC mic  →  Deepgram Nova-3 (STT, real-time)  →  LLM  →  Cartesia Sonic-3 (TTS streaming)
-  Sprechen also shows transcriptions as chat messages; Live-Anruf is voice-only.
-
-Text Chat  (streaming pipeline)
-  Text input  →  LLM token stream (SSE)  →  text appears live in ~0.3 s
-                  ↳ sentence complete? → Edge TTS starts concurrently
-  Audio plays immediately after last token (TTS was generating in parallel)
-```
-
-### Models
-
-| Component | Model | Notes |
-|---|---|---|
-| Voice STT | Deepgram Nova-3 | Real-time, German, via LiveKit inference |
-| Voice TTS | Cartesia Sonic-3 | Streaming, German, via LiveKit inference |
-| Voice LLM | `qwen36-35b` | Professor's API, `enable_thinking: false` for speed |
-| Text LLM | `gemma4-31b-it` | Professor's OpenAI-compatible API |
-| Text TTS | Microsoft Edge TTS `de-DE-KatjaNeural` | Free, no key needed |
-| VAD | Silero | Turn detection for the voice agent |
-
----
-
-## Prerequisites
-
-| Tool | Version | Install |
-|---|---|---|
-| Python | 3.12 | [python.org](https://www.python.org/downloads/) |
-| Node.js | 18+ | [nodejs.org](https://nodejs.org/) |
-| LiveKit account | — | [livekit.io](https://livekit.io) — free tier works |
-
-> ffmpeg is no longer required. PyAV handles all audio decoding.
-
----
-
-## Backend Setup
-
-### 1. Clone and enter the project
-
-```bash
-git clone <repo-url>
-cd deutsche_buddy
-```
-
-### 2. Create a Python 3.12 virtual environment
-
-> **Important:** Use Python 3.12 explicitly. Python 3.13/3.14 is not yet supported by the AI packages.
-
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate        # macOS / Linux
-# .venv\Scripts\activate         # Windows
-```
-
-### 3. Install Python dependencies
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-### 4. Create the `.env` file
-
-Create a file named `.env` in the project root:
-
-```env
-# Professor's OpenAI-compatible API
-PROF_API_KEY=your_api_key_here
-PROF_API_BASE=https://llms.innkube.fim.uni-passau.de/v1
-
-# LLM models
-PROF_MODEL=gemma4-31b-it          # text chat
-VOICE_MODEL=qwen36-35b            # voice agent (faster, lower latency)
-
-# JWT signing key — use any random string of 32+ characters
-SECRET_KEY=deutsch-buddy-secret-key-2026-secure
-
-# LiveKit credentials (get these from your LiveKit project dashboard)
-LIVEKIT_URL=wss://your-project.livekit.cloud
-LIVEKIT_API_KEY=your_livekit_api_key
-LIVEKIT_API_SECRET=your_livekit_api_secret
-```
-
-**Available models on the professor's API:**
-- `gemma4-31b-it`
-- `qwen36-35b`
-- `qwen3-next-80b-a3b-instruct`
-- `qwen35-397b`
-
----
-
-## Running the App
-
-Three terminals are required:
-
-**Terminal 1 — FastAPI backend:**
-```bash
-source .venv/bin/activate
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
-```
-
-**Terminal 2 — LiveKit voice agent:**
-```bash
-source .venv/bin/activate
-python services/livekit_agent.py start
-```
-
-**Terminal 3 — Frontend dev server:**
-```bash
-cd frontend
-npm install       # first time only
-npm run dev
-```
-
-Then open **http://localhost:5173** in your browser.
-
-> The Vite dev server proxies `/api` and `/static` to the backend on port 8000. All three processes must be running for voice features to work.
-
----
-
-## First-Time Use
-
-1. Open **http://localhost:5173**
-2. Click **Register** and create an account
-3. Select your German level (A1 / A2 / B1 / B2) from the navbar
-4. **Text chat** — type a German message in the input bar and press Enter
-5. **Sprechen (mic button)** — click to start, speak in German, click again to stop. Your speech and Buddy's reply both appear as chat messages. Ultra-low latency (~1–2 s).
-6. **Live-Anruf (phone button)** — continuous voice conversation, voice-only (no text in chat). Same low-latency pipeline.
-
----
-
-## Features
-
-- **Ultra-low-latency voice** — both voice buttons use LiveKit WebRTC + Deepgram STT + Cartesia TTS streaming (~1–2 s round-trip vs ~5–8 s before)
-- **Streaming text chat** — LLM tokens stream to the browser via SSE; first word appears in ~0.3 s (ChatGPT-style)
-- **Concurrent TTS** — Edge TTS generates each sentence in the background while the LLM is still writing the next one; audio starts with near-zero delay after the last token
-- **Sprechen shows chat transcriptions** — your speech and Buddy's response appear as text messages when using the mic button
-- **Live-Anruf is voice-only** — continuous call mode with no chat clutter
-- **CEFR-adaptive vocabulary** — responses use only words appropriate to your level
-- **Gentle error correction** — wrong grammar is corrected by example, not criticism
-- **Always German** — Buddy responds in German even if you write in English
-- **Conversation history** — saved per user account in SQLite
-- **Pronunciation feedback** — dedicated page to analyse your German pronunciation with a score and tips
+An AI-powered German language learning app with real-time voice conversation, text chat, and pronunciation feedback.
 
 ---
 
 ## Project Structure
 
 ```
-deutsche_buddy/
-├── app.py                   # FastAPI — all endpoints, including /api/livekit-token
-├── database.py              # SQLAlchemy models (User, Message)
-├── requirements.txt
-├── .env                     # secrets and config (never commit)
-│
-├── services/
-│   ├── livekit_agent.py     # LiveKit voice agent (Deepgram STT + LLM + Cartesia TTS)
-│   ├── stt_service.py       # faster-whisper STT (used by pronunciation feedback only)
-│   ├── llm_service.py       # OpenAI-compatible LLM client (text chat)
-│   ├── tts_service.py       # Edge TTS (text chat audio)
-│   ├── auth_service.py      # JWT + bcrypt
-│   ├── vocab_service.py     # CEFR vocabulary grounding
-│   └── phoneme_service.py   # pronunciation analysis
-│
-├── frontend/
-│   ├── src/
-│   │   ├── App.tsx
-│   │   ├── components/      # auth, chat, profile, feedback UI
-│   │   ├── contexts/        # Auth, Level, Theme global state
-│   │   ├── hooks/           # useChat, useLiveKitCall
-│   │   └── services/        # API client (api.ts)
-│   ├── package.json
-│   └── vite.config.ts
-│
-└── static/                  # served by FastAPI
-    ├── index.html           # built SPA (after npm run build)
-    ├── tts/                 # generated Edge TTS audio (text chat)
-    └── avatars/             # user profile pictures
+student-assistant-deutsch-sprache/
+├── backend/          ← FastAPI server (REST API + database)
+├── frontend/         ← React + TypeScript + Vite (UI)
+├── livekit_agent/    ← LiveKit real-time voice agent (runs separately)
+└── .env              ← Shared environment variables (API keys)
 ```
 
 ---
 
-## API Endpoints
+## Prerequisites
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/auth/register` | Create account |
+- **Python 3.11+** — download from https://www.python.org/downloads/
+- **Node.js 18+** — download from https://nodejs.org/
+- A `.env` file at the project root (see [Environment Variables](#environment-variables))
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the **project root** with the following keys:
+
+```env
+# Professor's OpenAI-compatible LLM API
+PROF_API_KEY=your_key_here
+PROF_API_BASE=https://llms.innkube.fim.uni-passau.de/v1
+
+# JWT secret for user authentication
+SECRET_KEY=your_secret_key_here
+
+# LiveKit credentials (required for voice calls)
+LIVEKIT_URL=wss://your-project.livekit.cloud
+LIVEKIT_API_KEY=your_livekit_key
+LIVEKIT_API_SECRET=your_livekit_secret
+```
+
+---
+
+## 1. Backend
+
+The Flask/FastAPI server handles REST API, authentication, text chat, STT, TTS, and the database.
+
+### Setup
+
+```bash
+cd backend
+
+# Create virtual environment (requires Python 3.11+)
+python3 -m venv .venv
+
+# Activate — Mac/Linux:
+source .venv/bin/activate
+# Activate — Windows:
+# .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the server
+python app.py
+```
+
+The backend runs at **http://localhost:8000**
+
+### Key files
+
+```
+backend/
+├── app.py            ← FastAPI entry point + all API routes
+├── database.py       ← SQLAlchemy models (User, Message) + SQLite setup
+├── requirements.txt  ← All Python dependencies
+├── generate_pptx.py  ← Utility: generate PowerPoint from vocab data
+├── static/           ← Served static files (avatars, TTS audio, legacy UI)
+└── services/
+    ├── auth_service.py          ← JWT creation + bcrypt password hashing
+    ├── llm_service.py           ← LLM chat + streaming + pronunciation feedback
+    ├── stt_service.py           ← Faster-Whisper German STT (offline, CPU)
+    ├── tts_service.py           ← Microsoft Edge TTS (de-DE-KatjaNeural)
+    ├── vocab_service.py         ← CEFR vocabulary CSV loader
+    ├── phoneme_service.py       ← Phoneme-level pronunciation scoring
+    └── transcription_service.py ← Legacy Whisper-base (unused by main app)
+```
+
+### API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/auth/register` | Register a new user |
 | POST | `/api/auth/login` | Login, returns JWT |
-| GET | `/api/auth/me` | Current user info |
-| PUT | `/api/auth/profile` | Update name & avatar |
-| POST | `/api/chat` | Voice: STT → LLM → TTS (legacy HTTP, unused by main UI) |
-| POST | `/api/chat-text` | Text: LLM → TTS (non-streaming fallback) |
-| POST | `/api/chat-text-stream` | Text: LLM token stream + concurrent TTS (SSE, used by main UI) |
-| POST | `/api/livekit-token` | Issue LiveKit room token + dispatch voice agent |
-| GET | `/api/history` | Last 60 messages |
-| DELETE | `/api/history` | Clear conversation |
-| POST | `/api/pronunciation-feedback` | Pronunciation score + tips |
-| GET | `/api/health` | Server status |
+| GET | `/api/auth/me` | Get current user info |
+| PUT | `/api/auth/profile` | Update name / avatar |
+| GET | `/api/history` | Fetch last 60 chat messages |
+| DELETE | `/api/history` | Clear chat history |
+| POST | `/api/chat-text` | Text chat (LLM → TTS) |
+| POST | `/api/chat-text-stream` | Streaming text chat (SSE) |
+| POST | `/api/chat` | Voice chat (STT → LLM → TTS) |
+| POST | `/api/pronunciation-feedback` | Pronunciation analysis |
+| POST | `/api/livekit-token` | Issue LiveKit token + dispatch agent |
 
 ---
 
-## What Changed (vs. original)
+## 2. Frontend
 
-### Added
-- `services/livekit_agent.py` — standalone LiveKit voice agent process
-- `POST /api/livekit-token` endpoint — creates a room token and dispatches the agent with the user's CEFR level
-- `POST /api/chat-text-stream` endpoint — SSE streaming with concurrent TTS (`AsyncOpenAI`, `asyncio.create_task`)
-- `useLiveKitCall` hook (`frontend/src/hooks/useLiveKitCall.ts`) — manages the WebRTC room, transcription events, and audio playback
-- `sendTextMessageStream()` in `api.ts` — SSE reader with `onToken` + `onAudio` callbacks
-- `sendTextStream()` in `useChat.ts` — streaming chat with sequential audio chain
-- LiveKit Python packages: `livekit`, `livekit-agents`, `livekit-plugins-openai`, `livekit-plugins-silero`
-- `livekit-client` npm package (frontend)
-- Chat transcription for Sprechen — `RoomEvent.TranscriptionReceived` with 1.2 s debounce to merge agent chunks
+The React + TypeScript + Vite user interface.
 
-### Removed
-- Old VAD + MediaRecorder live-call pipeline (replaced by LiveKit WebRTC)
-- `useVAD` hook (no longer needed for Live-Anruf)
-- Microsoft Edge TTS for voice responses (replaced by Cartesia Sonic-3 via LiveKit)
-- faster-whisper for voice STT (replaced by Deepgram Nova-3 via LiveKit); Whisper is still used for pronunciation feedback
+### Setup
 
-### Changed
-- Both **Sprechen** and **Live-Anruf** buttons now share the same LiveKit pipeline
-- Sprechen shows speech-to-text transcriptions and Buddy's replies in chat; Live-Anruf is voice-only
-- Text chat now streams via SSE — first token in ~0.3 s, audio starts immediately after last token
-- TTS for text chat generates sentence-by-sentence concurrently with the LLM stream (no sequential wait)
-- faster-whisper `beam_size` reduced from 5 → 1 with `vad_filter=True` for the HTTP pronunciation path
+```bash
+cd frontend
 
----
+# Install dependencies
+npm install
 
-## Production Build
+# Start development server (proxies API calls to backend on :8000)
+npm run dev
+```
+
+The frontend dev server runs at **http://localhost:5173**
+
+### Build for production
 
 ```bash
 cd frontend
 npm run build
+# Built files appear in backend/static/react/ (served by the backend)
 ```
 
-Outputs the SPA to `../static/react/`. The FastAPI server at **http://localhost:8000** then serves the full app — the frontend dev server is not needed. The LiveKit agent (`Terminal 2`) must still run separately.
+### Key files
+
+```
+frontend/
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+└── src/
+    ├── App.tsx
+    ├── types.ts
+    ├── components/
+    │   ├── auth/        ← Login / Register page
+    │   ├── chat/        ← Main chat UI, voice controls, message bubbles
+    │   ├── feedback/    ← Pronunciation feedback page
+    │   └── profile/     ← User profile page
+    ├── contexts/        ← Auth, Level, Theme React contexts
+    ├── hooks/
+    │   ├── useChat.ts       ← Text chat logic
+    │   ├── useLiveKitCall.ts ← LiveKit voice call integration
+    │   └── useVAD.ts        ← Voice activity detection
+    └── services/
+        └── api.ts           ← All API calls to the backend
+```
 
 ---
 
-## Troubleshooting
+## 3. LiveKit Agent
 
-**Voice buttons don't connect**
-→ Make sure the LiveKit agent is running (`python services/livekit_agent.py start`) and all three `LIVEKIT_*` env vars are set in `.env`.
+The real-time voice agent. It connects to LiveKit Cloud and handles the live voice call feature.
+Pipeline: **WebRTC audio → Deepgram STT → LLM → Cartesia TTS**
 
-**`pip install` fails / builds from source**
-→ Confirm you are using Python 3.12:
+This must be running **at the same time as the backend** for voice calls to work.
+
+### Setup
+
 ```bash
-python --version   # must show 3.12.x
+cd livekit_agent
+
+# Reuse the backend virtual environment — Mac/Linux:
+source ../backend/.venv/bin/activate
+# Windows:
+# ..\backend\.venv\Scripts\activate
+
+# Start the agent (connects to LiveKit Cloud automatically)
+python livekit_agent.py start
 ```
 
-**503 on text chat**
-→ Check the uvicorn terminal for `[LLM]` log lines. Update `PROF_MODEL` in `.env` to one of the available models listed above.
+### Key files
 
-**JWT `InsecureKeyLengthWarning`**
-→ Your `SECRET_KEY` is shorter than 32 characters. Use a longer random string.
-
-**Database reset**
-```bash
-rm deutsch_buddy.db
 ```
-The database is recreated automatically on next server start.
+livekit_agent/
+├── livekit_agent.py  ← Agent entry point (DeutschBuddy class + session setup)
+└── requirements.txt  ← LiveKit-specific Python dependencies
+```
+
+---
+
+## Running Everything Together
+
+Open **3 separate terminals**:
+
+**Mac/Linux:**
+```bash
+# Terminal 1 — Backend
+cd backend && source .venv/bin/activate && python app.py
+
+# Terminal 2 — Frontend
+cd frontend && npm run dev
+
+# Terminal 3 — LiveKit Agent
+cd livekit_agent && source ../backend/.venv/bin/activate && python livekit_agent.py start
+```
+
+**Windows:**
+```bash
+# Terminal 1 — Backend
+cd backend && .venv\Scripts\activate && python app.py
+
+# Terminal 2 — Frontend
+cd frontend && npm run dev
+
+# Terminal 3 — LiveKit Agent
+cd livekit_agent && ..\backend\.venv\Scripts\activate && python livekit_agent.py start
+```
+
+Then open **http://localhost:5173** in your browser.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | FastAPI, SQLAlchemy, SQLite |
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| Voice Agent | LiveKit Agents, Deepgram Nova-3 STT, Cartesia Sonic-3 TTS |
+| LLM | OpenAI-compatible API (Qwen / Gemma via Professor's server) |
+| STT (text chat) | faster-whisper large-v3-turbo (offline, CPU) |
+| TTS (text chat) | Microsoft Edge TTS (de-DE-KatjaNeural, free) |
+| Auth | JWT (HS256) + bcrypt |

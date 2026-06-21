@@ -1,0 +1,12 @@
+# LiveKit voice agent dependencies
+# Run: pip install -r requirements.txt
+
+# Environment variable loading
+python-dotenv>=1.0.0
+
+# LiveKit real-time voice agent
+livekit>=0.16
+livekit-agents>=0.14
+livekit-plugins-openai>=0.10
+livekit-plugins-silero>=0.7
+livekit-plugins-turn-detector>=0.5
