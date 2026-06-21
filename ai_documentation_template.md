@@ -268,6 +268,112 @@ Push went through after the orphan branch strategy. Added `.claude/` to `.gitign
 
 ---
 
+## Entry #7 — Restructuring the Project into Three Separate Folders
+
+**Date:** 2026-06-21
+
+**Team member(s):** Muhammad Mustafa Khalid Malik
+
+**AI Tool used:** Claude (Cursor)
+
+### Context
+
+The project had everything mixed together at the root level — `app.py`, `database.py`, `services/`, and the LiveKit agent all lived alongside the `frontend/` folder. For the university submission, the professor and peers needed to clearly see which code belonged to the backend, which to the frontend, and which to the voice agent. A flat structure made this impossible to read at a glance.
+
+### Prompt / Task
+
+> "I want to revamp and restructure my project. There are three different things running simultaneously: frontend, backend, and the LiveKit agent. I want to make sure there are 3 different folders for these 3 jobs so that it will be easy for the professor to see the code. Is it doable?"
+
+### AI Output Summary
+
+Claude analyzed the existing project structure, identified that `livekit_agent.py` had no local imports (fully standalone), and that `database.py` used `Path(__file__).resolve().parent` making it portable after a move. It planned a three-folder split: `backend/` (FastAPI, DB, services), `frontend/` (already separate), and `livekit_agent/` (extracted from `services/`). Confirmed that `load_dotenv()` traverses up parent directories automatically, so a single `.env` at the project root would be found by both `backend/app.py` and `livekit_agent/livekit_agent.py` without any code changes. Generated shell commands to move files and created a dedicated `livekit_agent/requirements.txt` with only the LiveKit-specific dependencies.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The overall plan was used as-is. We chose `livekit_agent/` as the folder name (not `agent/`) to be more explicit. We also kept `.env` at the project root so both the backend and agent share credentials without duplication. After the move, we verified that no import paths in `app.py` or `livekit_agent.py` needed updating because the relative imports still resolved correctly when running each script from its own folder.
+
+### Impact
+
+The repository now has a clean three-folder structure that any reviewer can navigate immediately. Each folder has its own `requirements.txt` and can be explained in under one sentence. The separation also made it clearer which Python version constraint (3.10+) applied specifically to the LiveKit agent and not the general backend.
+
+---
+
+## Entry #8 — Fixing the Pronunciation Feedback Pipeline (Model + Progress Bar + Recording UI)
+
+**Date:** 2026-06-21
+
+**Team member(s):** Muhammad Mustafa Khalid Malik
+
+**AI Tool used:** Claude (Cursor)
+
+### Context
+
+The pronunciation feedback feature had three separate issues discovered during testing: (1) uploading a 27-second audio file caused the UI to hang indefinitely because the `large-v3-turbo` Whisper model was being downloaded (~1.5 GB) and then running slowly on CPU, (2) a progress bar was added to communicate wait time but it was stuck at 0% due to a stale closure bug in the animation logic, and (3) the microphone recording button was navigating to a blank white page instead of starting a recording.
+
+### Prompt / Task
+
+> "After uploading an audio of 27 seconds, it is still loading and it is not processing the audio at all. Can you please check why it is not working?"
+>
+> "The progress bar is not correct — it is showing increasing percentage up to 100% but percentage is just 0."
+>
+> "The Aufnehmen button is not working properly. It takes me to a new page instead of recording my voice."
+
+### AI Output Summary
+
+For the model issue, Claude identified that `large-v3-turbo` was too slow for CPU inference and switched to the `base` model (~145 MB, 5–10 seconds for 27-second audio). For the progress bar, it identified that a recursive `setTimeout` approach had a stale closure — the inner function always read the initial value of `current`. The fix used `window.setInterval` with React's functional state updater `setProgress(prev => prev + 1)` which always receives the latest state from React's scheduler. For the navigation bug, it identified that calling `async/await` inside a click handler can lose Chrome's "trusted event" context, causing unexpected navigation. The fix refactored `toggleRecording()` from `async/await` into a synchronous function that uses `.then()/.catch()` Promise chaining, ensuring the click event completes before any async work begins.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The model switch to `base` was accepted as-is — sufficient accuracy for pronunciation feedback without the multi-minute wait. The progress bar fix using the functional updater was exactly the right React pattern. For the recording button, we went further than the suggested fix by completely redesigning the recording UI into a WhatsApp-style interface (see Entry #9) rather than just patching the existing button, since the UX was confusing regardless of the navigation bug.
+
+### Impact
+
+Pronunciation feedback now processes a 27-second recording in approximately 8 seconds on CPU. The progress bar correctly animates through four labeled stages (upload → Whisper transcription → AI analysis → compiling feedback). The recording flow no longer causes page navigation and is significantly more intuitive for users.
+
+---
+
+## Entry #9 — WhatsApp-Style Recording UI for Pronunciation Feedback
+
+**Date:** 2026-06-21
+
+**Team member(s):** Muhammad Mustafa Khalid Malik
+
+**AI Tool used:** Claude (Cursor)
+
+### Context
+
+Even after fixing the navigation bug on the record button, the original UI was confusing — one button toggled between "start" and "stop" states with no visual indication that recording was actually happening. Users had no sense of how long they had been recording or whether the mic was active. A clearer, more intuitive recording interface was needed.
+
+### Prompt / Task
+
+> "Let's create a new UI. Once the user presses this button, a UI will appear just like a WhatsApp audio message which will show a timer of the recording. Once the user presses that button again, the audio timer will stop and the recording will stop, and then that recording will go to the model for analysis."
+
+### AI Output Summary
+
+Claude redesigned the recording state into a full-screen overlay within the feedback page. The idle state shows the upload zone and a clean "Aufnehmen" button. On click, the component transitions to a recording-specific view with: a large pulsing red mic icon with two ripple ring animations (`animate-ping` outer ring, `animate-pulse` middle ring), a large monospace `mm:ss` countdown timer driven by a `setInterval` ref, and a red "Aufnahme beenden" stop button. On stop, the recording blob is sent for analysis and the progress bar state takes over. The mic timer uses a separate `recTimerRef` to avoid interfering with the analysis progress interval.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+The WhatsApp metaphor was the right model — users universally understand that UI pattern. We kept the animation refs (`progressRef` and `recTimerRef`) separate to avoid the two timers conflicting. Also removed the optional "What were you trying to say?" text input from the UI entirely — it added friction and the backend works fine without it. The `startRecording()` function was kept as a plain synchronous function (not `async`) to avoid the Chrome trusted-click issue identified in Entry #8.
+
+### Impact
+
+The recording experience is now clear and satisfying — users see the mic pulsing, the timer counting up, and a clear stop button. No more accidental page navigation. The visual feedback also reassures users that their mic is active, which reduces the common confusion of "did it start recording?" The WhatsApp-style pattern was immediately recognizable in user testing.
+
+---
+
 *Template for future entries below this line*
 
 ---
