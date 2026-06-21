@@ -5,7 +5,7 @@
  */
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ArrowLeft, Upload, Mic, MicOff, CheckCircle,
+  ArrowLeft, Upload, Mic, Square, CheckCircle,
   AlertCircle, Lightbulb, BarChart2, RefreshCw,
 } from "lucide-react";
 import { getPronunciationFeedback, type FeedbackResponse } from "../../services/api";
@@ -14,23 +14,43 @@ interface Props {
   onBack: () => void;
 }
 
-type PageState = "idle" | "recording" | "uploading" | "analysing" | "done" | "error";
+type PageState = "idle" | "recording" | "analysing" | "done" | "error";
 
 export function FeedbackPage({ onBack }: Props) {
-  const [pageState,  setPageState]  = useState<PageState>("idle");
-  const [result,     setResult]     = useState<FeedbackResponse | null>(null);
-  const [errorMsg,   setErrorMsg]   = useState("");
-  const [fileName,   setFileName]   = useState("");
-  const [showEn,     setShowEn]     = useState(false);
+  const [pageState, setPageState] = useState<PageState>("idle");
+  const [result,    setResult]    = useState<FeedbackResponse | null>(null);
+  const [errorMsg,  setErrorMsg]  = useState("");
+  const [fileName,  setFileName]  = useState("");
+  const [showEn,    setShowEn]    = useState(false);
+  const [progress,  setProgress]  = useState(0);
+  const [recSecs,   setRecSecs]   = useState(0);
 
-  const [progress, setProgress] = useState(0);
+  const fileRef       = useRef<HTMLInputElement>(null);
+  const mediaRecRef   = useRef<MediaRecorder | null>(null);
+  const chunksRef     = useRef<Blob[]>([]);
+  const progressRef   = useRef<number | null>(null);
+  const recTimerRef   = useRef<number | null>(null);
 
-  const fileRef      = useRef<HTMLInputElement>(null);
-  const mediaRecRef  = useRef<MediaRecorder | null>(null);
-  const chunksRef    = useRef<Blob[]>([]);
-  const intervalRef  = useRef<number | null>(null);
+  // ── Recording timer ──────────────────────────────────────────────────────────
 
-  // ── Progress stage labels ────────────────────────────────────────────────────
+  function formatTime(s: number): string {
+    const m = Math.floor(s / 60).toString().padStart(2, "0");
+    const sec = (s % 60).toString().padStart(2, "0");
+    return `${m}:${sec}`;
+  }
+
+  function startRecTimer() {
+    setRecSecs(0);
+    recTimerRef.current = window.setInterval(() => {
+      setRecSecs((prev) => prev + 1);
+    }, 1000);
+  }
+
+  function stopRecTimer() {
+    if (recTimerRef.current !== null) clearInterval(recTimerRef.current);
+  }
+
+  // ── Analysis progress bar ────────────────────────────────────────────────────
 
   const STAGES = [
     { upTo: 20, msg: "Audio wird hochgeladen…"         },
@@ -44,27 +64,25 @@ export function FeedbackPage({ onBack }: Props) {
   }
 
   function startProgress() {
-    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+    if (progressRef.current !== null) clearInterval(progressRef.current);
     setProgress(0);
-
-    // Functional updater avoids stale closure — React always passes latest state
-    intervalRef.current = window.setInterval(() => {
+    progressRef.current = window.setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 96) {
-          clearInterval(intervalRef.current!);
-          return prev;
-        }
+        if (prev >= 96) { clearInterval(progressRef.current!); return prev; }
         return prev + 1;
       });
     }, 180);
   }
 
   function stopProgress() {
-    if (intervalRef.current !== null) clearInterval(intervalRef.current);
+    if (progressRef.current !== null) clearInterval(progressRef.current);
     setProgress(100);
   }
 
-  useEffect(() => () => { if (intervalRef.current !== null) clearInterval(intervalRef.current); }, []);
+  useEffect(() => () => {
+    if (progressRef.current !== null) clearInterval(progressRef.current);
+    if (recTimerRef.current !== null) clearInterval(recTimerRef.current);
+  }, []);
 
   // ── File upload ─────────────────────────────────────────────────────────────
 
@@ -85,61 +103,57 @@ export function FeedbackPage({ onBack }: Props) {
 
   // ── Microphone recording ────────────────────────────────────────────────────
 
-  async function toggleRecording() {
-    if (pageState === "recording") {
-      mediaRecRef.current?.stop();
-      return;
-    }
-
-    // Check browser support
+  function startRecording() {
     if (!navigator.mediaDevices?.getUserMedia) {
       setErrorMsg("Dein Browser unterstützt keine Audioaufnahme. Bitte Chrome oder Firefox verwenden.");
       setPageState("error");
       return;
     }
 
-    let stream: MediaStream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (err) {
-      const msg = err instanceof DOMException && err.name === "NotAllowedError"
-        ? "Mikrofon-Zugriff verweigert. Bitte Berechtigung in den Browser-Einstellungen erteilen."
-        : "Mikrofon konnte nicht gestartet werden.";
-      setErrorMsg(msg);
-      setPageState("error");
-      return;
-    }
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then((stream) => {
+        const mimeType = ["audio/webm", "audio/mp4", "audio/ogg"].find(
+          (m) => MediaRecorder.isTypeSupported(m)
+        ) ?? "";
 
-    // Pick a MIME type supported by this browser (Safari uses mp4, Chrome/Firefox use webm)
-    const mimeType = ["audio/webm", "audio/mp4", "audio/ogg"].find(
-      (m) => MediaRecorder.isTypeSupported(m)
-    ) ?? "";
+        let rec: MediaRecorder;
+        try {
+          rec = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+        } catch {
+          setErrorMsg("MediaRecorder wird von diesem Browser nicht unterstützt.");
+          setPageState("error");
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
 
-    let rec: MediaRecorder;
-    try {
-      rec = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
-    } catch {
-      setErrorMsg("MediaRecorder wird von diesem Browser nicht unterstützt.");
-      setPageState("error");
-      stream.getTracks().forEach((t) => t.stop());
-      return;
-    }
+        chunksRef.current = [];
+        mediaRecRef.current = rec;
 
-    chunksRef.current = [];
-    mediaRecRef.current = rec;
+        rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+        rec.onstop = () => {
+          stream.getTracks().forEach((t) => t.stop());
+          stopRecTimer();
+          const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
+          const ext  = (rec.mimeType || "audio/webm").includes("mp4") ? "m4a" : "webm";
+          setFileName(`Aufnahme.${ext}`);
+          analyseAudio(blob);
+        };
 
-    // timeslice=250 flushes data every 250ms for cross-browser reliability
-    rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
-    rec.onstop = () => {
-      stream.getTracks().forEach((t) => t.stop());
-      const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
-      const ext  = (rec.mimeType || "audio/webm").includes("mp4") ? "m4a" : "webm";
-      setFileName(`Aufnahme.${ext}`);
-      analyseAudio(blob);
-    };
+        rec.start(250);
+        startRecTimer();
+        setPageState("recording");
+      })
+      .catch((err) => {
+        const msg = err instanceof DOMException && err.name === "NotAllowedError"
+          ? "Mikrofon-Zugriff verweigert. Bitte Berechtigung in den Browser-Einstellungen erteilen."
+          : "Mikrofon konnte nicht gestartet werden.";
+        setErrorMsg(msg);
+        setPageState("error");
+      });
+  }
 
-    rec.start(250);
-    setPageState("recording");
+  function stopRecording() {
+    mediaRecRef.current?.stop();
   }
 
   // ── Core analysis ───────────────────────────────────────────────────────────
@@ -226,8 +240,8 @@ export function FeedbackPage({ onBack }: Props) {
       <div className="flex-1 overflow-y-auto px-4 py-8">
         <div className="w-full max-w-xl mx-auto space-y-6">
 
-          {/* ── Idle / Error / Recording state ── */}
-          {(pageState === "idle" || pageState === "error" || pageState === "recording") && (
+          {/* ── Idle / Error state ── */}
+          {(pageState === "idle" || pageState === "error") && (
             <>
               <div className="text-center space-y-1">
                 <h1 className="text-xl font-extrabold">Aussprache analysieren</h1>
@@ -276,17 +290,10 @@ export function FeedbackPage({ onBack }: Props) {
               {/* Record button */}
               <button
                 type="button"
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleRecording(); }}
-                className={`w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold border-2 transition-all ${
-                  pageState === "recording"
-                    ? "bg-red-500/10 border-red-500 text-red-500 animate-pulse"
-                    : "bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-brand-500 hover:text-brand-500"
-                }`}
+                onClick={startRecording}
+                className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold border-2 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-brand-500 hover:text-brand-500 transition-all"
               >
-                {pageState === "recording"
-                  ? <><MicOff size={20} /> Aufnahme stoppen</>
-                  : <><Mic size={20} /> Aufnehmen</>
-                }
+                <Mic size={20} /> Aufnehmen
               </button>
 
               {/* Error message */}
@@ -297,6 +304,41 @@ export function FeedbackPage({ onBack }: Props) {
                 </div>
               )}
             </>
+          )}
+
+          {/* ── WhatsApp-style recording UI ── */}
+          {pageState === "recording" && (
+            <div className="flex flex-col items-center gap-8 py-12">
+              {/* Pulsing mic */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-28 h-28 rounded-full bg-red-500/10 animate-ping" />
+                <div className="absolute w-20 h-20 rounded-full bg-red-500/20 animate-pulse" />
+                <div className="relative w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg">
+                  <Mic size={28} className="text-white" />
+                </div>
+              </div>
+
+              {/* Timer */}
+              <div className="text-center space-y-1">
+                <p className="text-4xl font-mono font-bold text-gray-900 dark:text-white tracking-widest">
+                  {formatTime(recSecs)}
+                </p>
+                <p className="text-sm text-red-500 font-semibold animate-pulse">● Aufnahme läuft…</p>
+              </div>
+
+              {/* Stop button */}
+              <button
+                type="button"
+                onClick={stopRecording}
+                className="flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors shadow-md"
+              >
+                <Square size={16} fill="white" /> Aufnahme beenden
+              </button>
+
+              <p className="text-xs text-gray-400 dark:text-gray-500">
+                Drücke "Aufnahme beenden" um die Analyse zu starten
+              </p>
+            </div>
           )}
 
           {/* ── Analysing progress bar ── */}
