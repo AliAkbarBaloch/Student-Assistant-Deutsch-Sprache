@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "../backend/static/react",
+    outDir: "../static/react",
     emptyOutDir: true,
   },
 });

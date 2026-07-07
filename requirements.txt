@@ -1,0 +1,38 @@
+# Web framework
+fastapi==0.115.7
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Audio processing
+librosa==0.10.2.post1
+soundfile==0.13.1
+numpy<2                        # numpy 2.x breaks librosa
+
+# Step 1 — Speech-to-Text: faster-whisper (CTranslate2, no GPU required)
+faster-whisper>=1.0.0          # ~4× faster than openai-whisper; int8 quantized on CPU
+av>=9.0                        # PyAV: decodes WebM/Opus/MP3 from browser recordings
+ctranslate2>=4.0,<5            # CTranslate2 backend used by faster-whisper
+torch>=2.2.0                   # 2.4+ not available on this macOS; transformers warning is harmless
+
+# Step 2 — LLM German conversation via OpenAI-compatible API
+openai>=1.0.0
+
+# Step 3 — German Text-to-Speech via Microsoft Edge TTS (free, no API key)
+edge-tts>=6.1.9
+
+# Environment variable management (.env file loading)
+python-dotenv>=1.0.0
+
+# Database (SQLite via SQLAlchemy ORM)
+sqlalchemy>=2.0.0
+
+# Authentication (JWT + bcrypt password hashing)
+PyJWT>=2.8.0
+bcrypt==4.0.1
+
+# LiveKit real-time voice agent (low-latency Phone call button)
+livekit>=0.16
+livekit-agents>=0.14
+livekit-plugins-openai>=0.10
+livekit-plugins-silero>=0.7
+livekit-plugins-turn-detector>=0.5

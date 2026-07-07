@@ -13,3 +13,6 @@ frontend/dist/
 # Generated TTS audio files — regenerated at runtime
 static/tts/*.mp3
 
+# Claude Code local files — never commit these
+CLAUDE.md
+.claude/

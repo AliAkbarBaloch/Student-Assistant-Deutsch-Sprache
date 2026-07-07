@@ -3,9 +3,9 @@
  * User uploads an MP3/WAV file OR records via microphone.
  * The AI transcribes the audio and returns a detailed pronunciation analysis.
  */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  ArrowLeft, Upload, Mic, Square, CheckCircle,
+  ArrowLeft, Upload, Mic, MicOff, CheckCircle,
   AlertCircle, Lightbulb, BarChart2, RefreshCw,
 } from "lucide-react";
 import { getPronunciationFeedback, type FeedbackResponse } from "../../services/api";
@@ -14,75 +14,19 @@ interface Props {
   onBack: () => void;
 }
 
-type PageState = "idle" | "recording" | "analysing" | "done" | "error";
+type PageState = "idle" | "recording" | "uploading" | "analysing" | "done" | "error";
 
 export function FeedbackPage({ onBack }: Props) {
-  const [pageState, setPageState] = useState<PageState>("idle");
-  const [result,    setResult]    = useState<FeedbackResponse | null>(null);
-  const [errorMsg,  setErrorMsg]  = useState("");
-  const [fileName,  setFileName]  = useState("");
-  const [showEn,    setShowEn]    = useState(false);
-  const [progress,  setProgress]  = useState(0);
-  const [recSecs,   setRecSecs]   = useState(0);
+  const [pageState,  setPageState]  = useState<PageState>("idle");
+  const [result,     setResult]     = useState<FeedbackResponse | null>(null);
+  const [errorMsg,   setErrorMsg]   = useState("");
+  const [targetText, setTargetText] = useState("");
+  const [fileName,   setFileName]   = useState("");
+  const [showEn,     setShowEn]     = useState(false);
 
-  const fileRef       = useRef<HTMLInputElement>(null);
-  const mediaRecRef   = useRef<MediaRecorder | null>(null);
-  const chunksRef     = useRef<Blob[]>([]);
-  const progressRef   = useRef<number | null>(null);
-  const recTimerRef   = useRef<number | null>(null);
-
-  // ── Recording timer ──────────────────────────────────────────────────────────
-
-  function formatTime(s: number): string {
-    const m = Math.floor(s / 60).toString().padStart(2, "0");
-    const sec = (s % 60).toString().padStart(2, "0");
-    return `${m}:${sec}`;
-  }
-
-  function startRecTimer() {
-    setRecSecs(0);
-    recTimerRef.current = window.setInterval(() => {
-      setRecSecs((prev) => prev + 1);
-    }, 1000);
-  }
-
-  function stopRecTimer() {
-    if (recTimerRef.current !== null) clearInterval(recTimerRef.current);
-  }
-
-  // ── Analysis progress bar ────────────────────────────────────────────────────
-
-  const STAGES = [
-    { upTo: 20, msg: "Audio wird hochgeladen…"         },
-    { upTo: 60, msg: "Transkription läuft (Whisper)…"  },
-    { upTo: 85, msg: "KI analysiert Aussprache…"       },
-    { upTo: 96, msg: "Feedback wird zusammengestellt…" },
-  ];
-
-  function getStageMsg(pct: number): string {
-    return STAGES.find((s) => pct <= s.upTo)?.msg ?? STAGES[STAGES.length - 1].msg;
-  }
-
-  function startProgress() {
-    if (progressRef.current !== null) clearInterval(progressRef.current);
-    setProgress(0);
-    progressRef.current = window.setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 96) { clearInterval(progressRef.current!); return prev; }
-        return prev + 1;
-      });
-    }, 180);
-  }
-
-  function stopProgress() {
-    if (progressRef.current !== null) clearInterval(progressRef.current);
-    setProgress(100);
-  }
-
-  useEffect(() => () => {
-    if (progressRef.current !== null) clearInterval(progressRef.current);
-    if (recTimerRef.current !== null) clearInterval(recTimerRef.current);
-  }, []);
+  const fileRef          = useRef<HTMLInputElement>(null);
+  const mediaRecRef      = useRef<MediaRecorder | null>(null);
+  const chunksRef        = useRef<Blob[]>([]);
 
   // ── File upload ─────────────────────────────────────────────────────────────
 
@@ -103,57 +47,35 @@ export function FeedbackPage({ onBack }: Props) {
 
   // ── Microphone recording ────────────────────────────────────────────────────
 
-  function startRecording() {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      setErrorMsg("Dein Browser unterstützt keine Audioaufnahme. Bitte Chrome oder Firefox verwenden.");
+  async function toggleRecording() {
+    if (pageState === "recording") {
+      mediaRecRef.current?.stop();
+      return;
+    }
+
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch {
+      setErrorMsg("Mikrofon-Zugriff verweigert.");
       setPageState("error");
       return;
     }
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then((stream) => {
-        const mimeType = ["audio/webm", "audio/mp4", "audio/ogg"].find(
-          (m) => MediaRecorder.isTypeSupported(m)
-        ) ?? "";
+    chunksRef.current = [];
+    const rec = new MediaRecorder(stream);
+    mediaRecRef.current = rec;
 
-        let rec: MediaRecorder;
-        try {
-          rec = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
-        } catch {
-          setErrorMsg("MediaRecorder wird von diesem Browser nicht unterstützt.");
-          setPageState("error");
-          stream.getTracks().forEach((t) => t.stop());
-          return;
-        }
+    rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+    rec.onstop = () => {
+      stream.getTracks().forEach((t) => t.stop());
+      const blob = new Blob(chunksRef.current, { type: "audio/webm" });
+      setFileName("Aufnahme.webm");
+      analyseAudio(blob);
+    };
 
-        chunksRef.current = [];
-        mediaRecRef.current = rec;
-
-        rec.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data); };
-        rec.onstop = () => {
-          stream.getTracks().forEach((t) => t.stop());
-          stopRecTimer();
-          const blob = new Blob(chunksRef.current, { type: rec.mimeType || "audio/webm" });
-          const ext  = (rec.mimeType || "audio/webm").includes("mp4") ? "m4a" : "webm";
-          setFileName(`Aufnahme.${ext}`);
-          analyseAudio(blob);
-        };
-
-        rec.start(250);
-        startRecTimer();
-        setPageState("recording");
-      })
-      .catch((err) => {
-        const msg = err instanceof DOMException && err.name === "NotAllowedError"
-          ? "Mikrofon-Zugriff verweigert. Bitte Berechtigung in den Browser-Einstellungen erteilen."
-          : "Mikrofon konnte nicht gestartet werden.";
-        setErrorMsg(msg);
-        setPageState("error");
-      });
-  }
-
-  function stopRecording() {
-    mediaRecRef.current?.stop();
+    rec.start();
+    setPageState("recording");
   }
 
   // ── Core analysis ───────────────────────────────────────────────────────────
@@ -163,14 +85,11 @@ export function FeedbackPage({ onBack }: Props) {
     setResult(null);
     setErrorMsg("");
     setShowEn(false);
-    startProgress();
     try {
-      const data = await getPronunciationFeedback(audio, "");
-      stopProgress();
+      const data = await getPronunciationFeedback(audio, targetText);
       setResult(data);
       setPageState("done");
     } catch (err: unknown) {
-      stopProgress();
       setErrorMsg(err instanceof Error ? err.message : "Analyse fehlgeschlagen.");
       setPageState("error");
     }
@@ -182,7 +101,6 @@ export function FeedbackPage({ onBack }: Props) {
     setErrorMsg("");
     setFileName("");
     setShowEn(false);
-    setProgress(0);
     if (fileRef.current) fileRef.current.value = "";
   }
 
@@ -240,14 +158,28 @@ export function FeedbackPage({ onBack }: Props) {
       <div className="flex-1 overflow-y-auto px-4 py-8">
         <div className="w-full max-w-xl mx-auto space-y-6">
 
-          {/* ── Idle / Error state ── */}
-          {(pageState === "idle" || pageState === "error") && (
+          {/* ── Idle / Error / Recording state ── */}
+          {(pageState === "idle" || pageState === "error" || pageState === "recording") && (
             <>
               <div className="text-center space-y-1">
                 <h1 className="text-xl font-extrabold">Aussprache analysieren</h1>
                 <p className="text-sm text-gray-400 dark:text-gray-500">
                   Lade eine Audiodatei hoch oder nimm dich auf — Buddy gibt dir detailliertes Feedback.
                 </p>
+              </div>
+
+              {/* Optional target text */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  Was hast du versucht zu sagen? <span className="font-normal normal-case">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  value={targetText}
+                  onChange={(e) => setTargetText(e.target.value)}
+                  placeholder='z. B. "Ich möchte einen Kaffee, bitte."'
+                  className="w-full rounded-xl px-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 placeholder-gray-400"
+                />
               </div>
 
               {/* Upload zone */}
@@ -289,11 +221,17 @@ export function FeedbackPage({ onBack }: Props) {
 
               {/* Record button */}
               <button
-                type="button"
-                onClick={startRecording}
-                className="w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold border-2 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-brand-500 hover:text-brand-500 transition-all"
+                onClick={toggleRecording}
+                className={`w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl text-sm font-bold border-2 transition-all ${
+                  pageState === "recording"
+                    ? "bg-red-500/10 border-red-500 text-red-500 animate-pulse"
+                    : "bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-brand-500 hover:text-brand-500"
+                }`}
               >
-                <Mic size={20} /> Aufnehmen
+                {pageState === "recording"
+                  ? <><MicOff size={20} /> Aufnahme stoppen</>
+                  : <><Mic size={20} /> Aufnehmen</>
+                }
               </button>
 
               {/* Error message */}
@@ -306,66 +244,16 @@ export function FeedbackPage({ onBack }: Props) {
             </>
           )}
 
-          {/* ── WhatsApp-style recording UI ── */}
-          {pageState === "recording" && (
-            <div className="flex flex-col items-center gap-8 py-12">
-              {/* Pulsing mic */}
-              <div className="relative flex items-center justify-center">
-                <div className="absolute w-28 h-28 rounded-full bg-red-500/10 animate-ping" />
-                <div className="absolute w-20 h-20 rounded-full bg-red-500/20 animate-pulse" />
-                <div className="relative w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg">
-                  <Mic size={28} className="text-white" />
-                </div>
-              </div>
-
-              {/* Timer */}
-              <div className="text-center space-y-1">
-                <p className="text-4xl font-mono font-bold text-gray-900 dark:text-white tracking-widest">
-                  {formatTime(recSecs)}
-                </p>
-                <p className="text-sm text-red-500 font-semibold animate-pulse">● Aufnahme läuft…</p>
-              </div>
-
-              {/* Stop button */}
-              <button
-                type="button"
-                onClick={stopRecording}
-                className="flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors shadow-md"
-              >
-                <Square size={16} fill="white" /> Aufnahme beenden
-              </button>
-
-              <p className="text-xs text-gray-400 dark:text-gray-500">
-                Drücke "Aufnahme beenden" um die Analyse zu starten
-              </p>
-            </div>
-          )}
-
-          {/* ── Analysing progress bar ── */}
+          {/* ── Analysing spinner ── */}
           {pageState === "analysing" && (
-            <div className="flex flex-col items-center gap-6 py-16 px-4">
-              {/* Animated icon */}
+            <div className="flex flex-col items-center gap-5 py-16">
               <div className="w-16 h-16 rounded-full border-4 border-brand-500/30 border-t-brand-500 animate-spin" />
-
-              {/* Title */}
-              <div className="text-center space-y-1">
-                <p className="font-bold text-gray-900 dark:text-white text-lg">Buddy analysiert…</p>
-                <p className="text-sm text-gray-400 dark:text-gray-500">{getStageMsg(progress)}</p>
+              <div className="text-center">
+                <p className="font-bold text-gray-900 dark:text-white">Buddy analysiert…</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+                  Transkription + KI-Feedback wird erstellt
+                </p>
               </div>
-
-              {/* Progress bar */}
-              <div className="w-full max-w-sm">
-                <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2.5 overflow-hidden">
-                  <div
-                    className="h-2.5 rounded-full bg-brand-500 transition-all duration-300 ease-out"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              </div>
-
-              <p className="text-xs text-gray-400 dark:text-gray-600 text-center">
-                Dies kann bei längeren Aufnahmen einige Sekunden dauern.
-              </p>
             </div>
           )}
 
