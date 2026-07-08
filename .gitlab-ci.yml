@@ -1,13 +1,149 @@
 stages:
-  - mirror
+  - lint
+  - test
+  - integration
+  - build
+  - deploy
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  npm_config_cache: "$CI_PROJECT_DIR/.cache/npm"
+
+.python_cache: &python_cache
+  cache:
+    key:
+      files:
+        - backend/requirements.txt
+        - backend/requirements-dev.txt
+    paths:
+      - .cache/pip
+
+.node_cache: &node_cache
+  cache:
+    key:
+      files:
+        - frontend/package-lock.json
+    paths:
+      - .cache/npm
+      - frontend/node_modules
+
+# ---------------------------------------------------------------------------
+# Lint / syntax check
+# ---------------------------------------------------------------------------
+
+backend:syntax-check:
+  stage: lint
+  image: python:3.12-slim
+  script:
+    - python -m compileall -q backend
+
+frontend:syntax-check:
+  stage: lint
+  image: node:20-alpine
+  <<: *node_cache
+  before_script:
+    - cd frontend && npm ci --prefer-offline
+  script:
+    - cd frontend && npx tsc --noEmit
+
+# ---------------------------------------------------------------------------
+# Unit tests
+# ---------------------------------------------------------------------------
+
+backend:unit-tests:
+  stage: test
+  image: python:3.12-slim
+  <<: *python_cache
+  before_script:
+    - pip install --cache-dir "$PIP_CACHE_DIR" -r backend/requirements-dev.txt
+  script:
+    - cd backend
+    # pytest exits 5 when no tests are collected yet — don't fail the pipeline
+    # on an empty suite, only on real failures.
+    - |
+      pytest -q --maxfail=1
+      status=$?
+      if [ "$status" -eq 5 ]; then
+        echo "No unit tests found yet — add them under backend/tests/"
+        exit 0
+      fi
+      exit $status
+
+frontend:unit-tests:
+  stage: test
+  image: node:20-alpine
+  <<: *node_cache
+  before_script:
+    - cd frontend && npm ci --prefer-offline
+  script:
+    - cd frontend
+    - |
+      if node -e "process.exit(require('./package.json').scripts.test ? 0 : 1)"; then
+        npm test
+      else
+        echo "No frontend test script configured yet — add one (e.g. vitest) and a package.json 'test' script"
+      fi
+
+# ---------------------------------------------------------------------------
+# Integration: boot the real FastAPI app and hit it over HTTP
+# ---------------------------------------------------------------------------
+
+backend:integration-smoke:
+  stage: integration
+  image: python:3.12-slim
+  <<: *python_cache
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends curl
+    - pip install --cache-dir "$PIP_CACHE_DIR" -r backend/requirements.txt
+  script:
+    - cd backend
+    - uvicorn app:app --host 127.0.0.1 --port 8000 &
+    - |
+      for i in $(seq 1 30); do
+        if curl -sf http://127.0.0.1:8000/api/health; then break; fi
+        if [ "$i" -eq 30 ]; then echo "Backend did not become healthy in time" && exit 1; fi
+        sleep 1
+      done
+    - curl -sf http://127.0.0.1:8000/api/health | grep -q '"status":"ok"'
+    - curl -sf http://127.0.0.1:8000/ -o /dev/null -w "%{http_code}" | grep -q "200"
+  after_script:
+    - pkill -f "uvicorn app:app" || true
+
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
+
+frontend:build:
+  stage: build
+  image: node:20-alpine
+  <<: *node_cache
+  before_script:
+    - cd frontend && npm ci --prefer-offline
+  script:
+    - cd frontend && npm run build
+  artifacts:
+    paths:
+      - frontend/dist
+    expire_in: 1 week
+
+# ---------------------------------------------------------------------------
+# Deploy: mirror the now-verified main branch to the public GitHub repo
+# ---------------------------------------------------------------------------
 
 mirror_to_github:
-  stage: mirror
+  stage: deploy
   image: alpine:latest
   before_script:
     - apk add --no-cache git
   script:
     - git remote add github https://oauth2:${GITHUB_TOKEN}@github.com/AliAkbarBaloch/Student-Assistant-Deutsch-Sprache.git
-    - git push github HEAD:main
-  only:
-    - main
+    # GitHub is a one-way mirror of this repo's main — force keeps it in
+    # sync even after a rebase/history rewrite on this side.
+    - git push github HEAD:main --force
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
