@@ -49,7 +49,7 @@ frontend:syntax-check:
   before_script:
     - cd frontend && npm ci --prefer-offline
   script:
-    - cd frontend && npx tsc --noEmit
+    - npx tsc --noEmit
 
 # ---------------------------------------------------------------------------
 # Unit tests
@@ -81,7 +81,6 @@ frontend:unit-tests:
   before_script:
     - cd frontend && npm ci --prefer-offline
   script:
-    - cd frontend
     - |
       if node -e "process.exit(require('./package.json').scripts.test ? 0 : 1)"; then
         npm test
@@ -125,10 +124,10 @@ frontend:build:
   before_script:
     - cd frontend && npm ci --prefer-offline
   script:
-    - cd frontend && npm run build
+    - npm run build
   artifacts:
     paths:
-      - frontend/dist
+      - backend/static/react
     expire_in: 1 week
 
 # ---------------------------------------------------------------------------
