@@ -1,4 +1,4 @@
-# Deutsch Buddy
+# Deutsche Buddy
 
 An AI-powered German language learning app with ultra-low-latency voice conversation practice. Speak or type in German, and Buddy responds with natural German speech — correcting your mistakes gently and adapting to your CEFR level (A1 → B2).
 

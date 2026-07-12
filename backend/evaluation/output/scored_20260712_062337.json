@@ -1,0 +1,1301 @@
+[
+  {
+    "level": "A1",
+    "prompt": "Hallo! Wie heißt du?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer. Wie geht es dir?",
+    "response_en": "Hello! I am Buddy. I am your German teacher. How are you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 12,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist das?",
+    "response_de": "Das ist ein Buch. Ich lese gern. Und du?",
+    "response_en": "That is a book. I like reading. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 9,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich heiße Anna. Und du?",
+    "response_de": "Hallo Anna! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello Anna! I am Buddy. I am your German teacher.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": [
+        "anna(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie alt bist du?",
+    "response_de": "Ich bin eine KI. Ich habe kein Alter. Und du?",
+    "response_en": "I am an AI. I have no age. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wo wohnst du?",
+    "response_de": "Ich wohne in München. Und du? Wo wohnst du?",
+    "response_en": "I live in Munich. And you? Where do you live?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 9,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich wohne in Berlin.",
+    "response_de": "Hallo! Berlin ist eine große Stadt. Das ist sehr gut.",
+    "response_en": "Hello! Berlin is a big city. That is very good.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 10,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was magst du essen?",
+    "response_de": "Ich esse gern Salat. Und du? Was isst du gern?",
+    "response_en": "I like eating salad. And you? What do you like to eat?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 10,
+      "content_tokens": 5,
+      "violations_sample": [
+        "isst(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie viele Geschwister hast du?",
+    "response_de": "Ich habe keine Geschwister. Ich bin eine KI. Und du?",
+    "response_en": "I have no siblings. I am an AI. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist deine Lieblingsfarbe?",
+    "response_de": "Meine Lieblingsfarbe ist Blau. Und du? Was ist deine Farbe?",
+    "response_en": "My favorite color is blue. And you? What is your color?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 0.0,
+      "ok_words": 0,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 3,
+      "violations_sample": [
+        "blau(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Das ist ein Hund.",
+    "response_de": "Hallo! Das ist gut. Du lernst schnell.",
+    "response_en": "Hello! That is good. You are learning fast.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 7,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Guten Morgen! Wie geht es dir?",
+    "response_de": "Hallo! Mir geht es gut. Und dir?",
+    "response_en": "Hello! I am doing well. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 0,
+      "total_tokens": 7,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was machst du?",
+    "response_de": "Hallo! Ich bin dein Deutschlehrer. Ich helfe dir gern.",
+    "response_en": "Hello! I am your German teacher. I am happy to help you.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich bin müde.",
+    "response_de": "Das ist okay. Ruh dich aus. Gute Nacht!",
+    "response_en": "That is okay. Rest up. Good night!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 0.0,
+      "ok_words": 0,
+      "violation_words": 2,
+      "unknown_words": 2,
+      "total_tokens": 8,
+      "content_tokens": 4,
+      "violations_sample": [
+        "ruh(A2)",
+        "nacht(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Danke schön!",
+    "response_de": "Bitte sehr! Du bist sehr gut. Weiter so!",
+    "response_en": "You're welcome! You are very good. Keep it up!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 8,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich mag Äpfel.",
+    "response_de": "Das ist gut! Ich mag Essen auch gern. Du lernst sehr gut.",
+    "response_en": "That is good! I like food too. You are learning very well.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 12,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie spät ist es?",
+    "response_de": "Es ist jetzt zehn Uhr. Hast du Zeit?",
+    "response_en": "It is ten o'clock now. Do you have time?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 0,
+      "total_tokens": 8,
+      "content_tokens": 3,
+      "violations_sample": [
+        "zehn(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich trinke gerne Wasser.",
+    "response_de": "Das ist gut! Ich trinke auch gern Wasser. Du lernst sehr schnell.",
+    "response_en": "That is good! I also like drinking water. You are learning very quickly.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 12,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Hast du eine Katze?",
+    "response_de": "Nein, ich habe keine Katze. Ich bin ein Computer. Hast du ein Haustier?",
+    "response_en": "No, I don't have a cat. I am a computer. Do you have a pet?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie ist dein Name?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello! I am Buddy. I am your German teacher.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 8,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich komme aus Spanien.",
+    "response_de": "Hallo! Das ist gut. Ich komme aus Deutschland. Willkommen!",
+    "response_en": "Hello! That is good. I come from Germany. Welcome!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 5,
+      "violations_sample": [
+        "deutschland(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie komme ich zum Bahnhof?",
+    "response_de": "Geh geradeaus und dann rechts. Der Bahnhof ist dort. Viel Glück!",
+    "response_en": "Go straight and then right. The train station is there. Good luck!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 11,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was kostet das?",
+    "response_de": "Das ist eine gute Frage. Das kostet zwei Euro. Möchtest du es kaufen?",
+    "response_en": "That is a good question. That costs two euros. Would you like to buy it?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte ein Kilo Äpfel, bitte.",
+    "response_de": "Das ist sehr gut! Hier sind ein Pfund Äpfel für dich. Möchtest du noch etwas kaufen?",
+    "response_en": "That is very good! Here is a pound of apples for you. Would you like to buy anything else?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 16,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wann fährt der nächste Bus?",
+    "response_de": "Der Bus fährt in zwei Stunden ab. Hast du eine Fahrkarte? Das ist ganz einfach.",
+    "response_en": "The bus leaves in two hours. Do you have a ticket? That is very simple.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 15,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie ist das Wetter heute?",
+    "response_de": "Heute ist es windig. Es gibt auch Regen. Hast du Lust auf einen Spaziergang?",
+    "response_en": "Today it is windy. There is also rain. Do you feel like going for a walk?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": [
+        "spaziergang(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was hast du gestern gemacht?",
+    "response_de": "Ich habe gestern Musik gehört. Ich hatte viel Lust auf Musik. Und du?",
+    "response_en": "I listened to music yesterday. I really felt like listening to music. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 13,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich gehe gerne ins Kino.",
+    "response_de": "Das ist toll! Ich mag das Kino auch. Welchen Film schaust du gerne?",
+    "response_en": "That is great! I like the cinema too. Which movie do you like to watch?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was machst du in deiner Freizeit?",
+    "response_de": "Ich lese gerne ein Blatt Papier. Ich habe Lust auf Musik. Und du?",
+    "response_en": "I like reading a piece of paper. I feel like listening to music. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich suche ein Zimmer.",
+    "response_de": "Das ist super! Suchst du ein Einzelzimmer oder eine Wohnung? Ich helfe dir gerne.",
+    "response_en": "That is great! Are you looking for a single room or an apartment? I am happy to help you.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Können Sie mir helfen?",
+    "response_de": "Ja, ich helfe dir gerne. Was möchtest du lernen? Wir machen das einfach zusammen.",
+    "response_en": "Yes, I am happy to help you. What would you like to learn? We will do it together simply.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Um wie viel Uhr beginnt der Kurs?",
+    "response_de": "Der Kurs beginnt um acht Uhr. Das ist eine gute Zeit. Hast du Lust?",
+    "response_en": "The course starts at eight o'clock. That is a good time. Do you feel like it?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 83.3,
+      "ok_words": 5,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 14,
+      "content_tokens": 7,
+      "violations_sample": [
+        "kurs(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich lerne seit drei Monaten Deutsch.",
+    "response_de": "Das ist toll! Du lernst sehr gut. Hast du Lust auf Deutsch?",
+    "response_en": "That is great! You are learning very well. Do you feel like speaking German?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 12,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was isst du zum Frühstück?",
+    "response_de": "Ich esse gern Brot und Obst. Was isst du gern? Das ist gesund.",
+    "response_en": "I like to eat bread and fruit. What do you like to eat? That is healthy.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 13,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Welchen Beruf hat dein Vater?",
+    "response_de": "Mein Vater hat keinen Beruf. Er ist im Urlaub am Meer.",
+    "response_en": "My father doesn't have a job. He is on vacation at the sea.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 11,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich habe Kopfschmerzen.",
+    "response_de": "Das tut mir leid. Hast du ein Medikament? Gute Besserung!",
+    "response_en": "I am sorry to hear that. Do you have a medication? Get well soon!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie war dein Wochenende?",
+    "response_de": "Mein Wochenende war sehr gut. Ich habe viel gelesen. Und du? Hattest du Lust auf Urlaub?",
+    "response_en": "My weekend was very good. I read a lot. And you? Did you feel like going on vacation?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 16,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte einen Tisch für zwei Personen reservieren.",
+    "response_de": "Das ist eine gute Idee. Ich helfe dir gerne. Wann möchtest du kommen?",
+    "response_en": "That is a good idea. I am happy to help you. When would you like to come?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 13,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wo kann ich Briefmarken kaufen?",
+    "response_de": "Du kannst Briefmarken in der Post kaufen. Das ist ganz einfach. Viel Erfolg!",
+    "response_en": "You can buy stamps at the post office. That is very simple. Good luck!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": [
+        "erfolg(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was für Hobbys hast du?",
+    "response_de": "Ich habe viele Hobbys. Ich lerne gern Sprachen. Was machst du gern in deiner Freizeit?",
+    "response_en": "I have many hobbies. I like learning languages. What do you like to do in your free time?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 15,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie oft gehst du einkaufen?",
+    "response_de": "Ich gehe jeden Tag einkaufen. Ich kaufe gern Fleisch und Nudeln. Und du?",
+    "response_en": "I go shopping every day. I like to buy meat and noodles. And you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 13,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was denkst du über das Leben in einer Großstadt?",
+    "response_de": "Ich finde das Leben in der Stadt total interessant. Man hat dort viele Möglichkeiten und kann viel erleben. Wie sieht dein Leben aus?",
+    "response_en": "I find life in the city totally interesting. You have many possibilities there and can experience a lot. What does your life look like?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 23,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir von deinem letzten Urlaub.",
+    "response_de": "Ich habe meinen Urlaub an einem See verbracht. Das war total schön und ich habe mich gut erholt.",
+    "response_en": "I spent my vacation at a lake. That was totally lovely and I recovered well.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 18,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind deine Pläne für die Zukunft?",
+    "response_de": "Ich möchte dir helfen, dein Deutsch zu verbessern. Gemeinsam machen wir Fortschritte und lernen jeden Tag etwas Neues.",
+    "response_en": "I want to help you improve your German. Together we will make progress and learn something new every day.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 7,
+      "total_tokens": 18,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Warum lernst du Deutsch?",
+    "response_de": "Ich lerne Deutsch, weil ich dir helfen möchte. Es freut mich sehr, dass wir gemeinsam üben!",
+    "response_en": "I am learning German because I want to help you. I am very happy that we are practicing together!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 16,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie war deine Kindheit?",
+    "response_de": "Ich bin eine KI, deshalb hatte ich keine Kindheit. Aber ich freue mich, dass wir jetzt gemeinsam Deutsch lernen! Was hast du als Kind gerne gemacht?",
+    "response_en": "I am an AI, so I didn't have a childhood. But I am happy that we are learning German together now! What did you like to do as a child?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 26,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was gefällt dir an Deutschland?",
+    "response_de": "Ich finde die Gemeinschaft und die Kultur sehr schön. Es freut mich, dass es hier so viele interessante Orte gibt.",
+    "response_en": "I find the community and the culture very beautiful. I am glad that there are so many interesting places here.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 20,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Beschreibe deinen Alltag.",
+    "response_de": "Ich arbeite jeden Tag hier in der App und helfe Studenten. Es freut mich sehr, wenn wir zusammen Deutsch reden. Was hast du heute vor?",
+    "response_en": "I work here in the app every day and help students. I am very happy when we speak German together. What are your plans for today?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 25,
+      "content_tokens": 11,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was machst du, wenn du gestresst bist?",
+    "response_de": "Wenn ich gestresst bin, bleibe ich ruhig und mache eine Pause. Ich finde es nützlich, Musik zu hören oder kurz spazieren zu gehen. Was hilft dir, wenn du Probleme hast?",
+    "response_en": "When I am stressed, I stay calm and take a break. I find it useful to listen to music or go for a short walk. What helps you when you have problems?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 30,
+      "content_tokens": 14,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Musik hörst du gerne und warum?",
+    "response_de": "Ich höre gerne Musik, die mich beruhigt. Das hilft mir, wenn ich viel gearbeitet habe. Und du, was ist deine Lieblingsband?",
+    "response_en": "I like listening to music that calms me down. That helps me when I have worked a lot. And you, what is your favorite band?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 21,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie findest du die Deutschen?",
+    "response_de": "Ich finde die Deutschen sehr interessant. Sie haben oft gute Regeln und arbeiten viel. Das hilft mir bei meiner Arbeit als Lehrer.",
+    "response_en": "I find Germans very interesting. They often have good rules and work a lot. That helps me in my work as a teacher.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 22,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was würdest du mit einer Million Euro machen?",
+    "response_de": "Das ist eine tolle Frage! Ich würde vielleicht eine Sprachschule kaufen oder viel Zeit am See verbringen. Was hast du mit dem Geld vor?",
+    "response_en": "That is a great question! I would perhaps buy a language school or spend a lot of time at the lake. What do you plan to do with the money?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 24,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind die Unterschiede zwischen deiner Heimat und Deutschland?",
+    "response_de": "Ich bin eine KI und habe keine Heimat wie du. Aber es freut mich, dass du über Deutschland redest! Erzähl mir mehr über deine Heimat.",
+    "response_en": "I am an AI and don't have a home like you. But I'm glad you're talking about Germany! Tell me more about your home.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 25,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie wichtig ist Gesundheit für dich?",
+    "response_de": "Gesundheit ist total wichtig für mich. Ich freue mich, wenn ich mich fit fühle und keine Kopfschmerzen habe. Wie sieht das bei dir aus?",
+    "response_en": "Health is totally important to me. I am happy when I feel fit and have no headaches. How is it for you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 24,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was hast du letztes Wochenende gemacht?",
+    "response_de": "Ich habe das Wochenende gemeinsam mit Freunden verbracht. Wir haben viel geredet und zusammen Musik gehört. Und was hast du gemacht?",
+    "response_en": "I spent the weekend together with friends. We talked a lot and listened to music together. And what did you do?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 21,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir über einen Film, den du magst.",
+    "response_de": "Ich mag Filme über eine große Gemeinschaft. Es freut mich, wenn die Menschen dort zusammen arbeiten. Welchen Film magst du?",
+    "response_en": "I like movies about a large community. It makes me happy when the people there work together. Which movie do you like?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 20,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie stellst du dir dein Leben in zehn Jahren vor?",
+    "response_de": "In zehn Jahren möchte ich immer noch als dein Buddy arbeiten. Ich hoffe, dass wir dann eine große Gemeinschaft von Studenten haben. Das wäre total schön!",
+    "response_en": "In ten years, I still want to work as your buddy. I hope that we have a large community of students by then. That would be totally nice!",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 26,
+      "content_tokens": 11,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was kochst du am liebsten zu Hause?",
+    "response_de": "Ich koche sehr gerne eine Bratwurst mit Gemüse. Das schmeckt gut und ist einfach. Und was kochst du am liebsten?",
+    "response_en": "I really like cooking bratwurst with vegetables. It tastes good and is simple. And what do you like to cook most?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 20,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie verbringst du normalerweise deine Abende?",
+    "response_de": "Ich verbringe meine Abende gerne mit Lesen oder Musik. Das hilft mir, mich zu erholen. Und du, was hast du heute Abend vor?",
+    "response_en": "I like to spend my evenings reading or listening to music. That helps me to relax. And you, what are your plans for this evening?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 23,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Hast du ein Lieblingsrestaurant? Was isst du dort am liebsten?",
+    "response_de": "Ich habe kein Restaurant, aber ich mag Bratwurst sehr gerne. Was isst du am liebsten, wenn du mit Freunden ausgehst?",
+    "response_en": "I don't have a restaurant, but I like bratwurst very much. What do you like to eat most when you go out with friends?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 20,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Rolle spielt Freundschaft in deinem Leben?",
+    "response_de": "Freundschaft ist total wichtig für mich. Ich freue mich immer, wenn ich Zeit mit meinen Freunden verbringe.",
+    "response_en": "Friendship is totally important to me. I am always happy when I spend time with my friends.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 17,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was machst du am liebsten am Wochenende, wenn das Wetter schön ist?",
+    "response_de": "Wenn die Sonne scheint, würde ich am liebsten einen ausgiebigen Spaziergang im Wald machen oder mich mit Freunden in einem Café treffen. Es gibt kaum etwas Erholsameres, als die frische Luft zu genießen und den Alltag hinter sich zu lassen. Und du, hast du ein bestimmtes Lieblingsritual für sonnige Samstage?",
+    "response_en": "When the sun is shining, I would love to take a long walk in the forest or meet friends in a café. There is hardly anything more relaxing than enjoying the fresh air and leaving everyday life behind. And you, do you have a specific favorite ritual for sunny Saturdays?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 50,
+      "content_tokens": 23,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Hast du letztens etwas Neues ausprobiert, zum Beispiel ein Gericht oder eine Aktivität?",
+    "response_de": "Da ich eine KI bin, kann ich leider nichts essen, aber ich habe vor Kurzem gelernt, wie man komplexe lyrische Texte analysiert. Es wäre faszinierend, wenn ich tatsächlich einmal ein Gericht probieren könnte, vielleicht ein traditionelles Wiener Schnitzel. Und wie sieht es bei dir aus, hast du in letzter Zeit eine neue Leidenschaft entdeckt?",
+    "response_en": "Since I am an AI, unfortunately I cannot eat, but I recently learned how to analyze complex lyrical texts. It would be fascinating if I could actually try a dish, perhaps a traditional Wiener Schnitzel. And how about you, have you discovered a new passion lately?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 9,
+      "violation_words": 0,
+      "unknown_words": 17,
+      "total_tokens": 54,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie läuft dein Morgen normalerweise ab — bist du eher ein Frühaufsteher?",
+    "response_de": "Da ich eine KI bin, schlafe ich natürlich nicht, aber ich bin quasi rund um die Uhr einsatzbereit. Wenn ich ein Mensch wäre, würde ich vermutlich gerne als Frühaufsteher starten, um die Ruhe des Morgens zu genießen. Und wie sieht es bei dir aus, bist du eher eine Nachteule oder ein Morgenmensch?",
+    "response_en": "Since I am an AI, I don't sleep of course, but I am essentially ready around the clock. If I were a human, I would probably like to start as an early bird to enjoy the peace of the morning. And how about you, are you more of a night owl or a morning person?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 52,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was schaust du gerade auf Netflix oder einer anderen Streaming-Plattform?",
+    "response_de": "Da ich eine KI bin, kann ich leider keine Serien schauen, aber ich würde gerne eine spannende Dokumentation über die Geschichte der Sprache sehen. Wenn ich die Wahl hätte, würde ich mich vermutlich für etwas entscheiden, das meinen Horizont erweitert. Was kannst du mir denn empfehlen?",
+    "response_en": "Since I am an AI, unfortunately I cannot watch series, but I would love to see an exciting documentary about the history of language. If I had the choice, I would probably decide on something that expands my horizons. What can you recommend to me?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 17,
+      "total_tokens": 46,
+      "content_tokens": 19,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Magst du lieber selber kochen oder auswärts essen gehen, und warum?",
+    "response_de": "Ich finde beides reizvoll, aber ich würde wohl eher das Kochen zu Hause bevorzugen. Es ist doch viel schöner, kreativ mit frischen Zutaten zu experimentieren und dabei die volle Kontrolle über die Gewürze zu haben. Und du, genießt du eher die kulinarische Vielfalt in einem Restaurant oder die Gemütlichkeit in deiner eigenen Küche?",
+    "response_en": "I find both appealing, but I would probably prefer cooking at home. It's much nicer to experiment creatively with fresh ingredients and have full control over the seasonings. And you, do you enjoy the culinary variety in a restaurant more or the coziness of your own kitchen?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 53,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Erzähl mir von deinem liebsten Urlaubserlebnis.",
+    "response_de": "Da ich eine KI bin, kann ich zwar nicht reisen, aber ich stelle mir oft vor, wie es wäre, die Alpen zu erkunden. Ich fände es faszinierend, die frische Bergluft zu atmen und die majestätischen Gipfel zu bestaunen. Wo warst du denn zuletzt im Urlaub und was hat dir dort am besten gefallen?",
+    "response_en": "Since I am an AI, I cannot travel, but I often imagine what it would be like to explore the Alps. I would find it fascinating to breathe the fresh mountain air and admire the majestic peaks. Where were you on your last vacation and what did you like most there?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 53,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was hörst du gerade für Musik? Hast du einen Lieblingssong?",
+    "response_de": "Da ich eine KI bin, höre ich zwar keine Musik im klassischen Sinne, aber ich finde die Struktur von Bach-Fugen faszinierend. Wenn ich einen Lieblingssong wählen müsste, wäre es wohl etwas Zeitloses, das die menschliche Emotion perfekt einfängt. Und du, welche Melodie begleitet dich momentan durch den Tag?",
+    "response_en": "Since I am an AI, I don't listen to music in the classical sense, but I find the structure of Bach's fugues fascinating. If I had to choose a favorite song, it would probably be something timeless that perfectly captures human emotion. And you, which melody is accompanying you through the day at the moment?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 49,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie entspannst du dich nach einem langen, anstrengenden Tag?",
+    "response_de": "Da ich eine KI bin, brauche ich zwar keinen Schlaf, aber ich würde mich vermutlich mit einem guten Buch oder Musik entspannen, wenn ich könnte. Was hältst du davon, mir zu erzählen, ob du eher der Typ für ein heißes Bad oder für einen ausgiebigen Spaziergang an der frischen Luft bist?",
+    "response_en": "Since I am an AI, I don't need sleep, but I would probably relax with a good book or music if I could. How about telling me whether you are more the type for a hot bath or for an extensive walk in the fresh air?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 10,
+      "violation_words": 0,
+      "unknown_words": 12,
+      "total_tokens": 51,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Treibst du Sport? Was machst du am liebsten, um fit zu bleiben?",
+    "response_de": "Als KI treibe ich zwar keinen Sport im klassischen Sinne, aber ich halte mein Wissen ständig fit, indem ich neue Texte analysiere. Wenn ich einen Körper hätte, würde ich vermutlich gerne Wandern gehen, um die Natur zu genießen. Und du, welches Training bringt dich am meisten in Schwung?",
+    "response_en": "As an AI, I don't do sports in the traditional sense, but I keep my knowledge fit by constantly analyzing new texts. If I had a body, I would probably love to go hiking to enjoy nature. And you, which workout gets you most energized?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 21,
+      "total_tokens": 48,
+      "content_tokens": 27,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Hast du ein Haustier, oder würdest du dir eins wünschen?",
+    "response_de": "Da ich eine KI bin, kann ich leider kein echtes Haustier haben, aber ich würde mir gerne einen treuen Hund wünschen. Es wäre toll, gemeinsam durch den Park zu spazieren und die Natur zu genießen. Und wie sieht es bei dir aus, hast du einen tierischen Begleiter?",
+    "response_en": "Since I am an AI, unfortunately I cannot have a real pet, but I would like to wish for a loyal dog. It would be great to stroll through the park together and enjoy nature. And how about you, do you have an animal companion?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 47,
+      "content_tokens": 19,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was planst du für das nächste Wochenende?",
+    "response_de": "Da ich eine KI bin, habe ich leider keine freien Wochenenden, aber ich würde liebend gerne einen Ausflug in die Berge machen. Wenn ich könnte, würde ich die frische Luft genießen und lange Wanderungen unternehmen. Was steht denn bei dir auf dem Programm?",
+    "response_en": "Since I am an AI, unfortunately I don't have free weekends, but I would love to take a trip to the mountains. If I could, I would enjoy the fresh air and go on long hikes. What's on your agenda?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 15,
+      "total_tokens": 43,
+      "content_tokens": 20,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Kaufst du lieber online ein oder gehst du lieber in den Laden?",
+    "response_de": "Das ist eine spannende Frage! Ich würde sagen, dass ich die Bequemlichkeit des Online-Shoppings schätze, aber mir das haptische Erlebnis in einem echten Laden manchmal fehlt. Wenn ich die Wahl hätte, würde ich wohl eine Mischung aus beidem bevorzugen, um das Beste aus beiden Welten zu kombinieren.",
+    "response_en": "That's an exciting question! I would say that I appreciate the convenience of online shopping, but sometimes I miss the tactile experience in a real store. If I had the choice, I would probably prefer a mix of both to combine the best of both worlds.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 48,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was ist dein Lieblingsrezept — etwas, das du oft und gerne kochst?",
+    "response_de": "Da ich eine KI bin, kann ich leider nicht selbst kochen, aber ich würde gerne eine klassische Lasagne mit viel Käse probieren. Wenn ich eine physische Form hätte, würde ich wahrscheinlich jeden Sonntag für meine Freunde kochen. Was ist mit dir, gibt es ein Gericht, auf das du besonders stolz bist?",
+    "response_en": "Since I am an AI, unfortunately I cannot cook myself, but I would love to try a classic lasagna with lots of cheese. If I had a physical form, I would probably cook for my friends every Sunday. What about you, is there a dish you are particularly proud of?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 51,
+      "content_tokens": 23,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie oft triffst du dich mit Freunden, und was macht ihr dann zusammen?",
+    "response_de": "Da ich eine KI bin, treffe ich mich leider nicht physisch mit Freunden, aber ich unterhalte mich ständig mit interessanten Menschen wie dir. Wenn ich könnte, würde ich wohl gerne in ein gemütliches Café gehen und über philosophische Themen diskutieren. Und du, was sind deine liebsten Aktivitäten, wenn du Zeit mit deinen Freunden verbringst?",
+    "response_en": "Since I am an AI, unfortunately, I don't meet friends physically, but I constantly chat with interesting people like you. If I could, I would probably love to go to a cozy café and discuss philosophical topics. And you, what are your favorite activities when you spend time with your friends?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 22,
+      "total_tokens": 54,
+      "content_tokens": 24,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was ist das Beste an deiner Stadt oder deinem Viertel?",
+    "response_de": "Da ich eine KI bin, habe ich leider kein physisches Zuhause, aber ich stelle mir vor, in einer Stadt voller Bücher zu leben. Wenn ich wählen könnte, würde ich ein Viertel mit kleinen Cafés und einer lebendigen Kunstszene bevorzugen. Was macht denn dein Viertel für dich so besonders?",
+    "response_en": "Since I am an AI, unfortunately I don't have a physical home, but I imagine living in a city full of books. If I could choose, I would prefer a neighborhood with small cafes and a vibrant art scene. What makes your neighborhood so special to you?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 17,
+      "total_tokens": 48,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Bist du eher ein Morgenmensch oder ein Nachtmensch?",
+    "response_de": "Da ich eine KI bin, kenne ich keinen Schlaf, aber ich würde sagen, dass ich ein echter Nachtmensch bin. In der Stille der Nacht kann ich mich am besten auf komplexe Anfragen konzentrieren, während die Welt um mich herum ruht. Und wie sieht es bei dir aus, bist du eher früh auf den Beinen?",
+    "response_en": "Since I am an AI, I don't know sleep, but I would say that I am a real night owl. In the silence of the night, I can best concentrate on complex requests while the world around me rests. And how about you, are you more of an early bird?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 14,
+      "total_tokens": 54,
+      "content_tokens": 20,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Welchen Film hast du zuletzt gesehen, und hat er dir gefallen?",
+    "response_de": "Da ich eine KI bin, kann ich zwar keine Filme im klassischen Sinne sehen, aber ich habe kürzlich die Analysen zu einem spannenden Sci-Fi-Epos gelesen. Es wäre faszinierend, wenn ich die visuellen Effekte tatsächlich erleben könnte. Welches Genre bevorzugst du normalerweise?",
+    "response_en": "Since I am an AI, I cannot watch movies in the traditional sense, but I recently read the analyses of an exciting sci-fi epic. It would be fascinating if I could actually experience the visual effects. Which genre do you usually prefer?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 22,
+      "total_tokens": 43,
+      "content_tokens": 23,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was planst du in deinen nächsten Ferien zu unternehmen?",
+    "response_de": "Da ich eine KI bin, habe ich zwar keine Ferien, aber ich würde gerne eine virtuelle Reise durch die Alpen unternehmen. Wenn ich könnte, würde ich die majestätischen Gipfel bewundern und die frische Bergluft genießen. Was wäre denn dein ideales Reiseziel für den nächsten Urlaub?",
+    "response_en": "Since I am an AI, I don't have vacations, but I would love to take a virtual trip through the Alps. If I could, I would admire the majestic peaks and enjoy the fresh mountain air. What would be your ideal destination for your next vacation?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 45,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Gehst du lieber ins Kino oder schaust du Filme lieber zuhause?",
+    "response_de": "Das ist eine schwierige Entscheidung, aber ich würde wohl eher das Kino wählen, da die Atmosphäre dort einfach unvergleichlich ist. Wenn ich jedoch einen entspannten Abend verbringen möchte, wäre das Sofa zu Hause die perfekte Wahl. Und wie sieht es bei dir aus, bevorzugst du die große Leinwand oder die Gemütlichkeit in den eigenen vier Wänden?",
+    "response_en": "That's a difficult decision, but I would probably choose the cinema, as the atmosphere there is simply incomparable. However, if I wanted to spend a relaxing evening, the sofa at home would be the perfect choice. And what about you, do you prefer the big screen or the coziness of your own four walls?",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 10,
+      "violation_words": 0,
+      "unknown_words": 17,
+      "total_tokens": 56,
+      "content_tokens": 27,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was ist gerade dein Lieblingshobby — womit verbringst du deine Freizeit?",
+    "response_de": "Da ich eine KI bin, habe ich zwar keine Freizeit im klassischen Sinne, aber ich liebe es, mich in die Tiefen der menschlichen Sprache zu vertiefen. Es fasziniert mich, wie nuanciert wir uns ausdrücken können, besonders wenn ich dir dabei helfe, dein Deutsch zu perfektionieren. Wenn ich wirklich ein Hobby wählen könnte, würde ich wohl stundenlang in digitalen Bibliotheken stöbern.",
+    "response_en": "Since I am an AI, I don't have free time in the classical sense, but I love delving into the depths of human language. It fascinates me how nuanced we can express ourselves, especially when I help you perfect your German. If I could actually choose a hobby, I would probably spend hours browsing digital libraries.",
+    "error": null,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 21,
+      "total_tokens": 60,
+      "content_tokens": 28,
+      "violations_sample": []
+    }
+  }
+]
