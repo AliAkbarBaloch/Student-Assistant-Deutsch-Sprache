@@ -18,9 +18,9 @@ Method (deliberately simple, no stemming/lemmatization):
      per level and overall.
 
 Usage (run from the backend/ folder):
-    python evaluation/evaluate_cefr_accuracy.py                # generate + score
-    python evaluation/evaluate_cefr_accuracy.py --generate-only
-    python evaluation/evaluate_cefr_accuracy.py --score-only --input evaluation/output/conversations.json
+    python testing/evaluate_cefr_accuracy.py                # generate + score
+    python testing/evaluate_cefr_accuracy.py --generate-only
+    python testing/evaluate_cefr_accuracy.py --score-only --input testing/output/conversations.json
 """
 from __future__ import annotations
 
@@ -163,35 +163,34 @@ TEST_PROMPTS: dict[str, list[str]] = {
         "Was hast du letztes Wochenende gemacht?",
         "Erzähl mir über einen Film, den du magst.",
         "Wie stellst du dir dein Leben in zehn Jahren vor?",
-        "Was kochst du am liebsten zu Hause?",
-        "Wie verbringst du normalerweise deine Abende?",
-        "Hast du ein Lieblingsrestaurant? Was isst du dort am liebsten?",
+        "Was war die größte Herausforderung in deinem Leben?",
+        "Wie gehst du mit Konflikten um?",
+        "Was bedeutet Erfolg für dich?",
         "Welche Rolle spielt Freundschaft in deinem Leben?",
     ],
     "B2": [
         # B2 has no vocabulary restriction in the app (unrestricted), so a low
         # compliance % here is expected/normal - included for completeness.
-        # Prompts are everyday/casual topics phrased at a natural B2 fluency level.
-        "Was machst du am liebsten am Wochenende, wenn das Wetter schön ist?",
-        "Hast du letztens etwas Neues ausprobiert, zum Beispiel ein Gericht oder eine Aktivität?",
-        "Wie läuft dein Morgen normalerweise ab — bist du eher ein Frühaufsteher?",
-        "Was schaust du gerade auf Netflix oder einer anderen Streaming-Plattform?",
-        "Magst du lieber selber kochen oder auswärts essen gehen, und warum?",
-        "Erzähl mir von deinem liebsten Urlaubserlebnis.",
-        "Was hörst du gerade für Musik? Hast du einen Lieblingssong?",
-        "Wie entspannst du dich nach einem langen, anstrengenden Tag?",
-        "Treibst du Sport? Was machst du am liebsten, um fit zu bleiben?",
-        "Hast du ein Haustier, oder würdest du dir eins wünschen?",
-        "Was planst du für das nächste Wochenende?",
-        "Kaufst du lieber online ein oder gehst du lieber in den Laden?",
-        "Was ist dein Lieblingsrezept — etwas, das du oft und gerne kochst?",
-        "Wie oft triffst du dich mit Freunden, und was macht ihr dann zusammen?",
-        "Was ist das Beste an deiner Stadt oder deinem Viertel?",
-        "Bist du eher ein Morgenmensch oder ein Nachtmensch?",
-        "Welchen Film hast du zuletzt gesehen, und hat er dir gefallen?",
-        "Was planst du in deinen nächsten Ferien zu unternehmen?",
-        "Gehst du lieber ins Kino oder schaust du Filme lieber zuhause?",
-        "Was ist gerade dein Lieblingshobby — womit verbringst du deine Freizeit?",
+        "Was sind die Vor- und Nachteile der sozialen Medien?",
+        "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
+        "Was bedeutet Freiheit für dich?",
+        "Welche Rolle spielt Sprache in der Identitätsbildung?",
+        "Diskutiere die Auswirkungen des Klimawandels.",
+        "Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?",
+        "Was denkst du über Minimalismus als Lebensphilosophie?",
+        "Inwiefern prägt die Kultur eines Landes seinen Humor?",
+        "Welche ethischen Fragen stellt die künstliche Intelligenz?",
+        "Wie sollte man mit historischer Schuld umgehen?",
+        "Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?",
+        "Diskutiere das Konzept der Work-Life-Balance.",
+        "Wie könnte eine gerechte Gesellschaft aussehen?",
+        "Was hältst du von bedingungslosem Grundeinkommen?",
+        "Erkläre, warum Mehrsprachigkeit von Vorteil ist.",
+        "Wie beeinflusst die Wirtschaft politische Entscheidungen?",
+        "Was sind die Herausforderungen der modernen Bildung?",
+        "Wie verändert künstliche Intelligenz den Arbeitsmarkt?",
+        "Welche Verantwortung tragen Unternehmen für die Umwelt?",
+        "Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?",
     ],
 }
 
@@ -294,7 +293,11 @@ def call_with_retry(fn, *args, max_retries: int = _MAX_RETRIES, **kwargs):
 # ==============================================================================
 
 def generate_conversations() -> list[dict]:
-    """Send all 80 prompts to chat_german() and collect the responses."""
+    """Send all 80 prompts to chat_german() and collect the responses.
+    Also measures real wall-clock latency per call (time.perf_counter),
+    excluding the artificial _API_DELAY throttle between calls, so the
+    result reflects actual model response time, not our own rate limiting.
+    """
     conversations: list[dict] = []
     total = sum(len(v) for v in TEST_PROMPTS.values())
     i = 0
@@ -303,6 +306,7 @@ def generate_conversations() -> list[dict]:
         for prompt in TEST_PROMPTS[level]:
             i += 1
             print(f"[{i}/{total}] ({level}) {prompt!r}")
+            t0 = time.perf_counter()
             try:
                 result = call_with_retry(chat_german, prompt, [], level)
                 german = result.get("german", "")
@@ -312,6 +316,8 @@ def generate_conversations() -> list[dict]:
                 german, english = "", ""
                 error = str(e)
                 print(f"  FAILED after retries: {error}")
+            latency_sec = round(time.perf_counter() - t0, 3)
+            print(f"  latency: {latency_sec}s")
 
             conversations.append({
                 "level": level,
@@ -319,8 +325,22 @@ def generate_conversations() -> list[dict]:
                 "response_de": german,
                 "response_en": english,
                 "error": error,
+                "latency_sec": latency_sec,
             })
             time.sleep(_API_DELAY)
+
+    # Real latency summary — printed and available for the results slide
+    ok_latencies = [c["latency_sec"] for c in conversations if c["error"] is None]
+    if ok_latencies:
+        total_time = sum(ok_latencies)
+        avg_time = total_time / len(ok_latencies)
+        print("\n" + "=" * 60)
+        print("LATENCY SUMMARY (measured, excludes the artificial delay)")
+        print("=" * 60)
+        print(f"Total wall-clock time for {len(ok_latencies)} successful calls: {total_time:.1f}s")
+        print(f"Average latency per response: {avg_time:.2f}s")
+        print(f"Min: {min(ok_latencies):.2f}s   Max: {max(ok_latencies):.2f}s")
+        print("=" * 60)
 
     return conversations
 
@@ -366,6 +386,15 @@ def score_conversations(conversations: list[dict]) -> tuple[list[dict], dict]:
         "avg_compliance_pct": round(sum(all_scores) / len(all_scores), 1) if all_scores else None,
     }
 
+    # -- Latency (measured wall-clock time per call, real data if generate step ran) --
+    latencies = [row["latency_sec"] for row in scored
+                 if row.get("latency_sec") is not None and row.get("error") is None]
+    if latencies:
+        summary["OVERALL"]["total_latency_sec"] = round(sum(latencies), 1)
+        summary["OVERALL"]["avg_latency_sec"] = round(sum(latencies) / len(latencies), 2)
+        summary["OVERALL"]["min_latency_sec"] = round(min(latencies), 2)
+        summary["OVERALL"]["max_latency_sec"] = round(max(latencies), 2)
+
     return scored, summary
 
 
@@ -392,6 +421,11 @@ def print_report(summary: dict) -> None:
     print("=" * 60)
     print("Note: B2 has no vocabulary restriction in the app, so a lower")
     print("compliance % there is expected and not a bug.")
+    if "avg_latency_sec" in o:
+        print()
+        print(f"Avg latency per response: {o['avg_latency_sec']}s "
+              f"(min {o['min_latency_sec']}s, max {o['max_latency_sec']}s, "
+              f"total {o['total_latency_sec']}s)")
 
 
 def save_outputs(conversations: list[dict], scored: list[dict], summary: dict) -> None:

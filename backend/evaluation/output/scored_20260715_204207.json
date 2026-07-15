@@ -5,7 +5,16 @@
     "response_de": "Hallo! Ich heiße Buddy. Ich bin dein Deutschlehrer. Wie geht es dir?",
     "response_en": "Hello! My name is Buddy. I am your German teacher. How are you?",
     "error": null,
-    "latency_sec": 0.795
+    "latency_sec": 0.795,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 12,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -13,7 +22,16 @@
     "response_de": "Das ist Buddy. Ich bin dein Deutschlehrer. Wir lernen zusammen Deutsch.",
     "response_en": "This is Buddy. I am your German teacher. We learn German together.",
     "error": null,
-    "latency_sec": 0.49
+    "latency_sec": 0.49,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 11,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -21,7 +39,19 @@
     "response_de": "Hallo Anna. Ich bin Buddy. Ich bin dein Deutschlehrer. Es freut mich.",
     "response_en": "Hello Anna. I am Buddy. I am your German teacher. It pleases me.",
     "error": null,
-    "latency_sec": 0.492
+    "latency_sec": 0.492,
+    "compliance": {
+      "compliance_pct": 33.3,
+      "ok_words": 1,
+      "violation_words": 2,
+      "unknown_words": 2,
+      "total_tokens": 12,
+      "content_tokens": 5,
+      "violations_sample": [
+        "anna(B1)",
+        "freut(A2)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -29,7 +59,16 @@
     "response_de": "Ich bin eine App. Ich habe keine Alter.",
     "response_en": "I am an app. I have no age.",
     "error": null,
-    "latency_sec": 0.429
+    "latency_sec": 0.429,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 8,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -37,7 +76,16 @@
     "response_de": "Ich wohne in der App. Ich bin ein KI-Deutschlehrer.",
     "response_en": "I live in the app. I am an AI German teacher.",
     "error": null,
-    "latency_sec": 0.45
+    "latency_sec": 0.45,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 10,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -45,7 +93,16 @@
     "response_de": "Das ist gut. Berlin ist eine schöne Stadt.",
     "response_en": "That is good. Berlin is a beautiful city.",
     "error": null,
-    "latency_sec": 0.501
+    "latency_sec": 0.501,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 8,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -53,7 +110,16 @@
     "response_de": "Ich mag gern Reis und Salat. Das ist sehr lecker.",
     "response_en": "I like rice and salad. That is very tasty.",
     "error": null,
-    "latency_sec": 0.436
+    "latency_sec": 0.436,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 10,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -61,7 +127,16 @@
     "response_de": "Ich habe keine Geschwister. Ich bin ein einzelnes Kind.",
     "response_en": "I have no siblings. I am an only child.",
     "error": null,
-    "latency_sec": 0.444
+    "latency_sec": 0.444,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -69,7 +144,19 @@
     "response_de": "Meine Lieblingsfarbe ist Blau. Ich mag Blau sehr gern. Es ist eine schöne Farbe.",
     "response_en": "My favorite color is blue. I like blue very much. It is a beautiful color.",
     "error": null,
-    "latency_sec": 0.518
+    "latency_sec": 0.518,
+    "compliance": {
+      "compliance_pct": 33.3,
+      "ok_words": 1,
+      "violation_words": 2,
+      "unknown_words": 3,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": [
+        "blau(A2)",
+        "blau(A2)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -77,7 +164,18 @@
     "response_de": "Ja, das ist ein Hund. Der Hund ist braun. Er ist sehr nett.",
     "response_en": "Yes, that is a dog. The dog is brown. He is very nice.",
     "error": null,
-    "latency_sec": 0.523
+    "latency_sec": 0.523,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 13,
+      "content_tokens": 4,
+      "violations_sample": [
+        "nett(A2)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -85,7 +183,16 @@
     "response_de": "Guten Morgen! Mir geht es gut, danke. Und dir?",
     "response_en": "Good morning! I am fine, thanks. And you?",
     "error": null,
-    "latency_sec": 0.472
+    "latency_sec": 0.472,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -93,7 +200,16 @@
     "response_de": "Ich bin dein Deutsch-Buddy. Ich helfe dir beim Lernen. Wie geht es dir heute?",
     "response_en": "I am your German Buddy. I help you learn. How are you today?",
     "error": null,
-    "latency_sec": 0.561
+    "latency_sec": 0.561,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 15,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -101,7 +217,19 @@
     "response_de": "Das ist okay. Geh ins Bett und schlaf gut.",
     "response_en": "That is okay. Go to bed and sleep well.",
     "error": null,
-    "latency_sec": 0.462
+    "latency_sec": 0.462,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 2,
+      "violation_words": 2,
+      "unknown_words": 1,
+      "total_tokens": 9,
+      "content_tokens": 5,
+      "violations_sample": [
+        "geh(A2)",
+        "schlaf(B1)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -109,7 +237,16 @@
     "response_de": "Gerne! Ich helfe dir immer. Wie geht es dir heute?",
     "response_en": "You're welcome! I always help you. How are you today?",
     "error": null,
-    "latency_sec": 0.481
+    "latency_sec": 0.481,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 10,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -117,7 +254,18 @@
     "response_de": "Das ist gut. Ich mag auch Äpfel. Sie sind gesund und lecker.",
     "response_en": "That is good. I also like apples. They are healthy and tasty.",
     "error": null,
-    "latency_sec": 0.489
+    "latency_sec": 0.489,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 12,
+      "content_tokens": 4,
+      "violations_sample": [
+        "gesund(A2)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -125,7 +273,18 @@
     "response_de": "Entschuldigung, ich kann die Uhrzeit nicht sehen. Bitte schau auf dein Handy.",
     "response_en": "Sorry, I cannot see the time. Please look at your phone.",
     "error": null,
-    "latency_sec": 0.481
+    "latency_sec": 0.481,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 3,
+      "total_tokens": 12,
+      "content_tokens": 5,
+      "violations_sample": [
+        "schau(B1)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -133,7 +292,18 @@
     "response_de": "Das ist sehr gesund. Wasser ist gut fuer den Koerper.",
     "response_en": "That is very healthy. Water is good for the body.",
     "error": null,
-    "latency_sec": 0.49
+    "latency_sec": 0.49,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 4,
+      "violations_sample": [
+        "gesund(A2)"
+      ]
+    }
   },
   {
     "level": "A1",
@@ -141,7 +311,16 @@
     "response_de": "Nein, ich habe keine Katze. Ich bin eine App. Aber ich mag Katzen sehr gern.",
     "response_en": "No, I don't have a cat. I am an app. But I like cats very much.",
     "error": null,
-    "latency_sec": 0.607
+    "latency_sec": 0.607,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 15,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -149,7 +328,16 @@
     "response_de": "Ich bin Buddy. Ich bin dein Deutschlehrer. Wir lernen zusammen Deutsch.",
     "response_en": "I am Buddy. I am your German teacher. We learn German together.",
     "error": null,
-    "latency_sec": 0.582
+    "latency_sec": 0.582,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 11,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A1",
@@ -157,7 +345,16 @@
     "response_de": "Das ist sehr schön! Ich freue mich, dich kennenzulernen. Wie geht es dir heute?",
     "response_en": "That is very nice! I am happy to meet you. How are you today?",
     "error": null,
-    "latency_sec": 0.489
+    "latency_sec": 0.489,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 14,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -165,7 +362,18 @@
     "response_de": "Gehen Sie geradeaus. Dann biegen Sie links ab. Der Bahnhof ist sehr nah.",
     "response_en": "Go straight ahead. Then turn left. The train station is very close.",
     "error": null,
-    "latency_sec": 0.493
+    "latency_sec": 0.493,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 4,
+      "total_tokens": 13,
+      "content_tokens": 7,
+      "violations_sample": [
+        "nah(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -173,7 +381,16 @@
     "response_de": "Das kostet fünf Euro. Bitte zahlen Sie bar oder mit Karte.",
     "response_en": "That costs five euros. Please pay cash or by card.",
     "error": null,
-    "latency_sec": 0.437
+    "latency_sec": 0.437,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 11,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -181,7 +398,18 @@
     "response_de": "Das ist ein guter Satz! Hier ist die korrekte Form: 'Ich möchte ein Kilo Äpfel kaufen, bitte.' Möchten Sie noch etwas anderes?",
     "response_en": "That is a good sentence! Here is the correct form: 'I would like to buy a kilo of apples, please.' Would you like something else?",
     "error": null,
-    "latency_sec": 0.614
+    "latency_sec": 0.614,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 5,
+      "total_tokens": 22,
+      "content_tokens": 8,
+      "violations_sample": [
+        "form(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -189,7 +417,16 @@
     "response_de": "Der nächste Bus fährt in zehn Minuten ab. Bitte warten Sie auf dem Bahnsteig.",
     "response_en": "The next bus leaves in ten minutes. Please wait on the platform.",
     "error": null,
-    "latency_sec": 0.506
+    "latency_sec": 0.506,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 14,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -197,7 +434,19 @@
     "response_de": "Das Wetter ist heute sehr schön und die Sonne scheint. Es ist warm und es regnet nicht. Es ist perfekt für einen Spaziergang im Park.",
     "response_en": "The weather is very nice today and the sun is shining. It is warm and it is not raining. It is perfect for a walk in the park.",
     "error": null,
-    "latency_sec": 0.642
+    "latency_sec": 0.642,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 4,
+      "violation_words": 2,
+      "unknown_words": 4,
+      "total_tokens": 25,
+      "content_tokens": 10,
+      "violations_sample": [
+        "perfekt(B1)",
+        "spaziergang(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -205,7 +454,18 @@
     "response_de": "Gestern habe ich Deutsch gelernt. Das hat Spaß gemacht. Hast du auch etwas Interessantes getan?",
     "response_en": "Yesterday I learned German. That was fun. Did you do something interesting too?",
     "error": null,
-    "latency_sec": 0.507
+    "latency_sec": 0.507,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 3,
+      "total_tokens": 15,
+      "content_tokens": 7,
+      "violations_sample": [
+        "getan(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -213,7 +473,16 @@
     "response_de": "Das ist toll! Welchen Film magst du am liebsten?",
     "response_en": "That's great! Which movie do you like the best?",
     "error": null,
-    "latency_sec": 0.466
+    "latency_sec": 0.466,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -221,7 +490,16 @@
     "response_de": "Ich lese gern Bücher und höre Musik. Manchmal gehe ich auch spazieren. Das macht mir viel Spaß.",
     "response_en": "I like reading books and listening to music. Sometimes I also go for a walk. That's a lot of fun for me.",
     "error": null,
-    "latency_sec": 0.524
+    "latency_sec": 0.524,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 17,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -229,7 +507,16 @@
     "response_de": "Das ist eine gute Idee. Ein Einzelzimmer ist oft ruhig. Hast du schon eine Unterkunft gefunden?",
     "response_en": "That is a good idea. A single room is often quiet. Have you already found accommodation?",
     "error": null,
-    "latency_sec": 0.481
+    "latency_sec": 0.481,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 16,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -237,7 +524,16 @@
     "response_de": "Hallo! Ich helfe Ihnen gerne. Was möchten Sie heute lernen?",
     "response_en": "Hello! I'd be happy to help you. What would you like to learn today?",
     "error": null,
-    "latency_sec": 0.506
+    "latency_sec": 0.506,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 10,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -245,7 +541,18 @@
     "response_de": "Der Kurs beginnt um 9 Uhr. Ist das gut für dich?",
     "response_en": "The course starts at 9 o'clock. Is that good for you?",
     "error": null,
-    "latency_sec": 0.473
+    "latency_sec": 0.473,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 0,
+      "total_tokens": 10,
+      "content_tokens": 4,
+      "violations_sample": [
+        "kurs(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -253,7 +560,16 @@
     "response_de": "Das ist super! Deutsch lernen macht viel Spaß.",
     "response_en": "That's great! Learning German is a lot of fun.",
     "error": null,
-    "latency_sec": 0.447
+    "latency_sec": 0.447,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 8,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -261,7 +577,16 @@
     "response_de": "Ich esse oft Brot mit Käse. Manchmal trinke ich auch Kaffee.",
     "response_en": "I often eat bread with cheese. Sometimes I also drink coffee.",
     "error": null,
-    "latency_sec": 0.485
+    "latency_sec": 0.485,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 11,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -269,7 +594,18 @@
     "response_de": "Mein Vater ist Lehrer. Er unterrichtet Mathe an der Schule. Das ist ein toller Job!",
     "response_en": "My father is a teacher. He teaches math at school. That's a great job!",
     "error": null,
-    "latency_sec": 0.577
+    "latency_sec": 0.577,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 5,
+      "total_tokens": 15,
+      "content_tokens": 7,
+      "violations_sample": [
+        "unterrichtet(B1)"
+      ]
+    }
   },
   {
     "level": "A2",
@@ -277,7 +613,16 @@
     "response_de": "Das tut mir leid. Trink viel Wasser und ruhe dich aus. Wenn die Schmerzen bleiben, geh zum Arzt.",
     "response_en": "I'm sorry to hear that. Drink lots of water and rest. If the pain persists, go to the doctor.",
     "error": null,
-    "latency_sec": 0.6
+    "latency_sec": 0.6,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 18,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -285,7 +630,16 @@
     "response_de": "Mein Wochenende war sehr schön. Ich habe viel gelesen und entspannt. Hast du etwas Lustiges gemacht?",
     "response_en": "My weekend was very nice. I read a lot and relaxed. Did you do something fun?",
     "error": null,
-    "latency_sec": 0.523
+    "latency_sec": 0.523,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 16,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -293,7 +647,16 @@
     "response_de": "Guten Tag! Ich kann Ihnen leider nicht helfen, da ich ein Sprachlerner bin. Vielleicht versuchen Sie es bei einem Restaurant in Ihrer Nähe.",
     "response_en": "Good day! Unfortunately, I cannot help you because I am a language learner. Maybe try a restaurant near you.",
     "error": null,
-    "latency_sec": 0.58
+    "latency_sec": 0.58,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 7,
+      "total_tokens": 23,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -301,7 +664,16 @@
     "response_de": "Briefmarken kaufen Sie am besten bei der Post. Dort finden Sie alles Wichtige.",
     "response_en": "You can best buy stamps at the post office. There you will find everything important.",
     "error": null,
-    "latency_sec": 0.5
+    "latency_sec": 0.5,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 13,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -309,7 +681,16 @@
     "response_de": "Ich bin eine KI und habe keine echten Hobbys. Aber ich helfe dir beim Deutschlernen. Das macht mir viel Spaß!",
     "response_en": "I am an AI and don't have real hobbies. But I help you learn German. That is a lot of fun!",
     "error": null,
-    "latency_sec": 0.573
+    "latency_sec": 0.573,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 20,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
   },
   {
     "level": "A2",
@@ -317,7 +698,16 @@
     "response_de": "Ich gehe oft einkaufen. Das macht mir viel Spaß. Wir kaufen frisches Brot und Obst.",
     "response_en": "I often go shopping. It gives me a lot of fun. We buy fresh bread and fruit.",
     "error": null,
-    "latency_sec": 0.507
+    "latency_sec": 0.507,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 15,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -325,7 +715,16 @@
     "response_de": "Das Leben in einer Großstadt ist oft sehr laut und laut, aber es gibt auch viele interessante Dinge zu tun. Man kann viele Freunde treffen und neue Erfahrungen sammeln, obwohl es manchmal stressig ist.",
     "response_en": "Life in a big city is often very loud, but there are also many interesting things to do. You can meet many friends and gain new experiences, although it can sometimes be stressful.",
     "error": null,
-    "latency_sec": 0.733
+    "latency_sec": 0.733,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 34,
+      "content_tokens": 16,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -333,7 +732,16 @@
     "response_de": "Ich war im letzten Sommer auf einer kleinen Insel in der Ostsee. Das Wetter war herrlich und ich habe viel Zeit am Strand verbracht. Es war eine sehr entspannende Zeit für mich.",
     "response_en": "I was on a small island in the Baltic Sea last summer. The weather was wonderful and I spent a lot of time at the beach. It was a very relaxing time for me.",
     "error": null,
-    "latency_sec": 0.74
+    "latency_sec": 0.74,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 32,
+      "content_tokens": 12,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -341,7 +749,16 @@
     "response_de": "Da ich eine KI bin, habe ich keine persönlichen Pläne wie ein Mensch. Ich freue mich jedoch jeden Tag, wenn ich dir beim Deutschlernen helfen kann. Lass uns gemeinsam schauen, wie du dein Sprachniveau weiter verbessern kannst!",
     "response_en": "Since I am an AI, I don't have personal plans like a human. However, I am happy every day when I can help you with learning German. Let's look together at how you can further improve your language level!",
     "error": null,
-    "latency_sec": 0.759
+    "latency_sec": 0.759,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 11,
+      "total_tokens": 37,
+      "content_tokens": 15,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -349,7 +766,16 @@
     "response_de": "Ich lerne Deutsch, um dich besser zu verstehen und dir bei deiner Sprachreise zu helfen. Es macht mir Spaß, neue Wörter mit dir zu üben und Fortschritte zu sehen. Wie sieht das bei dir aus? Warum möchtest du die Sprache lernen?",
     "response_en": "I am learning German to understand you better and help you on your language journey. It is fun for me to practice new words with you and see progress. What about you? Why do you want to learn the language?",
     "error": null,
-    "latency_sec": 0.761
+    "latency_sec": 0.761,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 12,
+      "total_tokens": 41,
+      "content_tokens": 16,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -357,7 +783,16 @@
     "response_de": "Ich habe keine Kindheit, da ich eine KI bin. Aber ich höre gerne von deinen Erinnerungen!",
     "response_en": "I don't have a childhood because I am an AI. But I like to hear about your memories!",
     "error": null,
-    "latency_sec": 0.571
+    "latency_sec": 0.571,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 16,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -365,7 +800,16 @@
     "response_de": "Mir gefallen die vielen historischen Städte und die nette Atmosphäre. Ich finde es auch toll, wie man hier schnell und bequem mit dem Zug reisen kann. Hast du schon einmal Berlin besucht?",
     "response_en": "I like the many historic cities and the nice atmosphere. I also find it great how you can travel quickly and comfortably by train here. Have you ever visited Berlin?",
     "error": null,
-    "latency_sec": 0.702
+    "latency_sec": 0.702,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 32,
+      "content_tokens": 15,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -373,7 +817,16 @@
     "response_de": "Mein Alltag ist sehr ruhig, da ich als KI keine Pausen brauche. Ich helfe dir gerne bei deiner deutschen Sprache und beantworte deine Fragen. Sag einfach Bescheid, wenn du etwas üben möchtest!",
     "response_en": "My daily routine is very quiet, since I don't need breaks as an AI. I'm happy to help you with your German language and answer your questions. Just let me know if you'd like to practice something!",
     "error": null,
-    "latency_sec": 0.739
+    "latency_sec": 0.739,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 32,
+      "content_tokens": 15,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -381,7 +834,16 @@
     "response_de": "Ich höre dann gerne Musik oder gehe spazieren, um mich zu entspannen. Manchmal lese ich auch ein Buch oder treffe Freunde zum Kaffee. Was machst du, wenn du gestresst bist?",
     "response_en": "I then like to listen to music or go for a walk to relax. Sometimes I also read a book or meet friends for coffee. What do you do when you are stressed?",
     "error": null,
-    "latency_sec": 0.726
+    "latency_sec": 0.726,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 11,
+      "total_tokens": 30,
+      "content_tokens": 14,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -389,7 +851,16 @@
     "response_de": "Ich höre gerne verschiedene Musikarten, weil sie mich inspirieren. Oft höre ich auch ruhige Lieder, um mich zu entspannen. Welche Musik magst du?",
     "response_en": "I like listening to various genres of music because they inspire me. I often listen to calm songs to relax. What kind of music do you like?",
     "error": null,
-    "latency_sec": 0.633
+    "latency_sec": 0.633,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 9,
+      "total_tokens": 23,
+      "content_tokens": 11,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -397,7 +868,16 @@
     "response_de": "Das ist eine interessante Frage! Viele Menschen finden Deutsche oft pünktlich, zuverlässig und direkt. Natürlich gibt es immer Ausnahmen, aber im Allgemeinen schätzen viele Leute ihre Ehrlichkeit und Ordnung.",
     "response_en": "That is an interesting question! Many people often find Germans to be punctual, reliable, and direct. Of course, there are always exceptions, but in general, many people appreciate their honesty and orderliness.",
     "error": null,
-    "latency_sec": 0.751
+    "latency_sec": 0.751,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 14,
+      "total_tokens": 29,
+      "content_tokens": 18,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -405,7 +885,16 @@
     "response_de": "Das ist eine spannende Frage! Ich würde einen Teil davon sparen und den Rest für eine große Reise ausgeben. Vielleicht würde ich auch etwas für gute Zwecke spenden, um anderen zu helfen.",
     "response_en": "That's an exciting question! I would save a part of it and spend the rest on a big trip. Maybe I would also donate some for a good cause to help others.",
     "error": null,
-    "latency_sec": 0.649
+    "latency_sec": 0.649,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 32,
+      "content_tokens": 17,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -413,7 +902,16 @@
     "response_de": "Ich habe keine Heimat wie du, da ich eine KI bin. In Deutschland gibt es viele schöne Städte und eine reiche Geschichte, die ich sehr interessant finde. Hast du schon einmal eine Stadt in Deutschland besucht?",
     "response_en": "I don't have a homeland like you do, because I am an AI. Germany has many beautiful cities and a rich history, which I find very interesting. Have you ever visited a city in Germany?",
     "error": null,
-    "latency_sec": 0.697
+    "latency_sec": 0.697,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 36,
+      "content_tokens": 14,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -421,7 +919,16 @@
     "response_de": "Gesundheit ist natürlich das Wichtigste, denn nur wenn man sich fit fühlt, kann man den Alltag gut meistern. Ich versuche regelmäßig Sport zu machen und mich ausgewogen zu ernähren, damit ich viel Energie habe. Wie hältst du es denn mit deiner Gesundheit?",
     "response_en": "Health is of course the most important thing, because you can only manage everyday life well if you feel fit. I try to exercise regularly and eat a balanced diet so that I have a lot of energy. How do you deal with your health?",
     "error": null,
-    "latency_sec": 0.843
+    "latency_sec": 0.843,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 42,
+      "content_tokens": 17,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -429,7 +936,16 @@
     "response_de": "Ich habe mich in meiner digitalen Welt erholt und auf viele neue Fragen von Lernenden vorbereitet. Es war eine ruhige Zeit, in der ich meine Antworten sorgfältig überlegt habe. Wie war dein Wochenende? Hast du etwas Schönes unternommen?",
     "response_en": "I rested in my digital world and prepared for many new questions from learners. It was a quiet time where I thought carefully about my answers. How was your weekend? Did you do something nice?",
     "error": null,
-    "latency_sec": 0.746
+    "latency_sec": 0.746,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 11,
+      "total_tokens": 38,
+      "content_tokens": 15,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -437,7 +953,16 @@
     "response_de": "Ich mag den Film „Das Dschungelbuch“ sehr gerne, weil er spannend und lustig ist. Die Geschichte über den Jungen Mowgli, der im Dschungel aufwächst, finde ich immer wieder interessant. Es ist ein klassischer Film, der auch heute noch vielen Menschen gefällt.",
     "response_en": "I really like the movie 'The Jungle Book' because it is exciting and funny. I always find the story about the boy Mowgli, who grows up in the jungle, interesting. It is a classic film that many people still enjoy today.",
     "error": null,
-    "latency_sec": 0.842
+    "latency_sec": 0.842,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 41,
+      "content_tokens": 18,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -445,7 +970,16 @@
     "response_de": "Das ist eine interessante Frage! Ich stelle mir vor, dass ich immer noch hier bin und vielen Menschen helfe, Deutsch zu lernen. Vielleicht wohne ich dann in einem Haus mit einem kleinen Garten und lese abends gerne ein Buch.",
     "response_en": "That's an interesting question! I imagine that I will still be here helping many people learn German. Perhaps I will then live in a house with a small garden and like to read a book in the evening.",
     "error": null,
-    "latency_sec": 0.722
+    "latency_sec": 0.722,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 39,
+      "content_tokens": 17,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -453,7 +987,16 @@
     "response_de": "Als KI habe ich kein Leben wie du, aber für mich ist es oft eine Herausforderung, die richtigen Wörter zu finden. Ich lerne jeden Tag dazu, um besser zu verstehen, was du brauchst. Wie war es für dich? Was war deine größte Herausforderung?",
     "response_en": "As an AI, I don't have a life like you, but for me, finding the right words is often a challenge. I learn every day to better understand what you need. How was it for you? What was your biggest challenge?",
     "error": null,
-    "latency_sec": 0.808
+    "latency_sec": 0.808,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 12,
+      "total_tokens": 43,
+      "content_tokens": 16,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -461,7 +1004,16 @@
     "response_de": "Ich versuche immer ruhig zu bleiben und zuzuhören, um die Perspektive des anderen zu verstehen. Oft hilft es, direkt und ehrlich zu sprechen, statt den Konflikt zu ignorieren. So kann man gemeinsam nach einer Lösung suchen.",
     "response_en": "I always try to stay calm and listen to understand the other person's perspective. Often it helps to speak directly and honestly instead of ignoring the conflict. This way, you can look for a solution together.",
     "error": null,
-    "latency_sec": 0.773
+    "latency_sec": 0.773,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 36,
+      "content_tokens": 18,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -469,7 +1021,16 @@
     "response_de": "Für mich ist Erfolg, wenn ich dir helfen kann, deine Deutschkenntnisse zu verbessern. Es freut mich sehr, wenn du Fortschritte machst und neue Wörter sicher anwendest. Zusammen lernen wir Schritt für Schritt.",
     "response_en": "For me, success is helping you improve your German skills. I am very happy when you make progress and use new words confidently. Together we learn step by step.",
     "error": null,
-    "latency_sec": 0.743
+    "latency_sec": 0.743,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 32,
+      "content_tokens": 15,
+      "violations_sample": []
+    }
   },
   {
     "level": "B1",
@@ -477,7 +1038,16 @@
     "response_de": "Freundschaft ist für mich sehr wichtig, weil ich gerne Zeit mit meinen Freunden verbringe. Wir unterhalten uns oft über verschiedene Themen und unterstützen uns gegenseitig. Das macht das Leben viel schöner und angenehmer.",
     "response_en": "Friendship is very important to me because I like spending time with my friends. We often talk about various topics and support each other. That makes life much nicer and more pleasant.",
     "error": null,
-    "latency_sec": 0.732
+    "latency_sec": 0.732,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 11,
+      "total_tokens": 33,
+      "content_tokens": 16,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -485,7 +1055,16 @@
     "response_de": "Soziale Medien bieten einerseits eine hervorragende Möglichkeit zur globalen Vernetzung und zum schnellen Informationsaustausch. Andererseits bergen sie jedoch auch Risiken wie die Verbreitung von Fake News und die Gefahr der sozialen Isolation trotz scheinbarer Konnektivität.",
     "response_en": "Social media offers one the excellent opportunity for global networking and rapid exchange of information. On the other hand, however, they also carry risks such as the spread of fake news and the danger of social isolation despite apparent connectivity.",
     "error": null,
-    "latency_sec": 0.705
+    "latency_sec": 0.705,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 35,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -493,7 +1072,16 @@
     "response_de": "Die Globalisierung durchdringt nahezu alle Lebensbereiche und verändert unser Miteinander grundlegend. Einerseits fördert sie den kulturellen Austausch und wirtschaftliche Verflechtungen, was zu mehr Vielfalt und Innovationen führt. Andererseits birgt sie auch Herausforderungen wie wachsende soziale Ungleichheit und den Verlust lokaler Identitäten. Es ist daher wichtig, diese Entwicklungen kritisch zu hinterfragen und aktiv mitzugestalten.",
     "response_en": "Globalization penetrates almost all areas of life and fundamentally changes our interaction. On the one hand, it promotes cultural exchange and economic interdependence, leading to more diversity and innovations. On the other hand, it also poses challenges such as growing social inequality and the loss of local identities. It is therefore important to critically examine these developments and shape them actively.",
     "error": null,
-    "latency_sec": 0.995
+    "latency_sec": 0.995,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 27,
+      "total_tokens": 53,
+      "content_tokens": 33,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -501,7 +1089,16 @@
     "response_de": "Für mich ist Freiheit die Möglichkeit, meine eigenen Entscheidungen zu treffen und dabei meine Werte zu leben. Es bedeutet auch, den Mut zu haben, den eigenen Weg zu gehen, auch wenn er manchmal steinig ist. Letztlich ist Freiheit ein ständiger Prozess des Lernens und der Selbstfindung.",
     "response_en": "For me, freedom is the opportunity to make my own decisions and live by my values. It also means having the courage to forge your own path, even if it is sometimes rough. Ultimately, freedom is a continuous process of learning and self-discovery.",
     "error": null,
-    "latency_sec": 0.803
+    "latency_sec": 0.803,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 46,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -509,7 +1106,16 @@
     "response_de": "Sprache ist ein unverzichtbarer Baustein unserer Identität, da sie nicht nur unser Denken prägt, sondern auch unsere kulturelle Verwurzelung widerspiegelt. Durch den individuellen Sprachgebrauch drücken wir unsere Persönlichkeit aus und knüpfen soziale Bindungen, was das Selbstverständnis maßgeblich formt.",
     "response_en": "Language is an indispensable building block of our identity, as it not only shapes our thinking but also reflects our cultural roots. Through individual language use, we express our personality and forge social connections, which significantly shapes our self-concept.",
     "error": null,
-    "latency_sec": 0.78
+    "latency_sec": 0.78,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 38,
+      "content_tokens": 20,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -517,7 +1123,16 @@
     "response_de": "Der Klimawandel stellt eine der größten Herausforderungen unserer Zeit dar, da er nicht nur extreme Wetterereignisse verstärkt, sondern auch tiefgreifende ökologische und sozioökonomische Folgen nach sich zieht. Es ist unverzichtbar, dass wir sowohl auf individueller als auch auf politischer Ebene konsequent in erneuerbare Energien investieren und unsere Lebensstile nachhaltiger gestalten. Nur durch ein breites Bewusstsein und entschlossenes Handeln können wir die schlimmsten Auswirkungen abmildern und eine lebenswerte Zukunft für kommende Generationen sichern.",
     "response_en": "Climate change represents one of the greatest challenges of our time, as it not only intensifies extreme weather events but also triggers profound ecological and socio-economic consequences. It is essential that we consistently invest in renewable energy and make our lifestyles more sustainable, both individually and politically. Only through widespread awareness and decisive action can we mitigate the worst effects and secure a livable future for future generations.",
     "error": null,
-    "latency_sec": 1.087
+    "latency_sec": 1.087,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 32,
+      "total_tokens": 72,
+      "content_tokens": 39,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -525,7 +1140,16 @@
     "response_de": "Die Digitalisierung hat die Arbeitswelt grundlegend transformiert, indem sie remote Arbeiten und flexible Modelle erst ermöglicht hat. Durch Automatisierung und künstliche Intelligenz verschieben sich die Anforderungen an Fachkräfte hin zu digitalen Kompetenzen und lebenslangem Lernen. Gleichzeitig entstehen völlig neue Berufsfelder, während traditionelle Rollen oft neu definiert werden müssen.",
     "response_en": "Digitalization has fundamentally transformed the world of work by enabling remote work and flexible models. Through automation and artificial intelligence, the requirements for professionals are shifting towards digital skills and lifelong learning. At the same time, entirely new professions are emerging, while traditional roles often have to be redefined.",
     "error": null,
-    "latency_sec": 0.906
+    "latency_sec": 0.906,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 27,
+      "total_tokens": 48,
+      "content_tokens": 32,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -533,7 +1157,16 @@
     "response_de": "Minimalismus ist eine faszinierende Philosophie, die uns hilft, uns auf das Wesentliche zu konzentrieren undunnötigen Ballast abzuwerfen. Viele Menschen berichten davon, dass sie durch den Verzicht auf materielle Güter mehr Freiheit und inneren Frieden finden. Allerdings muss man den Ansatz nicht zwangsläufig bis ins Extreme treiben, sondern kann ihn individuell anpassen, um ein ausgewogenes Leben zu führen.",
     "response_en": "Minimalism is a fascinating philosophy that helps us focus on the essentials and shed unnecessary baggage. Many people report that they find more freedom and inner peace by renouncing material goods. However, one does not necessarily have to push the approach to the extreme, but can adapt it individually to lead a balanced life.",
     "error": null,
-    "latency_sec": 0.911
+    "latency_sec": 0.911,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 24,
+      "total_tokens": 57,
+      "content_tokens": 30,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -541,7 +1174,16 @@
     "response_de": "Das ist eine faszinierende Frage! Humor ist oft ein Spiegelbild kultureller Werte, sodass Ironie in Deutschland anders wirkt als der trockene Witz im Vereinigten Königreich. Während manche Kulturen direkte Anspielungen schätzen, bevorzugen andere subtile Wortspiele oder Selbstironie. Letztlich spiegelt unsere Art zu lachen wider, was wir als gesellschaftlich akzeptabel oder herausfordernd empfinden.",
     "response_en": "That is a fascinating question! Humor is often a mirror of cultural values, so irony in Germany works differently than dry wit in the United Kingdom. While some cultures appreciate direct allusions, others prefer subtle wordplay or self-deprecation. Ultimately, our way of reflecting what we consider socially acceptable or challenging.",
     "error": null,
-    "latency_sec": 0.943
+    "latency_sec": 0.943,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 28,
+      "total_tokens": 52,
+      "content_tokens": 35,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -549,7 +1191,16 @@
     "response_de": "Die künstliche Intelligenz wirft komplexe ethische Fragen auf, insbesondere hinsichtlich von Datenschutz, algorithmischer Verzerrung und der Verantwortung für autonome Entscheidungen. Es stellt sich die Frage, wie wir Transparenz bei automatisierten Systemen gewährleisten können, ohne Innovation zu behindern. Zudem diskutiert man intensiv, ob KI menschliche Urteilsfähigkeit in sensiblen Bereichen wie der Justiz oder Medizin ersetzen sollte.",
     "response_en": "Artificial intelligence raises complex ethical questions, particularly regarding data privacy, algorithmic bias, and the responsibility for autonomous decisions. The question arises of how to ensure transparency in automated systems without hindering innovation. Furthermore, there is intense discussion about whether AI should replace human judgment in sensitive areas such as law or medicine.",
     "error": null,
-    "latency_sec": 0.887
+    "latency_sec": 0.887,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 27,
+      "total_tokens": 55,
+      "content_tokens": 33,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -557,7 +1208,16 @@
     "response_de": "Der Umgang mit historischer Schuld erfordert eine differenzierte Betrachtung, bei der man zwischen individueller Verantwortung und kollektiver Erinnerung unterscheidet. Es ist wichtig, sich der Vergangenheit zu stellen, ohne dabei in pauschale Schuldzuweisungen zu verfallen, die heutige Generationen unverhältnismäßig belasten. Durch Bildung und den offenen Dialog lassen sich daraus wertvolle Lehren für die Gegenwart ziehen.",
     "response_en": "Dealing with historical guilt requires a nuanced perspective that distinguishes between individual responsibility and collective memory. It is important to confront the past without resorting to blanket accusations that disproportionately burden today's generations. Education and open dialogue allow us to draw valuable lessons for the present from this.",
     "error": null,
-    "latency_sec": 0.924
+    "latency_sec": 0.924,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 26,
+      "total_tokens": 54,
+      "content_tokens": 31,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -565,7 +1225,16 @@
     "response_de": "Social Media kann bei Jugendlichen sowohl positive als auch negative psychologische Folgen haben. Einerseits fördert es soziale Verbindungen, andererseits kann es zu Druck, Neid oder sogar Angstzuständen führen, besonders durch ständigen Vergleich mit anderen.",
     "response_en": "Social media can have both positive and negative psychological effects on adolescents. On the one hand, it fosters social connections, but on the other hand, it can lead to pressure, envy, or even anxiety, especially due to constant comparison with others.",
     "error": null,
-    "latency_sec": 0.705
+    "latency_sec": 0.705,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 34,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -573,7 +1242,16 @@
     "response_de": "Die Work-Life-Balance ist heutzutage ein zentrales Thema, da viele Menschen unter chronischem Stress leiden und sich nach mehr Freizeit sehnen. Es geht dabei nicht nur um die strikte Trennung von Beruf und Privatleben, sondern vor allem um die Fähigkeit, Prioritäten zu setzen und Grenzen zu setzen, um Burnout vorzubeugen. Ein gesunder Mix aus produktiver Arbeit und erholsamen Pausen trägt maßgeblich zur langfristigen Zufriedenheit und Leistungsfähigkeit bei.",
     "response_en": "Work-life balance is a central topic nowadays, as many people suffer from chronic stress and long for more free time. It is not just about the strict separation of work and private life, but above all about the ability to set priorities and boundaries to prevent burnout. A healthy mix of productive work and restful breaks contributes significantly to long-term satisfaction and performance.",
     "error": null,
-    "latency_sec": 1.062
+    "latency_sec": 1.062,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 29,
+      "total_tokens": 68,
+      "content_tokens": 37,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -581,7 +1259,16 @@
     "response_de": "Eine gerechte Gesellschaft würde wahrscheinlich darauf abzielen, gleiche Chancen für alle Bürger zu gewährleisten, unabhängig von ihrer Herkunft oder ihrem sozialen Status. Dabei wären faire Verteilungsmechanismen für Ressourcen und Bildung entscheidend, um strukturelle Ungleichheiten abzubauen. Zudem müsste ein starkes Rechtsstaatssystem existieren, das die Rechte aller schützt und Diskriminierung konsequent ahndet.",
     "response_en": "A just society would likely aim to ensure equal opportunities for all citizens, regardless of their background or social status. Fair distribution mechanisms for resources and education would be crucial to reducing structural inequalities. Additionally, a strong rule of law system would need to exist that protects everyone's rights and consistently punishes discrimination.",
     "error": null,
-    "latency_sec": 0.961
+    "latency_sec": 0.961,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 33,
+      "total_tokens": 50,
+      "content_tokens": 37,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -589,7 +1276,16 @@
     "response_de": "Das ist ein faszinierendes und vielschichtiges Thema, das in der Gesellschaft intensiv diskutiert wird. Befürworter argumentieren oft, dass es Armut wirksam bekämpfen und die individuelle Freiheit steigern könnte, während Kritiker befürchten, dass es die Arbeitsmotivation senken oder zu hoher Inflation führen könnte. Was denkst du darüber, würdest du solche Maßnahmen befürworten?",
     "response_en": "That is a fascinating and multifaceted topic that is being discussed intensively in society. Proponents often argue that it could effectively combat poverty and increase individual freedom, while critics fear it could reduce work motivation or lead to high inflation. What do you think about it, would you support such measures?",
     "error": null,
-    "latency_sec": 0.884
+    "latency_sec": 0.884,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 24,
+      "total_tokens": 51,
+      "content_tokens": 30,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -597,7 +1293,16 @@
     "response_de": "Mehrsprachigkeit erweitert nicht nur den kulturellen Horizont, sondern fördert auch die kognitive Flexibilität und das Problemlösungsvermögen. Wer mehrere Sprachen beherrscht, kann zudem leichter neue Sprachen erlernen und hat im Berufsleben oft bessere Karrierechancen. Es ist ein wunderbarer Weg, um tiefer in andere Kulturen einzutauchen und globale Zusammenhänge besser zu verstehen.",
     "response_en": "Multilingualism not only expands one's cultural horizon but also promotes cognitive flexibility and problem-solving skills. Those who master multiple languages can also learn new languages more easily and often have better career prospects in the job market. It is a wonderful way to dive deeper into other cultures and better understand global connections.",
     "error": null,
-    "latency_sec": 0.872
+    "latency_sec": 0.872,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 26,
+      "total_tokens": 50,
+      "content_tokens": 30,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -605,7 +1310,16 @@
     "response_de": "Die Wirtschaft übt durch Lobbyismus und Wahlkampfspenden erheblichen Einfluss auf politische Entscheidungen aus. Oft fließen wirtschaftliche Interessen in Gesetzentwürfe ein, was zu Spannungen zwischen Gemeinwohl und Profitstreben führen kann. Es ist wichtig, diese Dynamik kritisch zu hinterfragen, um eine transparente Demokratie zu wahren.",
     "response_en": "The economy exerts considerable influence on political decisions through lobbying and campaign contributions. Often, economic interests flow into draft laws, which can lead to tensions between the common good and the pursuit of profit. It is important to critically examine this dynamic to maintain a transparent democracy.",
     "error": null,
-    "latency_sec": 0.823
+    "latency_sec": 0.823,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 43,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -613,7 +1327,16 @@
     "response_de": "Die moderne Bildung steht vor der Herausforderung, individuelle Lernbedürfnisse in großen Klassen zu berücksichtigen, während gleichzeitig die Digitalisierung kompetent integriert werden muss. Ein weiteres wichtiges Thema ist die Vorbereitung der Schülerinnen und Schüler auf einen sich rapide wandelnden Arbeitsmarkt, der lebenslanges Lernen erfordert. Wie siehst du die Rolle der Technologie in diesem Prozess?",
     "response_en": "Modern education faces the challenge of addressing individual learning needs in large classes while effectively integrating digitalization. Another key issue is preparing students for a rapidly changing job market that requires lifelong learning. How do you view the role of technology in this process?",
     "error": null,
-    "latency_sec": 0.863
+    "latency_sec": 0.863,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 24,
+      "total_tokens": 53,
+      "content_tokens": 30,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -621,7 +1344,16 @@
     "response_de": "Künstliche Intelligenz verändert den Arbeitsmarkt grundlegend, indem sie repetitive Aufgaben automatisiert und gleichzeitig neue Berufsfelder erschließt. Zwar sorgen sich viele um Jobverluste, doch oft liegt die eigentliche Herausforderung in der notwendigen Weiterbildung, um mit diesen technologischen Wandel erfolgreich zu bewältigen.",
     "response_en": "Artificial intelligence is fundamentally changing the labor market by automating repetitive tasks and simultaneously creating new fields of work. Although many fear job losses, the real challenge often lies in the need for further education to successfully navigate this technological change.",
     "error": null,
-    "latency_sec": 0.77
+    "latency_sec": 0.77,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 21,
+      "total_tokens": 40,
+      "content_tokens": 27,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -629,7 +1361,16 @@
     "response_de": "Unternehmen tragen eine immense Verantwortung, da ihr Handeln direkte ökologische Auswirkungen hat. Es geht nicht nur um die Einhaltung gesetzlicher Vorschriften, sondern auch um proaktive Maßnahmen wie den Einsatz erneuerbarer Energien und die Reduzierung von Abfall. Letztendlich liegt es an ihnen, nachhaltige Geschäftsmodelle zu entwickeln, die Ressourcen schonen und zukünftigen Generationen eine intakte Umwelt erhalten.",
     "response_en": "Companies bear immense responsibility because their actions have direct ecological impacts. It is not only about complying with legal regulations but also about proactive measures such as using renewable energy and reducing waste. Ultimately, it is up to them to develop sustainable business models that conserve resources and preserve an intact environment for future generations.",
     "error": null,
-    "latency_sec": 0.872
+    "latency_sec": 0.872,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 25,
+      "total_tokens": 55,
+      "content_tokens": 31,
+      "violations_sample": []
+    }
   },
   {
     "level": "B2",
@@ -637,6 +1378,15 @@
     "response_de": "Kulturelle Vielfalt ist in einer globalisierten Welt unverzichtbar, da sie den Horizont erweitert und den Austausch von Ideen fördert. Durch die Begegnung mit unterschiedlichen Perspektiven gewinnen wir nicht nur an Empathie, sondern auch an Kreativität und Innovation. Es lohnt sich, diese Unterschiede als Chance zu begreifen, statt sie als Hindernis zu sehen.",
     "response_en": "Cultural diversity is indispensable in a globalized world because it broadens horizons and promotes the exchange of ideas. By encountering different perspectives, we gain not only empathy but also creativity and innovation. It is worthwhile to view these differences as an opportunity rather than an obstacle.",
     "error": null,
-    "latency_sec": 0.825
+    "latency_sec": 0.825,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 52,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
   }
 ]

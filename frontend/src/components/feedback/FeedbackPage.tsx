@@ -140,7 +140,7 @@ export function FeedbackPage({ onBack }: Props) {
         <img src="/static/mascot.jpg" alt="Buddy" className="w-8 h-8 rounded-full object-cover border-2 border-brand-500" />
         <div>
           <p className="text-sm font-extrabold leading-none">
-            Deutsch <span className="text-brand-500">Buddy</span>
+            Deutsche <span className="text-brand-500">Buddy</span>
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Aussprache-Feedback</p>
         </div>

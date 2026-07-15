@@ -69,7 +69,7 @@ export function AuthPage() {
             />
             <div className="text-center">
               <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                Deutsch <span className="text-brand-500">Buddy</span>
+                Deutsche <span className="text-brand-500">Buddy</span>
               </h1>
               <p className="text-sm text-gray-500 mt-0.5">Dein KI-Deutsch-Gesprächspartner</p>
             </div>

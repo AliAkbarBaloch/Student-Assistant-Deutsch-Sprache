@@ -22,7 +22,7 @@ Text Chat  (streaming pipeline)
 | Voice STT | Deepgram Nova-3 | Real-time, German, via LiveKit inference |
 | Voice TTS | Cartesia Sonic-3 | Streaming, German, via LiveKit inference |
 | Voice LLM | `qwen36-35b` | Professor's API, `enable_thinking: false` for speed |
-| Text LLM | `gemma4-31b-it` | Professor's OpenAI-compatible API |
+| Text LLM | `qwen36-35b` | Professor's OpenAI-compatible API |
 | Text TTS | Microsoft Edge TTS `de-DE-KatjaNeural` | Free, no key needed |
 | VAD | Silero | Turn detection for the voice agent |
 
@@ -72,11 +72,11 @@ Create a file named `.env` in the project root:
 
 ```env
 # Professor's OpenAI-compatible API
-PROF_API_KEY=your_api_key_here
-PROF_API_BASE=https://llms.innkube.fim.uni-passau.de/v1
+LLM_API_KEY=your_api_key_here
+LLM_API_BASE=https://llms.innkube.fim.uni-passau.de/v1
 
 # LLM models
-PROF_MODEL=gemma4-31b-it          # text chat
+LLM_MODEL=qwen36-35b          # text chat
 VOICE_MODEL=qwen36-35b            # voice agent (faster, lower latency)
 
 # JWT signing key — use any random string of 32+ characters
@@ -87,12 +87,6 @@ LIVEKIT_URL=wss://your-project.livekit.cloud
 LIVEKIT_API_KEY=your_livekit_api_key
 LIVEKIT_API_SECRET=your_livekit_api_secret
 ```
-
-**Available models on the professor's API:**
-- `gemma4-31b-it`
-- `qwen36-35b`
-- `qwen3-next-80b-a3b-instruct`
-- `qwen35-397b`
 
 ---
 
@@ -257,7 +251,7 @@ python --version   # must show 3.12.x
 ```
 
 **503 on text chat**
-→ Check the uvicorn terminal for `[LLM]` log lines. Update `PROF_MODEL` in `.env` to one of the available models listed above.
+→ Check the uvicorn terminal for `[LLM]` log lines. Update `LLM_MODEL` in `.env` to one of the available models listed above.
 
 **JWT `InsecureKeyLengthWarning`**
 → Your `SECRET_KEY` is shorter than 32 characters. Use a longer random string.

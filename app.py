@@ -10,6 +10,7 @@ os.environ.setdefault("MKL_THREADING_LAYER",    "GNU")
 import asyncio
 import json
 import re
+import time
 import uuid
 from io import BytesIO
 from pathlib import Path
@@ -43,7 +44,7 @@ MAX_FILE_BYTES = 20 * 1024 * 1024
 
 TTS_DIR.mkdir(parents=True, exist_ok=True)
 
-app = FastAPI(title="Deutsch Buddy — German AI Agent")
+app = FastAPI(title="Deutsche Buddy — German AI Agent")
 
 app.add_middleware(
     CORSMiddleware,
@@ -219,6 +220,9 @@ def clear_history(
 
 # LiveKit token — used by both voice buttons
 
+# Debounce dictionary to prevent multiple dispatches
+_dispatch_locks = {}
+
 @app.post("/api/livekit-token")
 async def livekit_token(
     level:         str = Form("B1"),
@@ -248,15 +252,23 @@ async def livekit_token(
         .to_jwt()
     )
 
-    # Dispatch the Buddy agent to this room with the user's CEFR level
-    async with lk_api.LiveKitAPI(lk_url, lk_key, lk_secret) as lk:
-        await lk.agent_dispatch.create_dispatch(
-            lk_api.CreateAgentDispatchRequest(
-                agent_name="deutsch-buddy",
-                room=room,
-                metadata=json.dumps({"level": cefr}),
+    # Prevent multiple explicit dispatches for the same room within 5 seconds
+    now = time.time()
+    for k in list(_dispatch_locks.keys()):
+        if now - _dispatch_locks[k] > 5:
+            del _dispatch_locks[k]
+
+    if room not in _dispatch_locks:
+        _dispatch_locks[room] = now
+        # Dispatch the Buddy agent to this room with the user's CEFR level
+        async with lk_api.LiveKitAPI(lk_url, lk_key, lk_secret) as lk:
+            await lk.agent_dispatch.create_dispatch(
+                lk_api.CreateAgentDispatchRequest(
+                    agent_name="deutsch-buddy",
+                    room=room,
+                    metadata=json.dumps({"level": cefr}),
+                )
             )
-        )
 
     return {"token": token, "url": lk_url, "room": room}
 
@@ -348,8 +360,8 @@ async def chat_text_stream(
         user_text, _build_history(history), level=cefr
     )
 
-    api_key  = os.getenv("PROF_API_KEY")
-    base_url = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+    api_key  = os.getenv("LLM_API_KEY")
+    base_url = os.getenv("LLM_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
 
     current_user = _get_user_from_header(authorization, db)
 

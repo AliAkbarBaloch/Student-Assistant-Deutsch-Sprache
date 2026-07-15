@@ -348,8 +348,8 @@ async def chat_text_stream(
         user_text, _build_history(history), level=cefr
     )
 
-    api_key  = os.getenv("PROF_API_KEY")
-    base_url = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+    api_key  = os.getenv("LLM_API_KEY")
+    base_url = os.getenv("LLM_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
 
     current_user = _get_user_from_header(authorization, db)
 

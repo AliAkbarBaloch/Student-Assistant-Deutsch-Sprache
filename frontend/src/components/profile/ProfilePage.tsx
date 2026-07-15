@@ -71,7 +71,7 @@ export function ProfilePage({ onBack }: Props) {
         </button>
         <div>
           <p className="text-sm font-extrabold leading-none">
-            Deutsch <span className="text-brand-500">Buddy</span>
+            Deutsche <span className="text-brand-500">Buddy</span>
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Profil bearbeiten</p>
         </div>

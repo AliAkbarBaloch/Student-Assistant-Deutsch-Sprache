@@ -25,8 +25,8 @@ load_dotenv()
 
 logger = logging.getLogger("deutsch-buddy-agent")
 
-_PROF_BASE = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
-_PROF_KEY  = os.getenv("PROF_API_KEY", "")
+_PROF_BASE = os.getenv("LLM_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+_LLM_API_KEY  = os.getenv("LLM_API_KEY", "")
 _LLM_MODEL = os.getenv("VOICE_MODEL", "qwen36-35b")
 
 _LEVEL_DESCRIPTIONS: dict[str, str] = {
@@ -103,7 +103,7 @@ async def entrypoint(ctx: JobContext) -> None:
         llm=lk_openai.LLM(
             model=_LLM_MODEL,
             base_url=_PROF_BASE,
-            api_key=_PROF_KEY,
+            api_key=_LLM_API_KEY,
             extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         ),
         tts=inference.TTS(model="cartesia/sonic-3", language="de"),

@@ -66,7 +66,7 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
       } else {
         chat.addMessage({
           role: "assistant",
-          content_de: `Hallo, ${user?.name}! Ich bin Buddy 🎙 Schreib mir auf Deutsch oder ruf mich an!`,
+          content_de: `Hallo, ${user?.name}! Ich bin Buddy 🎙 Schreib mir auf Deutsche oder ruf mich an!`,
           content_en: `Hello, ${user?.name}! I'm Buddy 🎙 Write to me in German or call me!`,
         });
       }

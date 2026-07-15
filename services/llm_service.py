@@ -41,19 +41,19 @@ REGELN:
 
 _MAX_HISTORY_TURNS = 5
 _EXTRA_BODY = {"chat_template_kwargs": {"enable_thinking": False}}
-_FALLBACK_MODELS = ["gemma4-31b-it", "qwen36-35b"]
+_FALLBACK_MODELS = ["qwen36-35b", "qwen36-35b"]
 
 
 def _get_client() -> OpenAI:
-    api_key  = os.getenv("PROF_API_KEY")
-    base_url = os.getenv("PROF_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
+    api_key  = os.getenv("LLM_API_KEY")
+    base_url = os.getenv("LLM_API_BASE", "https://llms.innkube.fim.uni-passau.de/v1")
     if not api_key:
-        raise RuntimeError("PROF_API_KEY is not set in .env")
+        raise RuntimeError("LLM_API_KEY is not set in .env")
     return OpenAI(api_key=api_key, base_url=base_url)
 
 
 def _get_model() -> str:
-    return os.getenv("PROF_MODEL", "gemma4-31b-it")
+    return os.getenv("LLM_MODEL", "qwen36-35b")
 
 
 def _get_voice_model() -> str:

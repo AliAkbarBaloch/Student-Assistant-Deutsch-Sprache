@@ -4,7 +4,7 @@
 #                            used for pronunciation feedback only;
 #                            voice chat STT is handled by Deepgram Nova-3 via LiveKit
 #
-#   llm_service          →  Professor's OpenAI-compatible API (gemma4-31b-it / qwen36-35b)
+#   llm_service          →  Professor's OpenAI-compatible API (qwen36-35b / qwen36-35b)
 #                            text chat + pronunciation feedback
 #                            supports streaming via build_streaming_messages()
 #

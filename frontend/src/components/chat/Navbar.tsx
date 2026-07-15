@@ -30,7 +30,7 @@ export function Navbar({ status, onClearHistory, onOpenProfile, onOpenFeedback }
         />
         <div>
           <p className="text-sm font-extrabold text-gray-900 dark:text-white leading-none">
-            Deutsch <span className="text-brand-500">Buddy</span>
+            Deutsche <span className="text-brand-500">Buddy</span>
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Dein KI-Deutsch-Gesprächspartner</p>
         </div>
