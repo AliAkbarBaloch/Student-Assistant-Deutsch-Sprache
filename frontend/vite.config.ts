@@ -6,13 +6,14 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Forward all /api and /static calls to FastAPI on :8000
+      // Forward calls to FastAPI on :8000
       "/api":    { target: "http://localhost:8000", changeOrigin: true },
+      "/media":  { target: "http://localhost:8000", changeOrigin: true },
       "/static": { target: "http://localhost:8000", changeOrigin: true },
     },
   },
   build: {
-    outDir: "../backend/static/react",
+    outDir: "../frontend/static/react",
     emptyOutDir: true,
   },
 });

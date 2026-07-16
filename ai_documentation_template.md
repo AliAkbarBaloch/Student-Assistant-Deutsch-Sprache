@@ -374,6 +374,41 @@ The recording experience is now clear and satisfying — users see the mic pulsi
 
 ---
 
+## Entry #10 — Building the CEFR Evaluation Script and Comparing Gemma, Qwen3.6, and Claude
+
+**Date:** 2026-07-12 to 2026-07-16
+
+**Team member(s):** Muhammad Mustafa Khalid Malik
+
+**AI Tool used:** Claude
+
+### Context
+
+Testing & Evaluation was one of our six project phases, but I didn't want to present it with vague claims like "the model uses appropriate vocabulary." I wanted an actual number: out of 80 real conversations across A1–B2, how often does Deutsch Buddy's reply actually stay within the vocabulary of the level it's supposed to be teaching? I also needed a fair way to compare our production model against alternatives before deciding what to actually ship with, since I was considering switching from Gemma to a Qwen model.
+
+### Prompt / Task
+
+> "I want to generate 20 responses for 20 different questions/conversations per CEFR level, so 80 total. Then, in a simple way, check how many words from dictionary_a1a2b1_onlystems.csv match — skip stemming, skip simple German words like und, aber, etc., and only look at main vocabulary. We'll analyse if the vocabulary the LLM outputs matches the correct CEFR level."
+
+
+### AI Output Summary
+
+Claude built `evaluate_cefr_accuracy.py`: it loads the CEFR CSV into a word-to-level lookup, tokenizes each response, strips out a ~200-word German stopword list (articles, pronouns, conjunctions, auxiliary verbs), then does a direct exact-match lookup against the dictionary — no stemming — to compute a compliance percentage per response and per CEFR level.
+
+### Decision
+
+- [x] Modified before use
+
+### Reasoning
+
+I ran it against Gemma and qwen36-35b, compared real results, and switched the project to qwen36-35b after seeing a large latency improvement.
+
+### Impact
+
+This produced the actual Phase 6 results slide in our final presentation, and real compliance percentages.
+
+---
+
 *Template for future entries below this line*
 
 ---

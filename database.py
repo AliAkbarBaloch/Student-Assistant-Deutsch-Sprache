@@ -29,7 +29,7 @@ class User(Base):
     email         = Column(String(255), unique=True, nullable=False, index=True)
     name          = Column(String(100), nullable=False)
     password_hash = Column(String(255), nullable=False)
-    # Path relative to /static/ — e.g. "avatars/3.jpg"
+    # Path relative to /media/ — e.g. "/media/avatars/3.jpg"
     avatar_url    = Column(String(255), nullable=True, default=None)
     created_at    = Column(DateTime, default=datetime.datetime.utcnow)
 
