@@ -161,7 +161,6 @@ deutsche_buddy/
 │   ├── tts_service.py       # Edge TTS (text chat audio)
 │   ├── auth_service.py      # JWT + bcrypt
 │   ├── vocab_service.py     # CEFR vocabulary grounding
-│   └── phoneme_service.py   # pronunciation analysis
 │
 ├── frontend/
 │   ├── src/

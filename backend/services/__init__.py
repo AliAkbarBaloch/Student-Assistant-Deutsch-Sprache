@@ -21,6 +21,4 @@
 #   vocab_service        →  CEFR vocabulary CSV loader; injects word-stem samples
 #                            into LLM system prompts to ground responses by level
 #
-#   phoneme_service      →  Phoneme-level pronunciation scoring
-#
 #   transcription_service → Legacy HuggingFace whisper-base (English) — unused by main app
