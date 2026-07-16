@@ -16,7 +16,7 @@ async def generate_tts_audio(text: str, output_dir: Path, voice: str = _DEFAULT_
     filename = f"{safe_prefix}_{uuid.uuid4().hex[:8]}.mp3"
     output_path = output_dir / filename
 
-    communicate = edge_tts.Communicate(text=text, voice=voice)
+    communicate = edge_tts.Communicate(text=text, voice=voice, rate="-15%")
     await communicate.save(str(output_path))
 
     return output_path

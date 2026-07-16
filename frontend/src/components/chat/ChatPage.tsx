@@ -26,15 +26,18 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
   const [status,   setStatus]   = useState("idle");
   const [callTime, setCallTime] = useState(0);
 
+  const [interimTranscript, setInterimTranscript] = useState("");
+  const recognitionRef = useRef<any>(null);
+
   // Dialog + toast state
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteLoading,    setDeleteLoading]    = useState(false);
   const [toast,            setToast]            = useState<ToastData | null>(null);
 
   const callTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null);
-  // "sprechen" = mic button started the call, "anruf" = phone button started it
   const callSourceRef = useRef<"sprechen" | "anruf" | null>(null);
   const scrollRef     = useRef<HTMLDivElement>(null);
+  const isRecordingRef = useRef(false);
 
   // onTranscript fires for every call — only add to chat when Sprechen started it
   const lk = useLiveKitCall((text, role) => {
@@ -50,13 +53,42 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
   // ── Reset all call state when LiveKit disconnects (from any source) ────────
   useEffect(() => {
     if (lk.callState === "idle") {
-      setMicState("idle");
+      if (micState === "recording" && callSourceRef.current === "anruf") {
+        setMicState("idle");
+      }
       if (callTimerRef.current) clearInterval(callTimerRef.current);
       setCallTime(0);
-      setStatus("idle");
-      callSourceRef.current = null;
+      if (status === "call") setStatus("idle");
     }
   }, [lk.callState]);
+
+  // ── Initialize Speech Recognition for "Sprechen" ───────────────────────────
+  useEffect(() => {
+    // @ts-ignore
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const rec = new SpeechRecognition();
+      rec.continuous = true;
+      rec.interimResults = true;
+      rec.lang = "de-DE";
+
+      rec.onresult = (event: any) => {
+        if (!isRecordingRef.current) return;
+        let fullTranscript = "";
+        for (let i = 0; i < event.results.length; ++i) {
+          fullTranscript += event.results[i][0].transcript;
+        }
+        setInterimTranscript(fullTranscript);
+      };
+      
+      rec.onerror = (e: any) => {
+        console.error("Speech rec error:", e);
+        setMicState("idle");
+      };
+
+      recognitionRef.current = rec;
+    }
+  }, []);
 
   // ── Load history on mount ──────────────────────────────────────────────────
   useEffect(() => {
@@ -121,22 +153,42 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
     await lk.connect(url, token);
   }
 
-  // ── Sprechen button — now uses LiveKit (same speed as Live-Anruf) ─────────
+  // ── Sprechen button — Voice to Text using Web Speech API ─────────
   async function toggleRecording() {
-    // If a Sprechen-initiated call is active, stop it
     if (lk.callState !== "idle") {
-      lk.disconnect(); // useEffect handles cleanup
+      lk.disconnect();
+      return;
+    }
+
+    if (micState === "recording") {
+      isRecordingRef.current = false;
+      recognitionRef.current?.stop();
+      setMicState("processing");
+      const text = interimTranscript.trim();
+      setInterimTranscript("");
+      
+      if (text) {
+        setMicState("idle");
+        handleTextSend(text).catch(console.error);
+      } else {
+        setMicState("idle");
+      }
+      return;
+    }
+
+    if (!recognitionRef.current) {
+      showToast("Dein Browser unterstützt keine Spracherkennung.", "error");
       return;
     }
 
     callSourceRef.current = "sprechen";
-    setMicState("recording"); // show red mic + pulse animation
-
+    isRecordingRef.current = true;
+    setInterimTranscript("");
+    setMicState("recording");
     try {
-      await _startCall();
-    } catch {
-      showToast("Verbindungsfehler. Bitte erneut versuchen.", "error");
-      lk.disconnect();
+      recognitionRef.current.start();
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -187,6 +239,13 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
         {chat.messages.map((msg, i) => (
           <MessageBubble key={i} message={msg} userName={user?.name} userAvatar={user?.avatar_url} />
         ))}
+        {interimTranscript && (
+          <MessageBubble 
+            message={{ role: "user", content_de: interimTranscript, content_en: "" }} 
+            userName={user?.name} 
+            userAvatar={user?.avatar_url} 
+          />
+        )}
         {chat.isProcessing && <TypingBubble />}
       </div>
 

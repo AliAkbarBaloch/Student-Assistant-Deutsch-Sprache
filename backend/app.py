@@ -34,14 +34,16 @@ from services import auth_service, llm_service, stt_service, tts_service
 load_dotenv()
 create_tables()
 
-BASE_DIR   = Path(__file__).resolve().parent
-STATIC_DIR = BASE_DIR / "static"
-TTS_DIR    = STATIC_DIR / "tts"
+BASE_DIR            = Path(__file__).resolve().parent
+BACKEND_STATIC_DIR  = BASE_DIR / "static"
+FRONTEND_STATIC_DIR = BASE_DIR.parent / "frontend" / "static"
+TTS_DIR             = BACKEND_STATIC_DIR / "tts"
 
 TARGET_SR      = 16_000
 MAX_FILE_BYTES = 20 * 1024 * 1024
 
 TTS_DIR.mkdir(parents=True, exist_ok=True)
+FRONTEND_STATIC_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(title="Deutsch Buddy — German AI Agent")
 
@@ -53,7 +55,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+# Mount TTS media first (specific path), then frontend static files
+app.mount("/static/tts", StaticFiles(directory=TTS_DIR), name="tts_media")
+app.mount("/static", StaticFiles(directory=FRONTEND_STATIC_DIR), name="frontend_static")
 
 
 def _get_user_from_header(authorization: Optional[str], db: Session) -> Optional[User]:
@@ -79,7 +83,7 @@ def _require_user(authorization: Optional[str] = Header(None), db: Session = Dep
 
 @app.get("/")
 def root() -> FileResponse:
-    return FileResponse(STATIC_DIR / "index.html")
+    return FileResponse(FRONTEND_STATIC_DIR / "index.html")
 
 
 @app.get("/api/health")
@@ -134,7 +138,7 @@ def me(current_user: User = Depends(_require_user)) -> dict:
     return {"id": current_user.id, "name": current_user.name, "email": current_user.email, "avatar_url": current_user.avatar_url}
 
 
-AVATARS_DIR = STATIC_DIR / "avatars"
+AVATARS_DIR = BACKEND_STATIC_DIR / "avatars"
 AVATARS_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp"}

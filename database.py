@@ -51,6 +51,19 @@ class Message(Base):
     user = relationship("User", back_populates="messages")
 
 
+class CallTranscript(Base):
+    """Stores the full transcript of a live voice call."""
+
+    __tablename__ = "call_transcripts"
+
+    id              = Column(Integer, primary_key=True, index=True)
+    user_id         = Column(Integer, ForeignKey("users.id"), nullable=False)
+    transcript_data = Column(Text, nullable=False)  # JSON-encoded array of {role, content}
+    created_at      = Column(DateTime, default=datetime.datetime.utcnow)
+
+    user = relationship("User", backref="transcripts")
+
+
 def get_db():
     """FastAPI dependency that yields a DB session and closes it after the request."""
     db: Session = SessionLocal()

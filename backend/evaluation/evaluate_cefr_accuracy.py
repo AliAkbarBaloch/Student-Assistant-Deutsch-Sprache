@@ -1,10 +1,4 @@
 """
-CEFR Vocabulary Accuracy Evaluator - Deutsch Buddy.
-
-Generates 80 test conversations (20 per CEFR level: A1, A2, B1, B2) by sending
-prompts to chat_german(), then checks - in a simple, direct way - whether the
-vocabulary Buddy used actually matches the target CEFR level.
-
 Method (deliberately simple, no stemming/lemmatization):
   1. Tokenize each German response into lowercase words.
   2. Drop common function words (und, aber, ist, der, die, das, ...) - these
@@ -169,8 +163,6 @@ TEST_PROMPTS: dict[str, list[str]] = {
         "Welche Rolle spielt Freundschaft in deinem Leben?",
     ],
     "B2": [
-        # B2 has no vocabulary restriction in the app (unrestricted), so a low
-        # compliance % here is expected/normal - included for completeness.
         "Was sind die Vor- und Nachteile der sozialen Medien?",
         "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
         "Was bedeutet Freiheit für dich?",

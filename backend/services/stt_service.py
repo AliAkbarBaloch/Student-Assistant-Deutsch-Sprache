@@ -17,8 +17,17 @@ def _get_model():
 
 
 def transcribe_german(audio: np.ndarray, sample_rate: int = 16_000) -> str:  # noqa: ARG001
-    """Transcribe 16 kHz float32 audio to German text."""
+    """Transcribe 16 kHz float32 audio and prepend detected language if not German."""
     model = _get_model()
-    segments, _ = model.transcribe(audio, language="de", beam_size=1, vad_filter=True)
+    # Let Whisper auto-detect the language instead of forcing "de"
+    segments, info = model.transcribe(audio, beam_size=1, vad_filter=True)
     text = " ".join(seg.text for seg in segments).strip().strip(".,!?")
-    return text if text else "(unclear)"
+    
+    if not text:
+        return "(unclear)"
+        
+    # If a foreign language was detected, give the LLM a hint
+    if info.language != "de":
+        return f"[DETECTED_LANGUAGE: {info.language}] {text}"
+        
+    return text
