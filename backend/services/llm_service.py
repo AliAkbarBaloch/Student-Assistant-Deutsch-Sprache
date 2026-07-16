@@ -41,7 +41,7 @@ REGELN:
 
 _MAX_HISTORY_TURNS = 5
 _EXTRA_BODY = {"chat_template_kwargs": {"enable_thinking": False}}
-_FALLBACK_MODELS = ["qwen36-35b", "qwen36-35b"]
+_FALLBACK_MODELS = ["qwen35-395b", "gemma4-31b-it"]
 
 
 def _get_client() -> OpenAI:
