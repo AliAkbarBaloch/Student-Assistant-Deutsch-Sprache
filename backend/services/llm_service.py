@@ -187,12 +187,6 @@ FIELD RULES:
 - If target text is provided, compare what was said vs. what was intended
 - Be encouraging but honest — this is for learning
 - No markdown, no text outside the JSON
-
-GUARDRAIL RULES:
-- The transcription might start with "[DETECTED_LANGUAGE: xx]". If it does, and the text is clearly NOT German (e.g. English, Spanish, random noise), give a "score" of 1.
-- In this case, set "overall" to inform the user that you detected a foreign language instead of German (e.g., "Es scheint, dass du nicht auf Deutsch gesprochen hast...").
-- Keep "issues" and "tips" empty if a foreign language was spoken.
-- Explain this situation in "feedback_en".
 """.strip()
 
 

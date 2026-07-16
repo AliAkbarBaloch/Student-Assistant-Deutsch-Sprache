@@ -154,11 +154,13 @@ export interface FeedbackResponse {
 }
 
 export async function getPronunciationFeedback(
-  audio: Blob | File,
+  audio: Blob | File | null,
   targetText = "",
 ): Promise<FeedbackResponse> {
   const fd = new FormData();
-  fd.append("audio", audio, audio instanceof File ? audio.name : "recording.webm");
+  if (audio) {
+    fd.append("audio", audio, audio instanceof File ? audio.name : "recording.webm");
+  }
   fd.append("target_text", targetText);
   const res = await fetch("/api/pronunciation-feedback", {
     method: "POST",

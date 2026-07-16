@@ -461,19 +461,20 @@ async def chat(
 
 @app.post("/api/pronunciation-feedback")
 async def pronunciation_feedback(
-    audio:       UploadFile = File(...),
+    audio:       Optional[UploadFile] = File(None),
     target_text: str = Form(""),
     authorization: Optional[str] = Header(None),
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     """
     Pronunciation feedback endpoint.
-    Accepts an MP3/WAV/WebM audio file, transcribes it with Whisper,
-    then asks the LLM to give detailed German pronunciation feedback.
-    Returns transcription, score (1-10), issues, and improvement tips.
+    Accepts an optional MP3/WAV/WebM audio file. If audio is missing, uses target_text to test the pipeline.
     """
-    audio_array = await _read_audio(audio)
-    transcribed = stt_service.transcribe_german(audio_array, sample_rate=TARGET_SR)
+    if audio is not None and audio.filename:
+        audio_array = await _read_audio(audio)
+        transcribed = stt_service.transcribe_german(audio_array, sample_rate=TARGET_SR)
+    else:
+        transcribed = target_text
 
     if not transcribed or not transcribed.strip():
         raise HTTPException(400, "Kein Deutsch erkannt. Bitte erneut versuchen.")

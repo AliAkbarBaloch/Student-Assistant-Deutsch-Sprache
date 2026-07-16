@@ -95,6 +95,22 @@ export function FeedbackPage({ onBack }: Props) {
     }
   }
 
+  async function testTextOnly() {
+    if (!targetText.trim()) return;
+    setPageState("analysing");
+    setResult(null);
+    setErrorMsg("");
+    setShowEn(false);
+    try {
+      const data = await getPronunciationFeedback(null, targetText);
+      setResult(data);
+      setPageState("done");
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : "Analyse fehlgeschlagen.");
+      setPageState("error");
+    }
+  }
+
   function reset() {
     setPageState("idle");
     setResult(null);
@@ -173,13 +189,22 @@ export function FeedbackPage({ onBack }: Props) {
                 <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                   Was hast du versucht zu sagen? <span className="font-normal normal-case">(optional)</span>
                 </label>
-                <input
-                  type="text"
-                  value={targetText}
-                  onChange={(e) => setTargetText(e.target.value)}
-                  placeholder='z. B. "Ich möchte einen Kaffee, bitte."'
-                  className="w-full rounded-xl px-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 placeholder-gray-400"
-                />
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={targetText}
+                    onChange={(e) => setTargetText(e.target.value)}
+                    placeholder='z. B. "Ich möchte einen Kaffee, bitte."'
+                    className="flex-1 rounded-xl px-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 placeholder-gray-400"
+                  />
+                  <button 
+                    onClick={testTextOnly}
+                    disabled={!targetText.trim()}
+                    className="px-4 py-2 bg-brand-500 hover:bg-brand-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white text-sm font-bold rounded-xl transition-colors"
+                  >
+                    Senden
+                  </button>
+                </div>
               </div>
 
               {/* Upload zone */}
