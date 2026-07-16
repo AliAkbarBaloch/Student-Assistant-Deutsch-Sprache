@@ -1,21 +1,3 @@
-"""
-Method (deliberately simple, no stemming/lemmatization):
-  1. Tokenize each German response into lowercase words.
-  2. Drop common function words (und, aber, ist, der, die, das, ...) - these
-     don't tell us anything about level, they're allowed at every level.
-  3. Look up each remaining word directly in dictionary_a1a2b1_onlystems.csv.
-     - Found + at/below target level  -> OK
-     - Found + above target level     -> violation
-     - Not found in the CSV at all    -> unknown (skipped, not penalised -
-       likely a conjugated form, name, or word outside the list)
-  4. compliance % = OK / (OK + violations) for each response, then averaged
-     per level and overall.
-
-Usage (run from the backend/ folder):
-    python testing/evaluate_cefr_accuracy.py                # generate + score
-    python testing/evaluate_cefr_accuracy.py --generate-only
-    python testing/evaluate_cefr_accuracy.py --score-only --input testing/output/conversations.json
-"""
 from __future__ import annotations
 
 import argparse

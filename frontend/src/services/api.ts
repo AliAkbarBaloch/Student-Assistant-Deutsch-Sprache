@@ -68,25 +68,6 @@ export async function deleteHistory(): Promise<void> {
   await fetch("/api/history", { method: "DELETE", headers: authHeaders() });
 }
 
-// ── Chat (text) ───────────────────────────────────────────────────────────────
-
-export async function sendTextMessage(
-  message: string,
-  history: { role: string; content: string }[],
-  level = "B1",
-): Promise<ChatResponse> {
-  const fd = new FormData();
-  fd.append("message", message);
-  fd.append("history", JSON.stringify(history));
-  fd.append("level", level);
-  const res = await fetch("/api/chat-text", {
-    method: "POST",
-    body: fd,
-    headers: authHeaders(),
-  });
-  return handleResponse<ChatResponse>(res);
-}
-
 /**
  * Streaming text chat via SSE.
  * - onToken fires for every LLM token as it arrives (text appears live).
@@ -189,21 +170,3 @@ export async function getLiveKitToken(level = "B1"): Promise<LiveKitTokenRespons
   return handleResponse<LiveKitTokenResponse>(res);
 }
 
-// ── Chat (voice) ──────────────────────────────────────────────────────────────
-
-export async function sendVoiceMessage(
-  blob: Blob,
-  history: { role: string; content: string }[],
-  level = "B1",
-): Promise<ChatResponse> {
-  const fd = new FormData();
-  fd.append("audio", blob, "recording.webm");
-  fd.append("history", JSON.stringify(history));
-  fd.append("level", level);
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    body: fd,
-    headers: authHeaders(),
-  });
-  return handleResponse<ChatResponse>(res);
-}

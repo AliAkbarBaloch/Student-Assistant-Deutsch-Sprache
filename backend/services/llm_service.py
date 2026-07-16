@@ -56,10 +56,6 @@ def _get_model() -> str:
     return os.getenv("LLM_MODEL", "qwen36-35b")
 
 
-def _get_voice_model() -> str:
-    return os.getenv("VOICE_MODEL", "qwen36-35b")
-
-
 def _create_with_fallback(client: OpenAI, messages: list, temperature: float, max_tokens: int) -> object:
     """Try the configured model, fall back through _FALLBACK_MODELS on error."""
     primary = _get_model()
@@ -121,42 +117,17 @@ def chat_german(
     user_text: str,
     history: list[dict],
     level: Optional[CefrLevel] = "B1",
-    voice: bool = False,
 ) -> dict:
     """Generate a German response. Returns {"german": "...", "english": "..."}."""
     client = _get_client()
     trimmed_history = history[-(2 * _MAX_HISTORY_TURNS):]
     system_prompt   = _build_system_prompt(level or "B1")
 
-    if voice:
-        system_prompt = system_prompt.replace("2–4 Sätze", "1–2 Sätze")
-
     messages = [{"role": "system", "content": system_prompt}]
     messages.extend(trimmed_history)
     messages.append({"role": "user", "content": user_text})
 
-    if voice:
-        voice_model = _get_voice_model()
-        queue = [voice_model] + [m for m in _FALLBACK_MODELS if m != voice_model]
-        last_err: Exception = RuntimeError("No models available")
-        for model in queue:
-            try:
-                response = client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    temperature=0.7,
-                    max_tokens=150,
-                    extra_body=_EXTRA_BODY,
-                )
-                print(f"[voice LLM] using model: {model}")
-                break
-            except openai.APIError as e:
-                print(f"[voice LLM] model {model!r} failed: {e} — trying next")
-                last_err = e
-        else:
-            raise last_err
-    else:
-        response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
+    response = _create_with_fallback(client, messages, temperature=0.7, max_tokens=300)
 
     raw = response.choices[0].message.content.strip()
     return _parse_json_response(raw)

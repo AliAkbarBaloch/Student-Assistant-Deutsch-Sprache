@@ -285,43 +285,6 @@ def _build_history(history_json: str) -> list[dict]:
 
 # Chat endpoints
 
-@app.post("/api/chat-text")
-async def chat_text(
-    message:       str = Form(...),
-    history:       str = Form("[]"),
-    level:         str = Form("B1"),
-    authorization: Optional[str] = Header(None),
-    db: Session = Depends(get_db),
-) -> dict[str, Any]:
-    """
-    Text chat endpoint — skips STT, goes straight to LLM → TTS.
-    `level` controls CEFR vocabulary (A1 / A2 / B1 / B2).
-    Saves the turn to DB if the user is authenticated.
-    """
-    user_text = message.strip()
-    if not user_text:
-        raise HTTPException(400, "Nachricht darf nicht leer sein.")
-
-    cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
-
-    try:
-        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr)
-    except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
-        raise HTTPException(503, f"AI service temporarily unavailable: {e}")
-
-    tts_path = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
-
-    current_user = _get_user_from_header(authorization, db)
-    if current_user:
-        _save_turn(db, current_user.id, user_text, ai_response["german"], ai_response["english"])
-
-    return {
-        "user_text":     user_text,
-        "ai_text_de":    ai_response["german"],
-        "ai_text_en":    ai_response["english"],
-        "tts_audio_url": f"/static/tts/{tts_path.name}",
-    }
-
 
 @app.post("/api/chat-text-stream")
 async def chat_text_stream(
@@ -416,43 +379,6 @@ async def chat_text_stream(
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
-
-
-@app.post("/api/chat")
-async def chat(
-    audio:         UploadFile = File(...),
-    history:       str = Form("[]"),
-    level:         str = Form("B1"),
-    authorization: Optional[str] = Header(None),
-    db: Session = Depends(get_db),
-) -> dict[str, Any]:
-    """
-    Voice chat endpoint — STT → LLM → TTS.
-    `level` controls CEFR vocabulary (A1 / A2 / B1 / B2).
-    Saves the turn to DB if the user is authenticated.
-    """
-    audio_array = await _read_audio(audio)
-    user_text   = stt_service.transcribe_german(audio_array, sample_rate=TARGET_SR)
-
-    cefr = level.upper() if level.upper() in ("A1", "A2", "B1", "B2") else "B1"
-
-    try:
-        ai_response = llm_service.chat_german(user_text, _build_history(history), level=cefr, voice=True)
-    except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
-        raise HTTPException(503, f"AI service temporarily unavailable: {e}")
-
-    tts_path = await tts_service.generate_tts_audio(ai_response["german"], TTS_DIR)
-
-    current_user = _get_user_from_header(authorization, db)
-    if current_user:
-        _save_turn(db, current_user.id, user_text, ai_response["german"], ai_response["english"])
-
-    return {
-        "user_text":     user_text,
-        "ai_text_de":    ai_response["german"],
-        "ai_text_en":    ai_response["english"],
-        "tts_audio_url": f"/static/tts/{tts_path.name}",
-    }
 
 
 #

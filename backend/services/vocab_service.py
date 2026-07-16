@@ -80,7 +80,3 @@ def get_level_description(level: CefrLevel) -> str:
     return descriptions[level]
 
 
-def get_stem_count(level: CefrLevel) -> int:
-    if level == "B2":
-        return len(_CUMULATIVE["B1"])
-    return len(_CUMULATIVE[level])
