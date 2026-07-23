@@ -1,6 +1,6 @@
 # Services package — each module handles exactly one responsibility:
 #
-#   stt_service          →  faster-whisper (large-v3-turbo, int8) German STT
+#   stt_service          →  Qwen3-ASR-0.6B local German STT
 #                            used for pronunciation feedback only;
 #                            voice chat STT is handled by Deepgram Nova-3 via LiveKit
 #

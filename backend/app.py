@@ -63,10 +63,10 @@ app.mount("/static", StaticFiles(directory=FRONTEND_STATIC_DIR), name="frontend_
 
 @app.on_event("startup")
 def startup_event():
-    print("Preloading Qwen3-ASR model into memory...")
+    print("Preloading Qwen3-ASR-0.6B model into memory...")
     try:
         stt_service._get_model()
-        print("Qwen3-ASR loaded successfully.")
+        print("Qwen3-ASR-0.6B loaded successfully.")
     except Exception as e:
         print(f"Failed to preload Qwen3-ASR: {e}")
 

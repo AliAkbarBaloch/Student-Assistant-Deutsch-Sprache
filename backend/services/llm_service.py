@@ -135,8 +135,30 @@ def chat_german(
 
 _FEEDBACK_SYSTEM_PROMPT = """
 You are an expert German pronunciation coach in the app "Deutsch Buddy".
-A learner has recorded themselves speaking German. You will be given the transcription of what they said.
-Analyse their pronunciation and give detailed, friendly, constructive feedback.
+
+A learner has recorded themselves speaking German.
+You receive an ASR transcription of their speech — i.e., what a speech-recognition
+system decoded from the audio.
+
+CRITICAL EVALUATION RULES:
+- You are evaluating PRONUNCIATION QUALITY, **not** whether the learner said the
+  correct words.
+- A successful, clean ASR transcription proves the learner was clearly understood.
+  That alone means pronunciation is at least decent (score ≥ 6).
+- If the transcription differs from the target text, the learner simply said
+  something different — do NOT lower the score for that.  Mention the mismatch
+  briefly and move on.
+- Focus on German-specific phonetic features: umlauts (ä, ö, ü), ch-Laut
+  (ich vs. ach), r-sounds, vowel length, Auslautverhärtung, word stress,
+  and sentence intonation.
+- Base your phonetic observations on the specific words that were spoken.
+
+SCORING GUIDE:
+  9-10  Native-like — perfect sounds and natural intonation
+  7-8   Very good — clearly understood with only minor accent
+  5-6   Good — understandable but noticeable pronunciation issues
+  3-4   Needs work — hard to understand in parts
+  1-2   Very difficult to understand
 
 OUTPUT FORMAT — ONLY THIS JSON, NO OTHER TEXT:
 {
@@ -149,14 +171,15 @@ OUTPUT FORMAT — ONLY THIS JSON, NO OTHER TEXT:
 }
 
 FIELD RULES:
-- "transcribed": repeat the transcribed text as-is
-- "score": overall pronunciation score 1 (very poor) to 10 (native-like)
-- "overall": 1-2 sentence overall assessment IN GERMAN
-- "issues": list of up to 4 specific pronunciation problems found IN GERMAN (e.g. "Das 'ch' in 'ich' klingt wie 'sh'")
-- "tips": list of up to 3 practical improvement tips IN GERMAN
-- "feedback_en": full English translation of all feedback combined into one paragraph
-- If target text is provided, compare what was said vs. what was intended
-- Be encouraging but honest — this is for learning
+- "transcribed": repeat the transcribed text exactly as given
+- "score": pronunciation quality score following the guide above
+- "overall": 1-2 sentence overall assessment IN GERMAN about pronunciation quality
+- "issues": up to 4 specific pronunciation observations IN GERMAN about sounds,
+  stress, or intonation (e.g. "Das 'ch' in 'ich' klingt wie 'sch'").
+  Do NOT list "wrong word" as an issue.
+- "tips": up to 3 practical pronunciation tips IN GERMAN for the sounds in the words spoken
+- "feedback_en": English translation of all feedback in one paragraph
+- Be encouraging and constructive — this is for learning
 - No markdown, no text outside the JSON
 """.strip()
 
@@ -165,9 +188,13 @@ def pronunciation_feedback(transcribed_text: str, target_text: str = "") -> dict
     """Analyse pronunciation from a transcription and return structured feedback."""
     client = _get_client()
 
-    user_content = f'Transcription: "{transcribed_text}"'
+    user_content = f'ASR transcription of the learner\'s speech: "{transcribed_text}"'
     if target_text.strip():
-        user_content += f'\nThe learner intended to say: "{target_text.strip()}"'
+        user_content += (
+            f'\nTarget text the learner was practising: "{target_text.strip()}"'
+            f'\n(Remember: score PRONUNCIATION QUALITY of what was said, '
+            f'not whether the words match the target.)'
+        )
 
     messages = [
         {"role": "system", "content": _FEEDBACK_SYSTEM_PROMPT},
