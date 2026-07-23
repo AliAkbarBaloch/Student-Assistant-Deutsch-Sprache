@@ -1,9 +1,3 @@
-# Qwen3-ASR-0.6B STT for German — only used by pronunciation feedback.
-# Voice chat STT is handled by Deepgram Nova-3 via LiveKit.
-#
-# Uses mlx-audio on Apple Silicon for Metal GPU acceleration.
-# 8-bit quantised model keeps memory under 1 GB and runs ~5-10× faster
-# than the PyTorch CPU path.
 from __future__ import annotations
 
 import os
