@@ -3,7 +3,7 @@
  * User uploads an MP3/WAV file OR records via microphone.
  * The AI transcribes the audio and returns a detailed pronunciation analysis.
  */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft, Upload, Mic, MicOff, CheckCircle,
   AlertCircle, Lightbulb, BarChart2, RefreshCw,
@@ -23,6 +23,14 @@ export function FeedbackPage({ onBack }: Props) {
   const [targetText, setTargetText] = useState("");
   const [fileName,   setFileName]   = useState("");
   const [showEn,     setShowEn]     = useState(false);
+  const [elapsed,    setElapsed]    = useState(0);
+
+  // Tick elapsed seconds while analysing so the user knows it's still working
+  useEffect(() => {
+    if (pageState !== "analysing") { setElapsed(0); return; }
+    const t = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => clearInterval(t);
+  }, [pageState]);
 
   const fileRef          = useRef<HTMLInputElement>(null);
   const mediaRecRef      = useRef<MediaRecorder | null>(null);
@@ -278,6 +286,11 @@ export function FeedbackPage({ onBack }: Props) {
                 <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
                   Transkription + KI-Feedback wird erstellt
                 </p>
+                {elapsed > 0 && (
+                  <p className="text-xs text-gray-400 dark:text-gray-600 mt-2 tabular-nums">
+                    {elapsed}s — das kann auf der CPU etwas dauern…
+                  </p>
+                )}
               </div>
             </div>
           )}

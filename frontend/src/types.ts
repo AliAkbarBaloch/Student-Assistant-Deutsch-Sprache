@@ -34,3 +34,26 @@ export interface HistoryResponse {
 // UI state for the mic / live call
 export type MicState = "idle" | "recording" | "processing";
 export type CallState = "idle" | "listening" | "processing" | "speaking";
+
+// Live-Anruf call history
+export interface CallSummary {
+  id: string;
+  started_at: string;
+  ended_at: string | null;
+  duration_seconds: number;
+  message_count: number;
+  preview: string;
+}
+
+export interface CallTranscriptMessage {
+  role: "user" | "assistant";
+  content: string;
+  created_at?: string;
+}
+
+export interface CallDetail {
+  id: string;
+  started_at: string;
+  ended_at: string | null;
+  messages: CallTranscriptMessage[];
+}

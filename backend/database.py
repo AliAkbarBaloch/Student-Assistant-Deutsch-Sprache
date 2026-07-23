@@ -34,6 +34,7 @@ class User(Base):
     created_at    = Column(DateTime, default=datetime.datetime.utcnow)
 
     messages = relationship("Message", back_populates="user", cascade="all, delete-orphan")
+    calls    = relationship("Call", back_populates="user", cascade="all, delete-orphan")
 
 
 class Message(Base):
@@ -49,6 +50,37 @@ class Message(Base):
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     user = relationship("User", back_populates="messages")
+
+
+class Call(Base):
+    """A single Live-Anruf (LiveKit voice call) session, holding its transcript."""
+
+    __tablename__ = "calls"
+
+    id         = Column(String(36), primary_key=True)   # uuid4
+    user_id    = Column(Integer, ForeignKey("users.id"), nullable=False)
+    started_at = Column(DateTime, default=datetime.datetime.utcnow)
+    ended_at   = Column(DateTime, nullable=True)
+
+    user     = relationship("User", back_populates="calls")
+    messages = relationship(
+        "CallMessage", back_populates="call",
+        cascade="all, delete-orphan", order_by="CallMessage.id",
+    )
+
+
+class CallMessage(Base):
+    """Single turn (user or assistant) within a Live-Anruf transcript."""
+
+    __tablename__ = "call_messages"
+
+    id         = Column(Integer, primary_key=True, index=True)
+    call_id    = Column(String(36), ForeignKey("calls.id"), nullable=False)
+    role       = Column(String(20), nullable=False)   # "user" | "assistant"
+    content    = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    call = relationship("Call", back_populates="messages")
 
 
 def get_db():

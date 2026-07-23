@@ -2,7 +2,10 @@
  * API service — all HTTP calls to the FastAPI backend.
  * Auth token is automatically injected when available.
  */
-import type { AuthResponse, ChatResponse, HistoryResponse, ProfileResponse } from "../types";
+import type {
+  AuthResponse, ChatResponse, HistoryResponse, ProfileResponse,
+  CallSummary, CallDetail,
+} from "../types";
 
 const getToken = () => localStorage.getItem("db_token");
 
@@ -143,12 +146,27 @@ export async function getPronunciationFeedback(
     fd.append("audio", audio, audio instanceof File ? audio.name : "recording.webm");
   }
   fd.append("target_text", targetText);
-  const res = await fetch("/api/pronunciation-feedback", {
-    method: "POST",
-    body: fd,
-    headers: authHeaders(),
-  });
-  return handleResponse<FeedbackResponse>(res);
+
+  // 90-second timeout — STT + LLM can be slow on CPU
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 90_000);
+
+  try {
+    const res = await fetch("/api/pronunciation-feedback", {
+      method: "POST",
+      body: fd,
+      headers: authHeaders(),
+      signal: controller.signal,
+    });
+    return handleResponse<FeedbackResponse>(res);
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError") {
+      throw new Error("Zeitüberschreitung — der Server braucht zu lange. Bitte versuche es mit einer kürzeren Aufnahme.");
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // ── LiveKit token (Phone / Live-Anruf button) ─────────────────────────────────
@@ -168,5 +186,30 @@ export async function getLiveKitToken(level = "B1"): Promise<LiveKitTokenRespons
     headers: authHeaders(),
   });
   return handleResponse<LiveKitTokenResponse>(res);
+}
+
+// ── Live-Anruf call history ────────────────────────────────────────────────────
+
+export async function saveCall(
+  messages: { role: "user" | "assistant"; content: string }[],
+  startedAt: string,
+  endedAt: string,
+): Promise<{ call_id: string }> {
+  const res = await fetch("/api/calls", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify({ messages, started_at: startedAt, ended_at: endedAt }),
+  });
+  return handleResponse(res);
+}
+
+export async function fetchCalls(): Promise<{ calls: CallSummary[] }> {
+  const res = await fetch("/api/calls", { headers: authHeaders() });
+  return handleResponse(res);
+}
+
+export async function fetchCallDetail(callId: string): Promise<CallDetail> {
+  const res = await fetch(`/api/calls/${callId}`, { headers: authHeaders() });
+  return handleResponse(res);
 }
 

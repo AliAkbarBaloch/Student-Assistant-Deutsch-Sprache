@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "==0.115.7"
+uvicorn = {version = "==0.34.0", extras = ["standard"]}
+python-multipart = "==0.0.20"
+librosa = "==0.10.2.post1"
+soundfile = "==0.13.1"
+numpy = "<2"
+qwen-asr = "*"
+transformers = "*"
+av = ">=9.0"
+torch = ">=2.2.0"
+openai = ">=1.0.0"
+edge-tts = ">=6.1.9"
+python-dotenv = ">=1.0.0"
+sqlalchemy = ">=2.0.0"
+pyjwt = ">=2.8.0"
+bcrypt = "==4.0.1"
+livekit = ">=0.16"
+livekit-agents = ">=0.14"
+livekit-plugins-openai = ">=0.10"
+livekit-plugins-silero = ">=0.7"
+livekit-plugins-turn-detector = ">=0.5"
+
+[dev-packages]
+
+[requires]
+python_version = "3.14"

@@ -3,15 +3,16 @@
  * The uploaded avatar replaces the initial letter shown in chat bubbles.
  */
 import React, { useRef, useState } from "react";
-import { ArrowLeft, Camera, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, Camera, CheckCircle, XCircle, History } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { updateProfile } from "../../services/api";
 
 interface Props {
   onBack: () => void;
+  onOpenHistory?: () => void;
 }
 
-export function ProfilePage({ onBack }: Props) {
+export function ProfilePage({ onBack, onOpenHistory }: Props) {
   const { user, updateUser } = useAuth();
 
   const [name, setName]           = useState(user?.name ?? "");
@@ -152,6 +153,16 @@ export function ProfilePage({ onBack }: Props) {
           >
             {saving ? "Speichern…" : "Änderungen speichern"}
           </button>
+
+          {/* Call history link */}
+          {onOpenHistory && (
+            <button
+              onClick={onOpenHistory}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-brand-500 hover:border-brand-500/40 transition-colors"
+            >
+              <History size={16} /> Anruf-Verlauf ansehen
+            </button>
+          )}
 
           {/* Toast feedback */}
           {toast && (

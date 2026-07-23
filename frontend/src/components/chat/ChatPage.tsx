@@ -7,6 +7,7 @@ import { Navbar } from "./Navbar";
 import { MessageBubble, TypingBubble } from "./MessageBubble";
 import { TextBar } from "./TextBar";
 import { VoiceControls } from "./VoiceControls";
+import { LiveCallOverlay } from "./LiveCallOverlay";
 import { ConfirmDialog } from "../ui/ConfirmDialog";
 import { Toast, type ToastData } from "../ui/Toast";
 import * as api from "../../services/api";
@@ -15,9 +16,10 @@ import type { MicState } from "../../types";
 interface Props {
   onOpenProfile: () => void;
   onOpenFeedback: () => void;
+  onOpenHistory: () => void;
 }
 
-export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
+export function ChatPage({ onOpenProfile, onOpenFeedback, onOpenHistory }: Props) {
   const { user } = useAuth();
   const { level } = useLevel();
   const chat = useChat();
@@ -39,10 +41,19 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
   const scrollRef     = useRef<HTMLDivElement>(null);
   const isRecordingRef = useRef(false);
 
-  // onTranscript fires for every call — only add to chat when Sprechen started it
+  // Accumulates the transcript of the current Live-Anruf call, saved on hangup
+  const callTranscriptRef = useRef<{ role: "user" | "assistant"; content: string }[]>([]);
+  const callStartRef      = useRef<string | null>(null);
+  // Mirrors callTranscriptRef in state so the live-call popup can render it as it comes in
+  const [liveCallTranscript, setLiveCallTranscript] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
+
+  // onTranscript fires for every call — Sprechen shows it in chat, Anruf records it for history
   const lk = useLiveKitCall((text, role) => {
     if (callSourceRef.current === "sprechen") {
       chat.addMessage({ role, content_de: text, content_en: "" });
+    } else if (callSourceRef.current === "anruf") {
+      callTranscriptRef.current.push({ role, content: text });
+      setLiveCallTranscript((prev) => [...prev, { role, content: text }]);
     }
   });
 
@@ -59,6 +70,18 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
       if (callTimerRef.current) clearInterval(callTimerRef.current);
       setCallTime(0);
       if (status === "call") setStatus("idle");
+
+      // Persist the Live-Anruf transcript so it shows up in the history screen
+      if (callSourceRef.current === "anruf" && callTranscriptRef.current.length > 0) {
+        const messages  = callTranscriptRef.current;
+        const startedAt = callStartRef.current ?? new Date().toISOString();
+        const endedAt   = new Date().toISOString();
+        callTranscriptRef.current = [];
+        api.saveCall(messages, startedAt, endedAt).catch(() => {
+          showToast("Anruf-Transkript konnte nicht gespeichert werden.", "error");
+        });
+      }
+      callSourceRef.current = null;
     }
   }, [lk.callState]);
 
@@ -147,6 +170,9 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
 
   // ── Shared: connect to a LiveKit room and start the call timer ────────────
   async function _startCall() {
+    callTranscriptRef.current = [];
+    setLiveCallTranscript([]);
+    callStartRef.current = new Date().toISOString();
     setStatus("call");
     callTimerRef.current = setInterval(() => setCallTime((t) => t + 1), 1000);
     const { token, url } = await api.getLiveKitToken(level);
@@ -218,18 +244,14 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
 
       <Navbar status={status} onClearHistory={() => setShowDeleteDialog(true)} onOpenProfile={onOpenProfile} onOpenFeedback={onOpenFeedback} />
 
-      {/* Call banner */}
-      {callState !== "idle" && (
-        <div className="flex-shrink-0 flex items-center justify-center gap-3 px-4 py-2 bg-brand-500/10 border-b border-brand-500/20 text-brand-600 dark:text-brand-400 text-sm font-semibold">
-          <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse" />
-          <span>
-            {callState === "listening"  ? "Warte auf Sprache…"
-              : callState === "processing" ? "Verarbeitung…"
-              : "Buddy spricht…"}
-          </span>
-          <span className="ml-auto text-gray-400 font-normal">{timerStr}</span>
-        </div>
-      )}
+      {/* Live-Anruf popup — mascot with animated listening rings + end call button */}
+      <LiveCallOverlay
+        open={callState !== "idle" && callSourceRef.current === "anruf"}
+        callState={callState}
+        timerStr={timerStr}
+        transcript={liveCallTranscript}
+        onEndCall={toggleCall}
+      />
 
       {/* Chat messages */}
       <div
@@ -249,13 +271,19 @@ export function ChatPage({ onOpenProfile, onOpenFeedback }: Props) {
         {chat.isProcessing && <TypingBubble />}
       </div>
 
-      <TextBar onSend={handleTextSend} disabled={chat.isProcessing} />
+      <TextBar
+        onSend={handleTextSend}
+        disabled={chat.isProcessing}
+        micState={micState}
+        onMicClick={toggleRecording}
+        micDisabled={callState !== "idle" && micState !== "recording"}
+      />
 
       <VoiceControls
         micState={micState}
         callState={callState}
-        onMicClick={toggleRecording}
         onCallClick={toggleCall}
+        onHistoryClick={onOpenHistory}
       />
 
       <ConfirmDialog

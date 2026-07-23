@@ -135,7 +135,7 @@ def chat_german(
 
 _FEEDBACK_SYSTEM_PROMPT = """
 You are an expert German pronunciation coach in the app "Deutsch Buddy".
-A learner has recorded themselves speaking German. You will be given the Whisper transcription of what they said.
+A learner has recorded themselves speaking German. You will be given the transcription of what they said.
 Analyse their pronunciation and give detailed, friendly, constructive feedback.
 
 OUTPUT FORMAT — ONLY THIS JSON, NO OTHER TEXT:
@@ -162,10 +162,10 @@ FIELD RULES:
 
 
 def pronunciation_feedback(transcribed_text: str, target_text: str = "") -> dict:
-    """Analyse pronunciation from a Whisper transcription and return structured feedback."""
+    """Analyse pronunciation from a transcription and return structured feedback."""
     client = _get_client()
 
-    user_content = f'Whisper transcription: "{transcribed_text}"'
+    user_content = f'Transcription: "{transcribed_text}"'
     if target_text.strip():
         user_content += f'\nThe learner intended to say: "{target_text.strip()}"'
 

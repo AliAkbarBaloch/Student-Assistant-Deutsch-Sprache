@@ -8,6 +8,7 @@ os.environ.setdefault("KMP_AFFINITY",           "disabled")
 os.environ.setdefault("MKL_THREADING_LAYER",    "GNU")
 
 import asyncio
+import datetime
 import json
 import re
 import uuid
@@ -24,11 +25,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from openai import AsyncOpenAI
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import openai
 
-from database import Message, User, create_tables, get_db
+from database import Call, CallMessage, Message, User, create_tables, get_db
 from services import auth_service, llm_service, stt_service, tts_service
 
 load_dotenv()
@@ -58,6 +60,15 @@ app.add_middleware(
 # Mount TTS media first (specific path), then frontend static files
 app.mount("/static/tts", StaticFiles(directory=TTS_DIR), name="tts_media")
 app.mount("/static", StaticFiles(directory=FRONTEND_STATIC_DIR), name="frontend_static")
+
+@app.on_event("startup")
+def startup_event():
+    print("Preloading Qwen3-ASR model into memory...")
+    try:
+        stt_service._get_model()
+        print("Qwen3-ASR loaded successfully.")
+    except Exception as e:
+        print(f"Failed to preload Qwen3-ASR: {e}")
 
 
 def _get_user_from_header(authorization: Optional[str], db: Session) -> Optional[User]:
@@ -219,6 +230,110 @@ def clear_history(
     db.query(Message).filter(Message.user_id == current_user.id).delete()
     db.commit()
     return {"detail": "Verlauf gelöscht."}
+
+
+# Live-Anruf call transcripts
+
+class CallMessageIn(BaseModel):
+    role:    str
+    content: str
+
+
+class CallSaveRequest(BaseModel):
+    messages:   list[CallMessageIn]
+    started_at: Optional[str] = None
+    ended_at:   Optional[str] = None
+
+
+def _parse_iso(value: Optional[str]) -> Optional[datetime.datetime]:
+    if not value:
+        return None
+    try:
+        return datetime.datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
+    except ValueError:
+        return None
+
+
+@app.post("/api/calls")
+def save_call(
+    payload: CallSaveRequest,
+    current_user: User = Depends(_require_user),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Persist a finished Live-Anruf transcript."""
+    if not payload.messages:
+        raise HTTPException(400, "Transkript ist leer.")
+
+    now     = datetime.datetime.utcnow()
+    call_id = str(uuid.uuid4())
+    call = Call(
+        id=call_id,
+        user_id=current_user.id,
+        started_at=_parse_iso(payload.started_at) or now,
+        ended_at=_parse_iso(payload.ended_at) or now,
+    )
+    db.add(call)
+    for m in payload.messages:
+        if m.content.strip():
+            db.add(CallMessage(call_id=call_id, role=m.role, content=m.content.strip()))
+    db.commit()
+
+    return {"call_id": call_id}
+
+
+@app.get("/api/calls")
+def list_calls(
+    current_user: User = Depends(_require_user),
+    db: Session = Depends(get_db),
+) -> dict:
+    """List the user's past Live-Anruf calls, most recent first."""
+    calls = (
+        db.query(Call)
+        .filter(Call.user_id == current_user.id)
+        .order_by(Call.started_at.desc())
+        .all()
+    )
+
+    result = []
+    for c in calls:
+        first_user_msg = next((m.content for m in c.messages if m.role == "user"), "")
+        duration = int((c.ended_at - c.started_at).total_seconds()) if c.ended_at else 0
+        result.append({
+            "id":               c.id,
+            "started_at":       c.started_at.isoformat(),
+            "ended_at":         c.ended_at.isoformat() if c.ended_at else None,
+            "duration_seconds": max(duration, 0),
+            "message_count":    len(c.messages),
+            "preview":          first_user_msg[:120],
+        })
+
+    return {"calls": result}
+
+
+@app.get("/api/calls/{call_id}")
+def get_call(
+    call_id: str,
+    current_user: User = Depends(_require_user),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Return the full transcript for one Live-Anruf call."""
+    call = (
+        db.query(Call)
+        .filter(Call.id == call_id, Call.user_id == current_user.id)
+        .first()
+    )
+    if not call:
+        raise HTTPException(404, "Anruf nicht gefunden.")
+
+    return {
+        "id":         call.id,
+        "started_at": call.started_at.isoformat(),
+        "ended_at":   call.ended_at.isoformat() if call.ended_at else None,
+        "messages": [
+            {"role": m.role, "content": m.content, "created_at": m.created_at.isoformat()}
+            for m in call.messages
+        ],
+    }
 
 
 # LiveKit token — used by both voice buttons
@@ -397,8 +512,15 @@ async def pronunciation_feedback(
     Accepts an optional MP3/WAV/WebM audio file. If audio is missing, uses target_text to test the pipeline.
     """
     if audio is not None and audio.filename:
-        audio_array = await _read_audio(audio)
-        transcribed = stt_service.transcribe_german(audio_array, sample_rate=TARGET_SR)
+        try:
+            audio_array = await _read_audio(audio)
+            # Offload heavy CPU-bound Qwen3-ASR inference to a thread so it
+            # doesn't block the async event loop (was causing infinite spinner).
+            transcribed = await asyncio.to_thread(
+                stt_service.transcribe_german, audio_array, TARGET_SR
+            )
+        except Exception as e:
+            raise HTTPException(500, f"Error processing audio: {e}")
     else:
         transcribed = target_text
 
@@ -406,7 +528,10 @@ async def pronunciation_feedback(
         raise HTTPException(400, "Kein Deutsch erkannt. Bitte erneut versuchen.")
 
     try:
-        feedback = llm_service.pronunciation_feedback(transcribed, target_text)
+        # Offload synchronous OpenAI SDK call to a thread as well.
+        feedback = await asyncio.to_thread(
+            llm_service.pronunciation_feedback, transcribed, target_text
+        )
     except (openai.APIError, openai.APIConnectionError, RuntimeError) as e:
         raise HTTPException(503, f"AI service temporarily unavailable: {e}")
     return feedback
