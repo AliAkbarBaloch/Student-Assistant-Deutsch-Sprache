@@ -24,6 +24,7 @@ Text Chat  (streaming pipeline)
 | Voice LLM | `qwen36-35b` | Professor's API, `enable_thinking: false` for speed |
 | Text LLM | `qwen36-35b` | Professor's OpenAI-compatible API |
 | Text TTS | Microsoft Edge TTS `de-DE-KatjaNeural` | Free, no key needed |
+| Pronunciation STT | `Qwen3-ASR-0.6B-8bit` | MLX Metal GPU accelerated, local inference |
 | VAD | Silero | Turn detection for the voice agent |
 
 ---
@@ -96,14 +97,16 @@ Three terminals are required:
 
 **Terminal 1 — FastAPI backend:**
 ```bash
+cd backend
 source .venv/bin/activate
 uvicorn app:app --reload --host 0.0.0.0 --port 8000
 ```
 
 **Terminal 2 — LiveKit voice agent:**
 ```bash
+cd livekit_agent
 source .venv/bin/activate
-python services/livekit_agent.py start
+python livekit_agent.py start
 ```
 
 **Terminal 3 — Frontend dev server:**
@@ -154,13 +157,18 @@ deutsche_buddy/
 ├── requirements.txt
 ├── .env                     # secrets and config (never commit)
 │
-├── services/
-│   ├── livekit_agent.py     # LiveKit voice agent (Deepgram STT + LLM + Cartesia TTS)
-│   ├── stt_service.py       # faster-whisper STT (used by pronunciation feedback only)
-│   ├── llm_service.py       # OpenAI-compatible LLM client (text chat)
-│   ├── tts_service.py       # Edge TTS (text chat audio)
-│   ├── auth_service.py      # JWT + bcrypt
-│   ├── vocab_service.py     # CEFR vocabulary grounding
+├── livekit_agent/           # Standalone LiveKit voice agent process
+│   ├── livekit_agent.py     # Voice agent (Deepgram STT + LLM + Cartesia TTS)
+│   └── requirements.txt
+│
+├── backend/
+│   ├── app.py               # Main FastAPI backend
+│   └── services/
+│       ├── stt_service.py       # Qwen3-ASR-0.6B STT with MLX (pronunciation feedback)
+│       ├── llm_service.py       # OpenAI-compatible LLM client (text chat)
+│       ├── tts_service.py       # Edge TTS (text chat audio)
+│       ├── auth_service.py      # JWT + bcrypt
+│       ├── vocab_service.py     # CEFR vocabulary grounding
 │
 ├── frontend/
 │   ├── src/
@@ -202,7 +210,7 @@ deutsche_buddy/
 ## What Changed (vs. original)
 
 ### Added
-- `services/livekit_agent.py` — standalone LiveKit voice agent process
+- `services/livekit_agent.py` moved to `livekit_agent/livekit_agent.py` — standalone LiveKit voice agent process
 - `POST /api/livekit-token` endpoint — creates a room token and dispatches the agent with the user's CEFR level
 - `POST /api/chat-text-stream` endpoint — SSE streaming with concurrent TTS (`AsyncOpenAI`, `asyncio.create_task`)
 - `useLiveKitCall` hook (`frontend/src/hooks/useLiveKitCall.ts`) — manages the WebRTC room, transcription events, and audio playback
@@ -216,14 +224,14 @@ deutsche_buddy/
 - Old VAD + MediaRecorder live-call pipeline (replaced by LiveKit WebRTC)
 - `useVAD` hook (no longer needed for Live-Anruf)
 - Microsoft Edge TTS for voice responses (replaced by Cartesia Sonic-3 via LiveKit)
-- faster-whisper for voice STT (replaced by Deepgram Nova-3 via LiveKit); Whisper is still used for pronunciation feedback
+- faster-whisper for voice STT (replaced by Deepgram Nova-3 via LiveKit). Qwen3-ASR-0.6B with mlx-audio is now used for pronunciation feedback.
 
 ### Changed
 - Both **Sprechen** and **Live-Anruf** buttons now share the same LiveKit pipeline
 - Sprechen shows speech-to-text transcriptions and Buddy's replies in chat; Live-Anruf is voice-only
 - Text chat now streams via SSE — first token in ~0.3 s, audio starts immediately after last token
 - TTS for text chat generates sentence-by-sentence concurrently with the LLM stream (no sequential wait)
-- faster-whisper `beam_size` reduced from 5 → 1 with `vad_filter=True` for the HTTP pronunciation path
+- Migrated from faster-whisper to Qwen3-ASR-0.6B (8-bit) with MLX Metal acceleration for the HTTP pronunciation path, lowering memory footprint and increasing inference speed on Apple Silicon
 
 ---
 
