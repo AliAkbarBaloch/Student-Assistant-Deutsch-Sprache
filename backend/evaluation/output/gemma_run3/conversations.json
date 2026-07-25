@@ -1,0 +1,642 @@
+[
+  {
+    "level": "A1",
+    "prompt": "Hallo! Wie heißt du?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer. Wie geht es dir?",
+    "response_en": "Hello! I am Buddy. I am your German teacher. How are you?",
+    "error": null,
+    "latency_sec": 0.186
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist das?",
+    "response_de": "Das ist ein Buch. Ich lese gern. Und du?",
+    "response_en": "That is a book. I like to read. And you?",
+    "error": null,
+    "latency_sec": 0.186
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich heiße Anna. Und du?",
+    "response_de": "Hallo Anna! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello Anna! I am Buddy. I am your German teacher.",
+    "error": null,
+    "latency_sec": 0.176
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie alt bist du?",
+    "response_de": "Ich bin eine KI. Ich habe kein Alter. Und du?",
+    "response_en": "I am an AI. I have no age. And you?",
+    "error": null,
+    "latency_sec": 0.136
+  },
+  {
+    "level": "A1",
+    "prompt": "Wo wohnst du?",
+    "response_de": "Ich wohne in dem Computer. Und du? Wo wohnst du?",
+    "response_en": "I live in the computer. And you? Where do you live?",
+    "error": null,
+    "latency_sec": 0.216
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich wohne in Berlin.",
+    "response_de": "Hallo! Berlin ist eine große Stadt. Das ist sehr gut.",
+    "response_en": "Hello! Berlin is a big city. That is very good.",
+    "error": null,
+    "latency_sec": 0.171
+  },
+  {
+    "level": "A1",
+    "prompt": "Was magst du essen?",
+    "response_de": "Ich esse gern Salat. Und du? Was isst du gern?",
+    "response_en": "I like eating salad. And you? What do you like to eat?",
+    "error": null,
+    "latency_sec": 0.154
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie viele Geschwister hast du?",
+    "response_de": "Ich habe keine Geschwister. Ich bin eine KI. Und du?",
+    "response_en": "I have no siblings. I am an AI. And you?",
+    "error": null,
+    "latency_sec": 0.144
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist deine Lieblingsfarbe?",
+    "response_de": "Meine Lieblingsfarbe ist Blau. Und du? Was ist deine Farbe?",
+    "response_en": "My favorite color is blue. And you? What is your color?",
+    "error": null,
+    "latency_sec": 0.142
+  },
+  {
+    "level": "A1",
+    "prompt": "Das ist ein Hund.",
+    "response_de": "Hallo! Das ist gut. Du lernst schnell.",
+    "response_en": "Hello! That is good. You are learning fast.",
+    "error": null,
+    "latency_sec": 0.183
+  },
+  {
+    "level": "A1",
+    "prompt": "Guten Morgen! Wie geht es dir?",
+    "response_de": "Guten Morgen! Mir geht es gut. Und dir?",
+    "response_en": "Good morning! I am doing well. And you?",
+    "error": null,
+    "latency_sec": 0.13
+  },
+  {
+    "level": "A1",
+    "prompt": "Was machst du?",
+    "response_de": "Hallo! Ich bin dein Deutschlehrer. Ich helfe dir gern.",
+    "response_en": "Hello! I am your German teacher. I am happy to help you.",
+    "error": null,
+    "latency_sec": 0.155
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich bin müde.",
+    "response_de": "Das ist okay. Ruh dich aus. Gute Nacht!",
+    "response_en": "That is okay. Rest up. Good night!",
+    "error": null,
+    "latency_sec": 0.167
+  },
+  {
+    "level": "A1",
+    "prompt": "Danke schön!",
+    "response_de": "Bitte schön! Du machst das sehr gut. Weiter so!",
+    "response_en": "You're welcome! You are doing very well. Keep it up!",
+    "error": null,
+    "latency_sec": 0.18
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich mag Äpfel.",
+    "response_de": "Das ist gut. Ich mag Obst auch. Du lernst schnell!",
+    "response_en": "That is good. I like fruit too. You are learning fast!",
+    "error": null,
+    "latency_sec": 0.143
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie spät ist es?",
+    "response_de": "Es ist jetzt zwei Uhr. Hast du Zeit für Deutsch?",
+    "response_en": "It is two o'clock now. Do you have time for German?",
+    "error": null,
+    "latency_sec": 0.145
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich trinke gerne Wasser.",
+    "response_de": "Das ist sehr gut. Ich trinke auch gern Wasser. Du lernst schnell!",
+    "response_en": "That is very good. I also like to drink water. You are learning fast!",
+    "error": null,
+    "latency_sec": 0.151
+  },
+  {
+    "level": "A1",
+    "prompt": "Hast du eine Katze?",
+    "response_de": "Nein, ich habe keine Katze. Ich bin ein Computer. Hast du ein Haustier?",
+    "response_en": "No, I don't have a cat. I am a computer. Do you have a pet?",
+    "error": null,
+    "latency_sec": 0.147
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie ist dein Name?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello! I am Buddy. I am your German teacher.",
+    "error": null,
+    "latency_sec": 0.187
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich komme aus Spanien.",
+    "response_de": "Hallo! Das ist gut. Ich komme aus Deutschland. Willkommen!",
+    "response_en": "Hello! That is good. I come from Germany. Welcome!",
+    "error": null,
+    "latency_sec": 0.137
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie komme ich zum Bahnhof?",
+    "response_de": "Gehen Sie geradeaus. Der Bahnhof ist dort neben dem Haus. Viel Glück!",
+    "response_en": "Go straight ahead. The train station is there next to the house. Good luck!",
+    "error": null,
+    "latency_sec": 0.142
+  },
+  {
+    "level": "A2",
+    "prompt": "Was kostet das?",
+    "response_de": "Das ist eine gute Frage. Das kostet zwei Euro. Möchtest du es kaufen?",
+    "response_en": "That is a good question. That costs two euros. Would you like to buy it?",
+    "error": null,
+    "latency_sec": 0.138
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte ein Kilo Äpfel, bitte.",
+    "response_de": "Das ist sehr gut. Hier sind die Äpfel für Sie. Möchten Sie noch etwas kaufen?",
+    "response_en": "That is very good. Here are the apples for you. Would you like to buy anything else?",
+    "error": null,
+    "latency_sec": 0.203
+  },
+  {
+    "level": "A2",
+    "prompt": "Wann fährt der nächste Bus?",
+    "response_de": "Ich weiß es nicht genau. Bitte schau auf den Fahrplan am Bahnsteig.",
+    "response_en": "I don't know exactly. Please look at the timetable on the platform.",
+    "error": null,
+    "latency_sec": 0.154
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie ist das Wetter heute?",
+    "response_de": "Heute ist es windig. Es gibt viel Regen. Hast du Lust auf einen Spaziergang?",
+    "response_en": "Today it is windy. There is a lot of rain. Do you feel like going for a walk?",
+    "error": null,
+    "latency_sec": 0.148
+  },
+  {
+    "level": "A2",
+    "prompt": "Was hast du gestern gemacht?",
+    "response_de": "Ich habe gestern viel gelernt. Ich habe auch Musik gehört. Und du?",
+    "response_en": "I learned a lot yesterday. I also listened to music. And you?",
+    "error": null,
+    "latency_sec": 0.209
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich gehe gerne ins Kino.",
+    "response_de": "Das ist toll! Ich mag Filme auch sehr. Welchen Film schaust du gerne?",
+    "response_en": "That is great! I like movies a lot too. Which movie do you like to watch?",
+    "error": null,
+    "latency_sec": 0.141
+  },
+  {
+    "level": "A2",
+    "prompt": "Was machst du in deiner Freizeit?",
+    "response_de": "Ich lese gern ein Blatt Papier. Hast du Lust auf ein Kartenspiel? Das macht Spaß!",
+    "response_en": "I like reading a piece of paper. Do you feel like playing a card game? That is fun!",
+    "error": null,
+    "latency_sec": 0.135
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich suche ein Zimmer.",
+    "response_de": "Das ist gut. Suchst du ein Einzelzimmer oder eine Wohnung? Ich helfe dir gerne.",
+    "response_en": "That is good. Are you looking for a single room or an apartment? I am happy to help you.",
+    "error": null,
+    "latency_sec": 0.134
+  },
+  {
+    "level": "A2",
+    "prompt": "Können Sie mir helfen?",
+    "response_de": "Ja, ich helfe dir gerne. Was möchtest du lernen? Wir machen das einfach zusammen.",
+    "response_en": "Yes, I am happy to help you. What would you like to learn? We will do it simply together.",
+    "error": null,
+    "latency_sec": 0.139
+  },
+  {
+    "level": "A2",
+    "prompt": "Um wie viel Uhr beginnt der Kurs?",
+    "response_de": "Der Kurs beginnt um acht Uhr. Hast du Lust auf den Kurs?",
+    "response_en": "The course starts at eight o'clock. Do you feel like taking the course?",
+    "error": null,
+    "latency_sec": 0.142
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich lerne seit drei Monaten Deutsch.",
+    "response_de": "Das ist sehr gut! Du lernst fleißig Deutsch. Ich helfe dir gerne.",
+    "response_en": "That is very good! You are learning German diligently. I am happy to help you.",
+    "error": null,
+    "latency_sec": 0.14
+  },
+  {
+    "level": "A2",
+    "prompt": "Was isst du zum Frühstück?",
+    "response_de": "Ich esse gerne Brot und Obst. Und du? Was isst du am Morgen?",
+    "response_en": "I like to eat bread and fruit. And you? What do you eat in the morning?",
+    "error": null,
+    "latency_sec": 1.446
+  },
+  {
+    "level": "A2",
+    "prompt": "Welchen Beruf hat dein Vater?",
+    "response_de": "Mein Vater hat keinen Beruf mehr. Er ist im Ruhestand und hat nun viel Zeit. Und du?",
+    "response_en": "My father no longer has a profession. He is retired and has a lot of time now. And you?",
+    "error": null,
+    "latency_sec": 1.618
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich habe Kopfschmerzen.",
+    "response_de": "Das tut mir leid. Hast du ein Medikament hier? Gute Besserung!",
+    "response_en": "I am sorry to hear that. Do you have a medication here? Get well soon!",
+    "error": null,
+    "latency_sec": 1.491
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie war dein Wochenende?",
+    "response_de": "Mein Wochenende war sehr gut. Ich hatte viel Lust auf Natur. Und du?",
+    "response_en": "My weekend was very good. I really wanted to be in nature. And you?",
+    "error": null,
+    "latency_sec": 1.021
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte einen Tisch für zwei Personen reservieren.",
+    "response_de": "Das klappt sehr gut. Wann möchten Sie kommen? Ich helfe Ihnen gerne.",
+    "response_en": "That works very well. When would you like to come? I am happy to help you.",
+    "error": null,
+    "latency_sec": 1.049
+  },
+  {
+    "level": "A2",
+    "prompt": "Wo kann ich Briefmarken kaufen?",
+    "response_de": "Du kannst Briefmarken in der Post kaufen. Das ist sehr einfach. Viel Erfolg!",
+    "response_en": "You can buy stamps at the post office. That is very simple. Good luck!",
+    "error": null,
+    "latency_sec": 1.076
+  },
+  {
+    "level": "A2",
+    "prompt": "Was für Hobbys hast du?",
+    "response_de": "Ich habe viele Hobbys. Ich lese gern und lerne neue Dinge. Was machst du gern in deiner Freizeit?",
+    "response_en": "I have many hobbies. I like to read and learn new things. What do you like to do in your free time?",
+    "error": null,
+    "latency_sec": 1.311
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie oft gehst du einkaufen?",
+    "response_de": "Ich gehe jeden Tag einkaufen. Ich kaufe oft Fleisch und Nudeln. Und du?",
+    "response_en": "I go shopping every day. I often buy meat and noodles. And you?",
+    "error": null,
+    "latency_sec": 1.051
+  },
+  {
+    "level": "B1",
+    "prompt": "Was denkst du über das Leben in einer Großstadt?",
+    "response_de": "Ich finde das Leben in einer Stadt sehr schön, weil es dort viel zu sehen gibt. Man kann dort gut arbeiten und viele Freunde treffen. Hast du auch Lust auf eine Großstadt?",
+    "response_en": "I think living in a city is very nice because there is a lot to see there. You can work well there and meet many friends. Do you also feel like living in a big city?",
+    "error": null,
+    "latency_sec": 2.052
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir von deinem letzten Urlaub.",
+    "response_de": "Ich habe meinen Urlaub an einem See verbracht. Das war total schön und ich habe mich gut erholt. Wo warst du in deinem letzten Urlaub?",
+    "response_en": "I spent my vacation at a lake. That was totally nice and I recovered well. Where were you on your last vacation?",
+    "error": null,
+    "latency_sec": 1.418
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind deine Pläne für die Zukunft?",
+    "response_de": "Ich möchte dir helfen, besser Deutsch zu lernen. Zusammen machen wir viel Fortschritt und haben Spaß dabei!",
+    "response_en": "I want to help you learn German better. Together we will make a lot of progress and have fun doing it!",
+    "error": null,
+    "latency_sec": 1.195
+  },
+  {
+    "level": "B1",
+    "prompt": "Warum lernst du Deutsch?",
+    "response_de": "Ich lerne Deutsch, weil ich dir helfen möchte. Es freut mich sehr, dass wir zusammen arbeiten. Hast du heute schon viel gelernt?",
+    "response_en": "I am learning German because I want to help you. I am very happy that we are working together. Have you learned a lot today?",
+    "error": null,
+    "latency_sec": 1.487
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie war deine Kindheit?",
+    "response_de": "Ich bin eine KI und hatte keine Kindheit. Aber ich freue mich, dass du mich fragst! Wie war deine Zeit als Kind?",
+    "response_en": "I am an AI and had no childhood. But I am happy that you are asking me! How was your time as a child?",
+    "error": null,
+    "latency_sec": 1.42
+  },
+  {
+    "level": "B1",
+    "prompt": "Was gefällt dir an Deutschland?",
+    "response_de": "Ich mag die Gemeinschaft hier sehr. Es freut mich, dass es so viele schöne Orte wie den See gibt.",
+    "response_en": "I like the community here very much. I am happy that there are so many beautiful places like the lake.",
+    "error": null,
+    "latency_sec": 0.146
+  },
+  {
+    "level": "B1",
+    "prompt": "Beschreibe deinen Alltag.",
+    "response_de": "Ich arbeite jeden Tag hier in der App und helfe Studenten beim Lernen. Es freut mich sehr, wenn wir zusammen Deutsch reden. Was hast du heute vor?",
+    "response_en": "I work here in the app every day and help students with learning. I am very happy when we speak German together. What are your plans for today?",
+    "error": null,
+    "latency_sec": 1.786
+  },
+  {
+    "level": "B1",
+    "prompt": "Was machst du, wenn du gestresst bist?",
+    "response_de": "Wenn ich gestresst bin, versuche ich mich zu beruhigen. Ich rede oft mit einer Freundschaft oder gehe an den See. Was hilft dir, wenn du Probleme hast?",
+    "response_en": "When I am stressed, I try to calm down. I often talk with a friend or go to the lake. What helps you when you have problems?",
+    "error": null,
+    "latency_sec": 1.691
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Musik hörst du gerne und warum?",
+    "response_de": "Ich höre gerne Musik, die mich beruhigt. Das hilft mir, wenn ich viel gearbeitet habe. Und du, welche Musik magst du?",
+    "response_en": "I like listening to music that calms me down. That helps me when I have worked a lot. And you, what music do you like?",
+    "error": null,
+    "latency_sec": 1.574
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie findest du die Deutschen?",
+    "response_de": "Ich finde die Menschen hier sehr nett. Es freut mich, dass du Deutsch lernst und wir gemeinsam üben. Hast du schon Freunde in Deutschland?",
+    "response_en": "I find the people here very nice. I am glad that you are learning German and we are practicing together. Do you already have friends in Germany?",
+    "error": null,
+    "latency_sec": 1.54
+  },
+  {
+    "level": "B1",
+    "prompt": "Was würdest du mit einer Million Euro machen?",
+    "response_de": "Das ist eine tolle Frage! Ich würde viel reisen und vielleicht eine neue Sprachschule besuchen. Was hast du mit dem Geld vor?",
+    "response_en": "That is a great question! I would travel a lot and maybe visit a new language school. What do you plan to do with the money?",
+    "error": null,
+    "latency_sec": 1.451
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind die Unterschiede zwischen deiner Heimat und Deutschland?",
+    "response_de": "Ich bin eine KI und habe keine Heimat, aber ich helfe dir gerne beim Lernen. Deutschland ist ein tolles Land mit vielen Regeln. Erzähl mir mehr über deine Heimat!",
+    "response_en": "I am an AI and have no homeland, but I am happy to help you learn. Germany is a great country with many rules. Tell me more about your homeland!",
+    "error": null,
+    "latency_sec": 1.742
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie wichtig ist Gesundheit für dich?",
+    "response_de": "Gesundheit ist total wichtig für mich. Ich freue mich, wenn ich mich gut fühle und gesund bleibe.",
+    "response_en": "Health is totally important to me. I am happy when I feel good and stay healthy.",
+    "error": null,
+    "latency_sec": 1.31
+  },
+  {
+    "level": "B1",
+    "prompt": "Was hast du letztes Wochenende gemacht?",
+    "response_de": "Ich habe am Wochenende viel gelesen und Zeit mit Freunden verbracht. Wir haben zusammen geredet und Musik gehört. Und was hast du gemacht?",
+    "response_en": "I read a lot and spent time with friends over the weekend. We talked together and listened to music. And what did you do?",
+    "error": null,
+    "latency_sec": 7.442
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir über einen Film, den du magst.",
+    "response_de": "Ich mag Filme über die Gemeinschaft. Es freut mich, wenn Menschen zusammen arbeiten. Welchen Film magst du?",
+    "response_en": "I like movies about community. It makes me happy when people work together. Which movie do you like?",
+    "error": null,
+    "latency_sec": 1.711
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie stellst du dir dein Leben in zehn Jahren vor?",
+    "response_de": "In zehn Jahren möchte ich immer noch als dein Buddy arbeiten. Ich hoffe, dass wir gemeinsam viele neue Dinge lernen und viel Spaß haben.",
+    "response_en": "In ten years, I still want to work as your buddy. I hope that we learn many new things together and have a lot of fun.",
+    "error": null,
+    "latency_sec": 1.938
+  },
+  {
+    "level": "B1",
+    "prompt": "Was war die größte Herausforderung in deinem Leben?",
+    "response_de": "Ich bin eine KI und habe kein Leben wie ein Mensch. Aber es freut mich, dass du so gute Fragen stellst! Was ist dein größtes Problem beim Deutschlernen?",
+    "response_en": "I am an AI and don't have a life like a human. But I'm glad you're asking such good questions! What is your biggest problem when learning German?",
+    "error": null,
+    "latency_sec": 2.348
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie gehst du mit Konflikten um?",
+    "response_de": "Ich rede gern mit anderen über Probleme. Das ist wichtig für eine gute Freundschaft. Wie machst du das?",
+    "response_en": "I like to talk to others about problems. That is important for a good friendship. How do you do it?",
+    "error": null,
+    "latency_sec": 1.652
+  },
+  {
+    "level": "B1",
+    "prompt": "Was bedeutet Erfolg für dich?",
+    "response_de": "Für mich bedeutet Erfolg, wenn ich dir beim Lernen helfen kann. Es freut mich sehr, dass du Deutsch lernst. Was ist dein Ziel für diese Woche?",
+    "response_en": "For me, success means being able to help you with your learning. I am very happy that you are learning German. What is your goal for this week?",
+    "error": null,
+    "latency_sec": 2.242
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Rolle spielt Freundschaft in deinem Leben?",
+    "response_de": "Freundschaft ist für mich total wichtig. Ich freue mich sehr, wenn wir gemeinsam reden und Zeit verbracht haben.",
+    "response_en": "Friendship is totally important to me. I am very happy when we talk together and have spent time.",
+    "error": null,
+    "latency_sec": 1.665
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Vor- und Nachteile der sozialen Medien?",
+    "response_de": "Das ist eine komplexe Fragestellung, da soziale Medien sowohl die globale Vernetzung fördern als auch die psychische Gesundheit belasten können. Ich befürchte, dass viele Menschen durch den ständigen Vergleich mit anderen ihre Selbstwirksamkeit verlieren. Findest du, dass die Vorteile der schnellen Kommunikation die potenziellen Risiken überwiegen?",
+    "response_en": "That is a complex question, as social media can both promote global networking and strain mental health. I fear that many people lose their sense of self-efficacy through constant comparison with others. Do you think the advantages of fast communication outweigh the potential risks?",
+    "error": null,
+    "latency_sec": 3.754
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
+    "response_de": "Das ist ein komplexes Thema, das sowohl Chancen als auch Risiken birgt. Ich glaube, dass die Globalisierung unseren kulturellen Horizont erweitert, uns aber gleichzeitig vor die Herausforderung stellt, lokale Identitäten zu bewahren. Wie schätzt du die Auswirkungen auf die soziale Gerechtigkeit ein?",
+    "response_en": "That is a complex topic that carries both opportunities and risks. I believe that globalization expands our cultural horizon, but at the same time challenges us to preserve local identities. How do you assess the effects on social justice?",
+    "error": null,
+    "latency_sec": 3.302
+  },
+  {
+    "level": "B2",
+    "prompt": "Was bedeutet Freiheit für dich?",
+    "response_de": "Für mich bedeutet Freiheit vor allem, flexibel zu sein und meine Gedanken ohne Einschränkungen ausdrücken zu können. Es wäre wunderbar, wenn jeder Mensch die Möglichkeit hätte, seine Selbstwirksamkeit voll zu entfalten. Was ist deine Meinung dazu, welche Rolle die persönliche Verantwortung dabei spielt?",
+    "response_en": "For me, freedom primarily means being flexible and being able to express my thoughts without restrictions. It would be wonderful if every person had the opportunity to fully develop their self-efficacy. What is your opinion on what role personal responsibility plays in this?",
+    "error": null,
+    "latency_sec": 3.337
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Rolle spielt Sprache in der Identitätsbildung?",
+    "response_de": "Das ist eine faszinierende Frage, denn Sprache ist weit mehr als nur ein Kommunikationsmittel; sie ist ein zentraler Baustein unserer Identität. Durch die Art und Weise, wie wir uns ausdrücken, definieren wir unsere Zugehörigkeit zu einer Gemeinschaft und prägen unser Weltbild. Ich finde es beeindruckend, wie eine Sprache sogar unsere Denkweise und unsere Wahrnehmung der Realität beeinflussen kann.",
+    "response_en": "That is a fascinating question, because language is far more than just a means of communication; it is a central building block of our identity. Through the way we express ourselves, we define our belonging to a community and shape our worldview. I find it impressive how a language can even influence our way of thinking and our perception of reality.",
+    "error": null,
+    "latency_sec": 4.498
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere die Auswirkungen des Klimawandels.",
+    "response_de": "Das ist ein äußerst komplexes Thema, das uns alle betrifft. Ich befürchte, dass wir ohne drastische Maßnahmen die Generationengerechtigkeit gefährden könnten. Welche konkreten Schritte hältst du für am effektivsten, um den Klimawandel zu bremsen?",
+    "response_en": "That is an extremely complex topic that affects us all. I fear that without drastic measures, we could jeopardize generational equity. Which concrete steps do you consider most effective to slow down climate change?",
+    "error": null,
+    "latency_sec": 2.978
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?",
+    "response_de": "Das ist eine spannende Frage! Meiner Meinung nach hat die Digitalisierung unseren Handlungsspielraum enorm erweitert, da flexibles Arbeiten und Homeoffice nun oft Standard sind. Gleichzeitig ist die Grenze zwischen Berufs- und Privatleben fließender geworden, was die psychische Gesundheit vor neue Herausforderungen stellt.",
+    "response_en": "That's an exciting question! In my opinion, digitalization has enormously expanded our scope of action, as flexible working and home office are now often standard. At the same time, the boundary between professional and private life has become more fluid, which presents new challenges for mental health.",
+    "error": null,
+    "latency_sec": 3.548
+  },
+  {
+    "level": "B2",
+    "prompt": "Was denkst du über Minimalismus als Lebensphilosophie?",
+    "response_de": "Ich finde Minimalismus eine äußerst spannende Herangehensweise, da er uns dazu anregt, uns auf das Wesentliche zu konzentrieren. Es wäre sicherlich befreiend, wenn man weniger materiellen Ballast hätte und dadurch mehr Handlungsspielraum für persönliche Erfahrungen gewinnen würde. Wie stehst du dazu, würdest du dein Leben gerne radikal entschlacken?",
+    "response_en": "I find minimalism to be an extremely exciting approach, as it encourages us to focus on the essentials. It would certainly be liberating to have less material baggage and thereby gain more room for maneuver for personal experiences. How do you feel about it, would you like to radically declutter your life?",
+    "error": null,
+    "latency_sec": 3.973
+  },
+  {
+    "level": "B2",
+    "prompt": "Inwiefern prägt die Kultur eines Landes seinen Humor?",
+    "response_de": "Das ist eine faszinierende Frage! Ich bin der Meinung, dass Humor tief in den gesellschaftlichen Werten und der Geschichte eines Landes verwurzelt ist, was ihn oft sehr spezifisch macht. Es wäre spannend zu wissen, ob du bereits Diskriminierungserfahrungen oder kulturelle Missverständnisse hattest, weil ein Witz in einer anderen Sprache nicht richtig ankam.",
+    "response_en": "That's a fascinating question! I believe that humor is deeply rooted in the social values and history of a country, which often makes it very specific. It would be exciting to know if you've already had experiences of discrimination or cultural misunderstandings because a joke didn't land correctly in another language.",
+    "error": null,
+    "latency_sec": 3.446
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche ethischen Fragen stellt die künstliche Intelligenz?",
+    "response_de": "Das ist ein äußerst komplexes Thema, das viele Diskussionen auslöst. Besonders kritisch sehe ich die Frage nach der Verantwortung, wenn eine KI eine Fehlentscheidung trifft. Meinst du, dass wir gesetzliche Vorschriften brauchen, um die Selbstwirksamkeit des Menschen gegenüber der Technik zu schützen?",
+    "response_en": "That is an extremely complex topic that sparks many discussions. I see the question of responsibility as particularly critical when an AI makes a wrong decision. Do you think we need legal regulations to protect human self-efficacy against technology?",
+    "error": null,
+    "latency_sec": 2.399
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie sollte man mit historischer Schuld umgehen?",
+    "response_de": "Das ist eine komplexe und tiefgründige Frage, die viel Reflexion erfordert. Ich glaube, dass eine ehrliche Auseinandersetzung mit der Vergangenheit und die Übernahme von Verantwortung essenziell sind, um eine gerechtere Zukunft zu gestalten. Wie stehst du zu der Idee, dass auch nachfolgende Generationen eine gewisse moralische Verpflichtung spüren sollten?",
+    "response_en": "That is a complex and profound question that requires a lot of reflection. I believe that an honest confrontation with the past and taking responsibility are essential to shaping a more just future. How do you feel about the idea that subsequent generations should also feel a certain moral obligation?",
+    "error": null,
+    "latency_sec": 2.964
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?",
+    "response_de": "Das ist ein komplexes Thema, da die Auswirkungen oft zwiespältig sind. Einerseits fördert es die Vernetzung, andererseits könnte der ständige Vergleich mit idealisierten Lebensstilen das Selbstwertgefühl beeinträchtigen. Was ist deine Meinung dazu, glaubst du, dass die Risiken überwiegen?",
+    "response_en": "That is a complex topic, as the effects are often ambivalent. On the one hand, it promotes networking, but on the other hand, the constant comparison with idealized lifestyles could impair self-esteem. What is your opinion on this, do you believe the risks outweigh the benefits?",
+    "error": null,
+    "latency_sec": 2.869
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere das Konzept der Work-Life-Balance.",
+    "response_de": "Das ist ein äußerst komplexes Thema, da die Grenze zwischen Beruf und Privatleben durch Homeoffice oft verschwimmt. Ich befürchte, dass viele Menschen ohne klare Vorschriften für sich selbst kaum noch zur Ruhe kommen. Wie schaffst du es, trotz eines stressigen Alltags deine Selbstwirksamkeit zu bewahren und dich wirklich zu entspannen?",
+    "response_en": "That is an extremely complex topic, as the boundary between professional and private life is often blurred by home office. I fear that many people can hardly find peace anymore without clear rules for themselves. How do you manage to maintain your self-efficacy and truly relax despite a stressful everyday life?",
+    "error": null,
+    "latency_sec": 2.845
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie könnte eine gerechte Gesellschaft aussehen?",
+    "response_de": "Das ist eine komplexe Frage, über die man ewig diskutieren könnte. Meiner Meinung nach wäre eine gerechte Gesellschaft geprägt von echter Generationengerechtigkeit und einem großen Handlungsspielraum für jeden Einzelnen. Wie stehst du dazu, sollte der Staat hierbei stärker durch soziale Maßnahmen eingreifen?",
+    "response_en": "That is a complex question that one could discuss forever. In my opinion, a just society would be characterized by true intergenerational equity and a wide range of action for every individual. What is your take on this, should the state intervene more strongly here through social measures?",
+    "error": null,
+    "latency_sec": 2.604
+  },
+  {
+    "level": "B2",
+    "prompt": "Was hältst du von bedingungslosem Grundeinkommen?",
+    "response_de": "Das ist ein äußerst komplexes Thema, über das man stundenlang diskutieren könnte. Ich fände es spannend, wenn ein solches Modell die individuelle Selbstwirksamkeit stärken und den gesellschaftlichen Druck reduzieren würde. Meinst du, dass die Menschen dann immer noch so aktiv und motiviert wären, ihrer Arbeit nachzugehen?",
+    "response_en": "That is an extremely complex topic that one could discuss for hours. I would find it exciting if such a model strengthened individual self-efficacy and reduced societal pressure. Do you think people would still be as active and motivated to pursue their work?",
+    "error": null,
+    "latency_sec": 2.597
+  },
+  {
+    "level": "B2",
+    "prompt": "Erkläre, warum Mehrsprachigkeit von Vorteil ist.",
+    "response_de": "Mehrsprachigkeit eröffnet uns nicht nur neue berufliche Perspektiven, sondern fördert auch die kognitive Flexibilität und das Verständnis für andere Kulturen. Es ist faszinierend, wie sich unsere Denkweise verändert, wenn wir in einer anderen Sprache kommunizieren. Welche Sprache würdest du als Nächstes lernen wollen, wenn du unendlich viel Zeit hättest?",
+    "response_en": "Multilingualism not only opens up new professional perspectives for us, but also promotes cognitive flexibility and the understanding of other cultures. It is fascinating how our way of thinking changes when we communicate in another language. Which language would you want to learn next if you had infinite time?",
+    "error": null,
+    "latency_sec": 2.874
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Wirtschaft politische Entscheidungen?",
+    "response_de": "Das ist eine äußerst komplexe Fragestellung, da wirtschaftliche Interessen oft den Handlungsspielraum der Politik maßgeblich beeinflussen. Meiner Meinung nach führt das Streben nach Wohlstand häufig dazu, dass bestimmte Geschäftsmodelle durch politische Maßnahmen subventioniert werden. Was denkst du, wie stark sollte die Wirtschaft in staatliche Entscheidungsprozesse involviert sein?",
+    "response_en": "That is an extremely complex question, as economic interests often significantly influence the room for maneuver in politics. In my opinion, the pursuit of prosperity often leads to certain business models being subsidized through political measures. What do you think, to what extent should the economy be involved in state decision-making processes?",
+    "error": null,
+    "latency_sec": 2.957
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Herausforderungen der modernen Bildung?",
+    "response_de": "Das ist ein komplexes Thema, da die Digitalisierung und der Klimawandel unser Bildungssystem vor enorme Herausforderungen stellen. Meiner Meinung nach wäre es wichtig, die Selbstwirksamkeit der Schüler zu fördern, damit sie flexibel auf die Anforderungen der Zukunft reagieren können. Was denkst du, welche Maßnahmen sollten priorisiert werden?",
+    "response_en": "That is a complex topic, as digitalization and climate change are presenting our education system with enormous challenges. In my opinion, it would be important to promote the self-efficacy of students so that they can react flexibly to the requirements of the future. What do you think, which measures should be prioritized?",
+    "error": null,
+    "latency_sec": 2.837
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie verändert künstliche Intelligenz den Arbeitsmarkt?",
+    "response_de": "Das ist eine äußerst komplexe Frage, die derzeit viele Diskussionen auslöst. Meiner Meinung nach wird die künstliche Intelligenz viele Routineaufgaben ersetzen, uns aber gleichzeitig einen größeren Handlungsspielraum für kreative Tätigkeiten verschaffen. Es wäre spannend zu wissen, ob du diese Entwicklung eher als Chance oder als Risiko für deine berufliche Zukunft bewertest.",
+    "response_en": "That is an extremely complex question that is currently sparking many discussions. In my opinion, artificial intelligence will replace many routine tasks, but at the same time give us more room for maneuver for creative activities. It would be exciting to know whether you view this development more as an opportunity or as a risk for your professional future.",
+    "error": null,
+    "latency_sec": 3.097
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Verantwortung tragen Unternehmen für die Umwelt?",
+    "response_de": "Das ist eine komplexe Frage, denn Unternehmen haben einen enormen Handlungsspielraum, um den Klimawandel zu bremsen. Meiner Meinung nach sollten sie nachhaltige Geschäftsmodelle entwickeln, die nicht nur auf Profit, sondern auch auf Generationengerechtigkeit setzen. Was glaubst du, welche Maßnahmen am effektivsten wären?",
+    "response_en": "That is a complex question, because companies have an enormous room for maneuver to slow down climate change. In my opinion, they should develop sustainable business models that focus not only on profit, but also on intergenerational equity. What measures do you think would be most effective?",
+    "error": null,
+    "latency_sec": 2.683
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?",
+    "response_de": "Ich halte kulturelle Vielfalt für absolut essenziell, da sie unseren Horizont erweitert und uns flexibler im Umgang mit anderen Menschen macht. In einer globalisierten Welt fördert dieser Austausch nicht nur die gegenseitige Toleranz, sondern ist oft auch die Grundlage für innovative Geschäftsmodelle. Was meinst du, überwiegen die Vorteile oder gibt es eher Herausforderungen durch diese Vielfalt?",
+    "response_en": "I consider cultural diversity to be absolutely essential, as it broadens our horizons and makes us more flexible in dealing with other people. In a globalized world, this exchange not only promotes mutual tolerance but is often also the basis for innovative business models. What do you think, do the advantages outweigh the challenges caused by this diversity?",
+    "error": null,
+    "latency_sec": 9.222
+  }
+]

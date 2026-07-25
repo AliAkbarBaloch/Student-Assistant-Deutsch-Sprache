@@ -1,0 +1,1382 @@
+[
+  {
+    "level": "A1",
+    "prompt": "Hallo! Wie heißt du?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer. Wie geht es dir?",
+    "response_en": "Hello! I am Buddy. I am your German teacher. How are you?",
+    "error": null,
+    "latency_sec": 1.438,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 12,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist das?",
+    "response_de": "Hallo! Das ist ein Buch. Ich lese gern.",
+    "response_en": "Hello! That is a book. I like reading.",
+    "error": null,
+    "latency_sec": 1.028,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 8,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich heiße Anna. Und du?",
+    "response_de": "Hallo Anna! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello Anna! I am Buddy. I am your German teacher.",
+    "error": null,
+    "latency_sec": 0.925,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 1,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": [
+        "anna(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie alt bist du?",
+    "response_de": "Ich bin eine KI. Ich habe kein Alter. Und du?",
+    "response_en": "I am an AI. I have no age. And you?",
+    "error": null,
+    "latency_sec": 0.802,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wo wohnst du?",
+    "response_de": "Ich wohne in München. Und du? Wo wohnst du?",
+    "response_en": "I live in Munich. And you? Where do you live?",
+    "error": null,
+    "latency_sec": 0.87,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 9,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich wohne in Berlin.",
+    "response_de": "Hallo! Das ist gut. Berlin ist eine große Stadt.",
+    "response_en": "Hello! That is good. Berlin is a big city.",
+    "error": null,
+    "latency_sec": 0.817,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 9,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was magst du essen?",
+    "response_de": "Ich esse gern Salat. Und du? Was isst du gern?",
+    "response_en": "I like eating salad. And you? What do you like to eat?",
+    "error": null,
+    "latency_sec": 0.925,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 10,
+      "content_tokens": 5,
+      "violations_sample": [
+        "isst(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie viele Geschwister hast du?",
+    "response_de": "Ich bin eine KI. Ich habe keine Familie. Und du?",
+    "response_en": "I am an AI. I have no family. And you?",
+    "error": null,
+    "latency_sec": 0.833,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist deine Lieblingsfarbe?",
+    "response_de": "Meine Lieblingsfarbe ist Blau. Und du? Was ist deine Farbe?",
+    "response_en": "My favorite color is blue. And you? What is your color?",
+    "error": null,
+    "latency_sec": 0.916,
+    "compliance": {
+      "compliance_pct": 0.0,
+      "ok_words": 0,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 3,
+      "violations_sample": [
+        "blau(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Das ist ein Hund.",
+    "response_de": "Hallo! Das ist gut. Du lernst schnell.",
+    "response_en": "Hello! That is good. You are learning quickly.",
+    "error": null,
+    "latency_sec": 0.838,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 7,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Guten Morgen! Wie geht es dir?",
+    "response_de": "Guten Morgen! Mir geht es gut. Und dir?",
+    "response_en": "Good morning! I am doing well. And you?",
+    "error": null,
+    "latency_sec": 0.813,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 8,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Was machst du?",
+    "response_de": "Ich bin dein Deutschlehrer. Ich helfe dir gern. Wir lernen zusammen.",
+    "response_en": "I am your German teacher. I like to help you. We learn together.",
+    "error": null,
+    "latency_sec": 1.044,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 11,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich bin müde.",
+    "response_de": "Das ist okay. Geh jetzt ins Bett. Schlaf gut!",
+    "response_en": "That is okay. Go to bed now. Sleep well!",
+    "error": null,
+    "latency_sec": 0.839,
+    "compliance": {
+      "compliance_pct": 50.0,
+      "ok_words": 2,
+      "violation_words": 2,
+      "unknown_words": 1,
+      "total_tokens": 9,
+      "content_tokens": 5,
+      "violations_sample": [
+        "geh(A2)",
+        "schlaf(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Danke schön!",
+    "response_de": "Bitte schön! Du machst das sehr gut. Weiter so!",
+    "response_en": "You're welcome! You are doing very well. Keep it up!",
+    "error": null,
+    "latency_sec": 0.875,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 9,
+      "content_tokens": 4,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich mag Äpfel.",
+    "response_de": "Das ist gut! Ich esse auch gern Obst. Du lernst schnell.",
+    "response_en": "That is good! I also like eating fruit. You are learning fast.",
+    "error": null,
+    "latency_sec": 0.899,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 11,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie spät ist es?",
+    "response_de": "Es ist jetzt zwei Uhr. Hast du Zeit?",
+    "response_en": "It is two o'clock now. Do you have time?",
+    "error": null,
+    "latency_sec": 0.8,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 0,
+      "total_tokens": 8,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich trinke gerne Wasser.",
+    "response_de": "Das ist sehr gut. Ich trinke auch gerne Wasser. Du lernst schnell!",
+    "response_en": "That is very good. I also like drinking water. You are learning fast!",
+    "error": null,
+    "latency_sec": 0.965,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 12,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Hast du eine Katze?",
+    "response_de": "Nein, ich habe keine Katze. Hast du ein Haustier?",
+    "response_en": "No, I don't have a cat. Do you have a pet?",
+    "error": null,
+    "latency_sec": 0.931,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 9,
+      "content_tokens": 2,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie ist dein Name?",
+    "response_de": "Hallo! Ich bin Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello! I am Buddy. I am your German teacher.",
+    "error": null,
+    "latency_sec": 0.833,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 8,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich komme aus Spanien.",
+    "response_de": "Hallo! Das ist gut. Ich komme aus Deutschland.",
+    "response_en": "Hello! That is good. I come from Germany.",
+    "error": null,
+    "latency_sec": 0.835,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 8,
+      "content_tokens": 4,
+      "violations_sample": [
+        "deutschland(A2)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie komme ich zum Bahnhof?",
+    "response_de": "Gehen Sie geradeaus. Dann sehen Sie die Bahn. Das ist einfach.",
+    "response_en": "Go straight ahead. Then you will see the train station. That is easy.",
+    "error": null,
+    "latency_sec": 0.992,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 11,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was kostet das?",
+    "response_de": "Das ist eine gute Frage. Das kostet zwei Euro. Möchtest du es kaufen?",
+    "response_en": "That is a good question. That costs two euros. Would you like to buy it?",
+    "error": null,
+    "latency_sec": 1.035,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte ein Kilo Äpfel, bitte.",
+    "response_de": "Das ist sehr gut. Ich gebe dir ein Kilo Äpfel. Möchtest du noch etwas kaufen?",
+    "response_en": "That is very good. I will give you one kilo of apples. Would you like to buy anything else?",
+    "error": null,
+    "latency_sec": 1.207,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 15,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wann fährt der nächste Bus?",
+    "response_de": "Der Bus fährt in zwei Stunden ab. Hast du eine Fahrkarte? Ich helfe dir gerne.",
+    "response_en": "The bus leaves in two hours. Do you have a ticket? I am happy to help you.",
+    "error": null,
+    "latency_sec": 1.075,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 15,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie ist das Wetter heute?",
+    "response_de": "Heute ist es windig. Es regnet auch ein bisschen. Hast du Lust auf einen Spaziergang?",
+    "response_en": "Today it is windy. It is also raining a bit. Do you feel like going for a walk?",
+    "error": null,
+    "latency_sec": 1.223,
+    "compliance": {
+      "compliance_pct": 75.0,
+      "ok_words": 3,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 15,
+      "content_tokens": 6,
+      "violations_sample": [
+        "spaziergang(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was hast du gestern gemacht?",
+    "response_de": "Ich habe Musik gehört. Ich habe auch Nudeln gekocht. Und du?",
+    "response_en": "I listened to music. I also cooked noodles. And you?",
+    "error": null,
+    "latency_sec": 7.042,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 1,
+      "total_tokens": 11,
+      "content_tokens": 4,
+      "violations_sample": [
+        "gekocht(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich gehe gerne ins Kino.",
+    "response_de": "Das ist toll! Ich gehe auch gerne ins Kino. Welchen Film schaust du?",
+    "response_en": "That is great! I also like going to the cinema. Which movie are you watching?",
+    "error": null,
+    "latency_sec": 1.387,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was machst du in deiner Freizeit?",
+    "response_de": "Ich lese gern Briefe. Hast du Lust auf ein Kartenspiel? Das macht Spaß!",
+    "response_en": "I like reading letters. Do you feel like playing a card game? That is fun!",
+    "error": null,
+    "latency_sec": 1.393,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 13,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich suche ein Zimmer.",
+    "response_de": "Das ist super! Suchst du ein Einzelzimmer oder eine Wohnung? Ich helfe dir gerne.",
+    "response_en": "That is great! Are you looking for a single room or an apartment? I am happy to help you.",
+    "error": null,
+    "latency_sec": 1.541,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Können Sie mir helfen?",
+    "response_de": "Ja, ich helfe dir gerne. Was möchtest du lernen? Wir machen das einfach zusammen.",
+    "response_en": "Yes, I am happy to help you. What would you like to learn? We will do it simply together.",
+    "error": null,
+    "latency_sec": 1.583,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Um wie viel Uhr beginnt der Kurs?",
+    "response_de": "Der Kurs beginnt um acht Uhr. Hast du Lust auf den Kurs?",
+    "response_en": "The course starts at eight o'clock. Do you feel like taking the course?",
+    "error": null,
+    "latency_sec": 1.307,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 4,
+      "violation_words": 2,
+      "unknown_words": 0,
+      "total_tokens": 12,
+      "content_tokens": 6,
+      "violations_sample": [
+        "kurs(B1)",
+        "kurs(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich lerne seit drei Monaten Deutsch.",
+    "response_de": "Das ist toll! Du lernst sehr gut. Mach einfach weiter so!",
+    "response_en": "That is great! You are learning very well. Just keep it up!",
+    "error": null,
+    "latency_sec": 1.288,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 11,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was isst du zum Frühstück?",
+    "response_de": "Ich esse gern Brot und Obst. Und du? Hast du Lust auf ein Ei?",
+    "response_en": "I like eating bread and fruit. And you? Do you feel like having an egg?",
+    "error": null,
+    "latency_sec": 1.335,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 14,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Welchen Beruf hat dein Vater?",
+    "response_de": "Mein Vater hat keinen Beruf. Er ist in den Ferien.",
+    "response_en": "My father doesn't have a job. He is on vacation.",
+    "error": null,
+    "latency_sec": 1.157,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 1,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 10,
+      "content_tokens": 3,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich habe Kopfschmerzen.",
+    "response_de": "Das tut mir leid. Hast du ein Medikament? Gute Gesundheit ist sehr wichtig.",
+    "response_en": "I am sorry to hear that. Do you have medicine? Good health is very important.",
+    "error": null,
+    "latency_sec": 1.457,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 13,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie war dein Wochenende?",
+    "response_de": "Mein Wochenende war sehr gut. Ich hatte viel Lust auf Natur und Sonne. Und du?",
+    "response_en": "My weekend was very good. I really felt like nature and sun. And you?",
+    "error": null,
+    "latency_sec": 1.353,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 15,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte einen Tisch für zwei Personen reservieren.",
+    "response_de": "Das ist eine gute Idee. Wann möchten Sie kommen? Ich helfe Ihnen gerne.",
+    "response_en": "That is a good idea. When would you like to come? I am happy to help you.",
+    "error": null,
+    "latency_sec": 1.554,
+    "compliance": {
+      "compliance_pct": null,
+      "ok_words": 0,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 13,
+      "content_tokens": 5,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wo kann ich Briefmarken kaufen?",
+    "response_de": "Du kannst Briefmarken in der Post kaufen. Das ist sehr einfach. Viel Erfolg!",
+    "response_en": "You can buy stamps at the post office. That is very simple. Good luck!",
+    "error": null,
+    "latency_sec": 1.362,
+    "compliance": {
+      "compliance_pct": 66.7,
+      "ok_words": 2,
+      "violation_words": 1,
+      "unknown_words": 2,
+      "total_tokens": 13,
+      "content_tokens": 5,
+      "violations_sample": [
+        "erfolg(B1)"
+      ]
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Was für Hobbys hast du?",
+    "response_de": "Ich habe viele Interessen. Ich lese gern und lerne neue Dinge. Und du? Was machst du gern?",
+    "response_en": "I have many interests. I like reading and learning new things. And you? What do you like to do?",
+    "error": null,
+    "latency_sec": 1.751,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 17,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie oft gehst du einkaufen?",
+    "response_de": "Ich gehe jeden Tag einkaufen. Das ist einfach und gut. Und du?",
+    "response_en": "I go shopping every day. That is simple and good. And you?",
+    "error": null,
+    "latency_sec": 1.269,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 12,
+      "content_tokens": 6,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was denkst du über das Leben in einer Großstadt?",
+    "response_de": "Das Leben in der Stadt ist sehr intensiv und spannend. Ich finde es toll, dass man dort viele Freunde trifft und alles schnell erreicht. Was gefällt dir an einer Stadt am meisten?",
+    "response_en": "Life in the city is very intense and exciting. I think it's great that you meet many friends there and can reach everything quickly. What do you like most about a city?",
+    "error": null,
+    "latency_sec": 2.404,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 9,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 32,
+      "content_tokens": 14,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir von deinem letzten Urlaub.",
+    "response_de": "Ich habe meinen Urlaub an einem See verbracht. Es war total schön und ich habe mich gut erholt. Und du, wo warst du im Urlaub?",
+    "response_en": "I spent my vacation at a lake. It was totally lovely and I recovered well. And you, where were you on vacation?",
+    "error": null,
+    "latency_sec": 2.307,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 1,
+      "total_tokens": 25,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind deine Pläne für die Zukunft?",
+    "response_de": "Ich möchte dir helfen, besser Deutsch zu lernen. Zusammen machen wir Fortschritte und haben Spaß an der Sprache. Was hast du morgen vor?",
+    "response_en": "I want to help you learn German better. Together we will make progress and have fun with the language. What are your plans for tomorrow?",
+    "error": null,
+    "latency_sec": 1.876,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 23,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Warum lernst du Deutsch?",
+    "response_de": "Ich lerne Deutsch, weil ich gerne mit dir rede. Es freut mich sehr, dass wir gemeinsam üben. Was ist dein Ziel beim Lernen?",
+    "response_en": "I am learning German because I enjoy talking to you. I am very happy that we are practicing together. What is your goal with learning?",
+    "error": null,
+    "latency_sec": 1.966,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 23,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie war deine Kindheit?",
+    "response_de": "Ich bin eine KI und hatte keine Kindheit wie du. Aber ich freue mich sehr, dass wir jetzt gemeinsam Deutsch lernen! Was hast du als Kind gerne gemacht?",
+    "response_en": "I am an AI and didn't have a childhood like you. But I am very happy that we are learning German together now! What did you like to do as a child?",
+    "error": null,
+    "latency_sec": 2.277,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 28,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was gefällt dir an Deutschland?",
+    "response_de": "Ich mag die Gemeinschaft und die schönen Seen in Deutschland. Es ist toll, wie die Menschen dort zusammenarbeiten. Und du, was gefällt dir am meisten?",
+    "response_en": "I like the community and the beautiful lakes in Germany. It is great how the people there work together. And you, what do you like the most?",
+    "error": null,
+    "latency_sec": 2.023,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 25,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Beschreibe deinen Alltag.",
+    "response_de": "Ich arbeite jeden Tag hier in der App und helfe Studenten. Ich lese viele Texte und antworte auf Fragen. Das macht mir total viel Spaß!",
+    "response_en": "I work here in the app every day and help students. I read many texts and answer questions. I really enjoy doing that!",
+    "error": null,
+    "latency_sec": 1.903,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 25,
+      "content_tokens": 13,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was machst du, wenn du gestresst bist?",
+    "response_de": "Wenn ich gestresst bin, versuche ich mich zu beruhigen. Ich gehe oft an einen See oder lese ein Magazin. Was hilft dir, wenn du Probleme hast?",
+    "response_en": "When I am stressed, I try to calm down. I often go to a lake or read a magazine. What helps you when you have problems?",
+    "error": null,
+    "latency_sec": 2.114,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 26,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Musik hörst du gerne und warum?",
+    "response_de": "Ich höre gerne Musik, die mich beruhigt. Das hilft mir, wenn ich viel gearbeitet habe. Und du, was ist deine Lieblingsband?",
+    "response_en": "I like listening to music that calms me down. That helps me when I have worked a lot. And you, what is your favorite band?",
+    "error": null,
+    "latency_sec": 1.871,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 21,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie findest du die Deutschen?",
+    "response_de": "Ich finde die Deutschen sehr interessant und freundlich. Es freut mich, dass du die Sprache lernst! Hast du schon Freunde aus Deutschland?",
+    "response_en": "I find Germans very interesting and friendly. I am glad that you are learning the language! Do you already have friends from Germany?",
+    "error": null,
+    "latency_sec": 1.374,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 22,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was würdest du mit einer Million Euro machen?",
+    "response_de": "Das ist eine tolle Frage! Ich würde vielleicht eine Sprachschule für Studenten kaufen. Das wäre sehr nützlich für die Gemeinschaft.",
+    "response_en": "That is a great question! I would perhaps buy a language school for students. That would be very useful for the community.",
+    "error": null,
+    "latency_sec": 1.289,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 20,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind die Unterschiede zwischen deiner Heimat und Deutschland?",
+    "response_de": "Ich bin eine KI und habe keine Heimat, aber ich freue mich, dass du fragst. Erzähl mir doch, was du in Deutschland besonders schön findest. Wir können gerne darüber reden!",
+    "response_en": "I am an AI and have no homeland, but I am happy that you asked. Tell me what you find especially beautiful in Germany. We can gladly talk about it!",
+    "error": null,
+    "latency_sec": 1.692,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 10,
+      "total_tokens": 30,
+      "content_tokens": 12,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie wichtig ist Gesundheit für dich?",
+    "response_de": "Gesundheit ist total wichtig, damit man fit bleibt. Ich freue mich, wenn du dich gut fühlst und gesund ernährst. Hast du heute schon Sport gemacht?",
+    "response_en": "Health is totally important so that one stays fit. I am happy when you feel good and eat healthily. Have you done any sports today?",
+    "error": null,
+    "latency_sec": 1.608,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 5,
+      "total_tokens": 25,
+      "content_tokens": 13,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was hast du letztes Wochenende gemacht?",
+    "response_de": "Ich habe das Wochenende sehr ruhig verbracht. Ich habe viel gelesen und mich gut erholt. Und du, was hast du gemacht?",
+    "response_en": "I spent the weekend very quietly. I read a lot and recovered well. And you, what did you do?",
+    "error": null,
+    "latency_sec": 1.269,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 2,
+      "total_tokens": 21,
+      "content_tokens": 7,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir über einen Film, den du magst.",
+    "response_de": "Ich mag Filme über eine große Gemeinschaft. Es freut mich, wenn die Menschen dort zusammen arbeiten. Welchen Film magst du?",
+    "response_en": "I like movies about a large community. It makes me happy when the people there work together. Which movie do you like?",
+    "error": null,
+    "latency_sec": 1.313,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 20,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie stellst du dir dein Leben in zehn Jahren vor?",
+    "response_de": "In zehn Jahren möchte ich immer noch vielen Menschen beim Lernen helfen. Ich freue mich darauf, gemeinsam mit euch Fortschritte zu machen. Und du, was hast du vor?",
+    "response_en": "In ten years, I still want to help many people with learning. I look forward to making progress together with you. And you, what are your plans?",
+    "error": null,
+    "latency_sec": 1.587,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 8,
+      "total_tokens": 28,
+      "content_tokens": 11,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was war die größte Herausforderung in deinem Leben?",
+    "response_de": "Ich bin eine KI und habe kein Leben wie du. Aber es freut mich, dass du so viel redest und Deutsch lernst! Was ist dein größtes Problem beim Lernen?",
+    "response_en": "I am an AI and don't have a life like you. But I'm glad that you talk so much and are learning German! What is your biggest problem with learning?",
+    "error": null,
+    "latency_sec": 1.706,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 29,
+      "content_tokens": 9,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie gehst du mit Konflikten um?",
+    "response_de": "Ich rede gern mit anderen, wenn es ein Problem gibt. Das ist nützlich, damit man eine gute Lösung findet. Wie machst du das?",
+    "response_en": "I like to talk with others when there is a problem. That is useful so that one finds a good solution. How do you do that?",
+    "error": null,
+    "latency_sec": 1.48,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 6,
+      "total_tokens": 23,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Was bedeutet Erfolg für dich?",
+    "response_de": "Erfolg bedeutet für mich, wenn ich dir beim Lernen helfen kann. Es freut mich sehr, dass du Deutsch lernst. Was ist dein Ziel für diese Woche?",
+    "response_en": "For me, success means being able to help you with your learning. I am very happy that you are learning German. What is your goal for this week?",
+    "error": null,
+    "latency_sec": 1.582,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 4,
+      "total_tokens": 26,
+      "content_tokens": 10,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Rolle spielt Freundschaft in deinem Leben?",
+    "response_de": "Freundschaft ist total wichtig für mich. Ich freue mich sehr, wenn wir gemeinsam reden und Zeit verbringen.",
+    "response_en": "Friendship is totally important to me. I am very happy when we talk and spend time together.",
+    "error": null,
+    "latency_sec": 1.233,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 3,
+      "total_tokens": 17,
+      "content_tokens": 8,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Vor- und Nachteile der sozialen Medien?",
+    "response_de": "Das ist eine komplexe Frage, da soziale Medien sowohl die globale Vernetzung fördern als auch die psychische Gesundheit belasten können. Ich befürchte, dass die ständige Vergleichbarkeit oft zu Stress führt, obwohl der schnelle Informationsaustausch ein großer Vorteil ist. Wie bewertest du persönlich den Einfluss dieser Plattformen auf unsere Gesellschaft?",
+    "response_en": "That is a complex question, as social media can both promote global networking and strain mental health. I fear that constant comparability often leads to stress, although the rapid exchange of information is a great advantage. How do you personally evaluate the influence of these platforms on our society?",
+    "error": null,
+    "latency_sec": 2.68,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 20,
+      "total_tokens": 49,
+      "content_tokens": 27,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
+    "response_de": "Das ist eine äußerst komplexe Frage, die viele Facetten hat. Einerseits fördert die Globalisierung den kulturellen Austausch und den Wohlstand, andererseits führt sie oft zu einer stärkeren sozialen Ungleichheit. Was denkst du, überwiegen die Vorteile oder die Nachteile für unsere Gesellschaft?",
+    "response_en": "That is an extremely complex question with many facets. On the one hand, globalization promotes cultural exchange and prosperity, but on the other hand, it often leads to greater social inequality. Do you think the advantages or the disadvantages outweigh for our society?",
+    "error": null,
+    "latency_sec": 2.487,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 41,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was bedeutet Freiheit für dich?",
+    "response_de": "Das ist eine faszinierende Frage! Für mich bedeutet Freiheit vor allem die Möglichkeit, flexibel auf neue Informationen zu reagieren und mich ständig weiterzuentwickeln. Ich glaube, dass wahre Freiheit darin liegt, einen großen Handlungsspielraum zu haben, um kreativ zu sein.",
+    "response_en": "That is a fascinating question! For me, freedom above all means the possibility to react flexibly to new information and to constantly develop myself. I believe that true freedom lies in having a large scope of action to be creative.",
+    "error": null,
+    "latency_sec": 2.228,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 13,
+      "total_tokens": 39,
+      "content_tokens": 20,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Rolle spielt Sprache in der Identitätsbildung?",
+    "response_de": "Das ist eine faszinierende Frage, da Sprache weit mehr ist als nur ein Kommunikationsmittel. Sie prägt maßgeblich, wie wir uns selbst wahrnehmen und welchen Platz wir in einer Gemeinschaft einnehmen. Ich bin davon überzeugt, dass eine neue Sprache sogar eine ganz neue Perspektive auf die Welt eröffnen kann.",
+    "response_en": "That is a fascinating question, as language is far more than just a means of communication. It significantly shapes how we perceive ourselves and what place we occupy in a community. I am convinced that a new language can even open up a completely new perspective on the world.",
+    "error": null,
+    "latency_sec": 2.545,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 48,
+      "content_tokens": 23,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere die Auswirkungen des Klimawandels.",
+    "response_de": "Das ist ein komplexes und dringliches Thema, das uns alle betrifft. Ich befürchte, dass wir ohne konsequente Maßnahmen den Klimawandel nicht mehr rechtzeitig stoppen können. Welche konkreten Strategien würdest du vorschlagen, um die globale Erwärmung effektiv zu bremsen?",
+    "response_en": "This is a complex and urgent topic that affects us all. I fear that without consistent measures, we will not be able to stop climate change in time. What concrete strategies would you suggest to effectively slow down global warming?",
+    "error": null,
+    "latency_sec": 8.922,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 2,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 38,
+      "content_tokens": 18,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?",
+    "response_de": "Das ist ein komplexes Thema, da die Digitalisierung unseren Handlungsspielraum enorm erweitert hat. Viele Menschen schätzen heute die Flexibilität durch Homeoffice, obwohl die Grenze zwischen Beruf und Privatleben dadurch oft verschwimmt. Meiner Meinung nach ist lebenslanges Lernen nun eine absolute Verpflichtung, um beruflich mithalten zu können.",
+    "response_en": "That is a complex topic, as digitalization has enormously expanded our scope of action. Many people now appreciate the flexibility of working from home, although the boundary between professional and private life often becomes blurred because of it. In my opinion, lifelong learning is now an absolute obligation in order to keep up professionally.",
+    "error": null,
+    "latency_sec": 3.72,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 9,
+      "violation_words": 0,
+      "unknown_words": 17,
+      "total_tokens": 46,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was denkst du über Minimalismus als Lebensphilosophie?",
+    "response_de": "Ich finde Minimalismus sehr inspirierend, da er uns hilft, uns auf das Wesentliche zu konzentrieren und unnötigen Stress zu vermeiden. Wenn man weniger materiellen Besitz hat, gewinnt man oft mehr Handlungsspielraum für persönliche Erfahrungen und echte Lebensqualität. Wie stehst du dazu, würdest du dein Leben gerne entschlacken?",
+    "response_en": "I find minimalism very inspiring because it helps us focus on the essentials and avoid unnecessary stress. When one has fewer material possessions, one often gains more room for maneuver for personal experiences and true quality of life. How do you feel about it, would you like to declutter your life?",
+    "error": null,
+    "latency_sec": 3.639,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 47,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Inwiefern prägt die Kultur eines Landes seinen Humor?",
+    "response_de": "Das ist eine faszinierende Frage, da Humor oft tief in den gesellschaftlichen Werten und der Geschichte eines Landes verwurzelt ist. Ich glaube, dass kulturelle Normen und auch die Sprache maßgeblich beeinflussen, was wir als witzig empfinden. Hast du selbst schon einmal erlebt, dass ein Witz in einer anderen Sprache völlig seine Wirkung verloren hat?",
+    "response_en": "That is a fascinating question, as humor is often deeply rooted in the social values and history of a country. I believe that cultural norms and language significantly influence what we perceive as funny. Have you ever experienced a joke completely losing its impact in another language?",
+    "error": null,
+    "latency_sec": 3.668,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 54,
+      "content_tokens": 27,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche ethischen Fragen stellt die künstliche Intelligenz?",
+    "response_de": "Das ist eine äußerst komplexe Frage, die uns viel Handlungsspielraum bei der Gestaltung der Zukunft lässt. Besonders kritisch sehe ich die Gefahr der Diskriminierung durch voreingenommene Algorithmen und den möglichen Verlust an Privatsphäre. Meinst du, dass wir durch strikte Vorschriften diese Risiken effektiv vermeiden könnten?",
+    "response_en": "That is an extremely complex question that gives us a lot of room for maneuver in shaping the future. I see the danger of discrimination through biased algorithms and the possible loss of privacy as particularly critical. Do you think that we could effectively avoid these risks through strict regulations?",
+    "error": null,
+    "latency_sec": 3.591,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 45,
+      "content_tokens": 25,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie sollte man mit historischer Schuld umgehen?",
+    "response_de": "Das ist eine äußerst komplexe Frage, die viel Reflexion erfordert. Meiner Meinung nach ist es entscheidend, dass man die Vergangenheit aufarbeitet, um daraus zu lernen und Diskriminierungserfahrungen in der Gegenwart zu vermeiden. Ein bewusster Umgang mit der Geschichte fördert die gesellschaftliche Selbstwirksamkeit und den inneren Frieden.",
+    "response_en": "That is an extremely complex question that requires a lot of reflection. In my opinion, it is crucial to process the past in order to learn from it and avoid experiences of discrimination in the present. A conscious approach to history promotes societal self-efficacy and inner peace.",
+    "error": null,
+    "latency_sec": 3.489,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 4,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 46,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?",
+    "response_de": "Das ist eine äußerst komplexe Fragestellung, die oft kontrovers diskutiert wird. Meiner Meinung nach kann der ständige Vergleich mit idealisierten Lebenswelten das Selbstwertgefühl beeinträchtigen, während die soziale Vernetzung gleichzeitig ein Gefühl der Gemeinschaft schafft. Was denkst du, überwiegen die positiven Aspekte oder die Risiken für die psychische Gesundheit?",
+    "response_en": "That is an extremely complex question that is often controversially discussed. In my opinion, the constant comparison with idealized worlds can impair self-esteem, while social networking simultaneously creates a sense of community. What do you think, do the positive aspects or the risks to mental health outweigh each other?",
+    "error": null,
+    "latency_sec": 3.797,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 48,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere das Konzept der Work-Life-Balance.",
+    "response_de": "Das ist ein äußerst komplexes Thema, da die Grenze zwischen Beruf und Privatleben durch Homeoffice immer mehr verschwimmt. Ich befürchte, dass viele Menschen Schwierigkeiten haben, wirklich abzuschalten, wenn der Bildschirm ständig präsent ist. Wie stehst du dazu, wäre eine strikte Trennung durch feste Vorschriften sinnvoller?",
+    "response_en": "That is an extremely complex topic, as the boundary between professional and private life is increasingly blurring due to home office. I fear that many people have difficulty truly switching off when the screen is constantly present. What is your take on this, would a strict separation through fixed regulations be more sensible?",
+    "error": null,
+    "latency_sec": 3.613,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 45,
+      "content_tokens": 24,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie könnte eine gerechte Gesellschaft aussehen?",
+    "response_de": "Das ist eine komplexe Frage, die viel Raum für Diskussionen lässt. Meiner Meinung nach wäre eine Gesellschaft besonders gerecht, wenn die Generationengerechtigkeit gewahrt bliebe und jeder Mensch die gleichen Chancen auf Selbstwirksamkeit hätte. Was denkst du, welche Maßnahmen wären notwendig, um diese Vision zu verwirklichen?",
+    "response_en": "That is a complex question that leaves a lot of room for discussion. In my opinion, a society would be particularly just if generational equity were maintained and every person had the same opportunities for self-efficacy. What do you think, which measures would be necessary to realize this vision?",
+    "error": null,
+    "latency_sec": 3.504,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 8,
+      "violation_words": 0,
+      "unknown_words": 18,
+      "total_tokens": 45,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was hältst du von bedingungslosem Grundeinkommen?",
+    "response_de": "Das ist ein komplexes Thema, über das man stundenlang diskutieren könnte. Ich glaube, dass ein bedingungsloses Grundeinkommen die Selbstwirksamkeit vieler Menschen steigern würde, da sie flexibler über ihre Lebensgestaltung entscheiden könnten. Allerdings müsste man genau untersuchen, wie sich ein solches Geschäftsmodell langfristig auf die Wirtschaft und die Motivation der Arbeitnehmer auswirkt.",
+    "response_en": "That is a complex topic that one could discuss for hours. I believe that an unconditional basic income would increase the self-efficacy of many people, as they could decide more flexibly about how to shape their lives. However, one would have to examine closely how such a business model would affect the economy and the motivation of employees in the long term.",
+    "error": null,
+    "latency_sec": 3.202,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 24,
+      "total_tokens": 51,
+      "content_tokens": 29,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Erkläre, warum Mehrsprachigkeit von Vorteil ist.",
+    "response_de": "Mehrsprachigkeit eröffnet uns eine Vielzahl an exklusiven Möglichkeiten, sowohl im privaten als auch im beruflichen Kontext. Man gewinnt einen tieferen Einblick in fremde Kulturen und kann seine kognitive Flexibilität erheblich steigern. Meiner Meinung nach fördert es zudem die gegenseitige Toleranz und das Verständnis in einer globalisierten Welt.",
+    "response_en": "Multilingualism opens up a variety of exclusive opportunities, both in private and professional contexts. One gains a deeper insight into foreign cultures and can significantly increase cognitive flexibility. In my opinion, it also promotes mutual tolerance and understanding in a globalized world.",
+    "error": null,
+    "latency_sec": 2.61,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 21,
+      "total_tokens": 47,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Wirtschaft politische Entscheidungen?",
+    "response_de": "Das ist eine äußerst komplexe Frage, da wirtschaftliche Interessen oft den Handlungsspielraum der Politik maßgeblich einschränken. Meiner Meinung nach führen beispielsweise hohe Benzinpreise oder neue Handelsabkommen häufig zu schnellen politischen Anpassungen, um den Wohlstand zu sichern. Was glaubst du, welche Rolle spielen dabei große Geschäftsmodelle in unserer heutigen Gesellschaft?",
+    "response_en": "That is an extremely complex question, as economic interests often significantly limit the scope of political action. In my opinion, for example, high petrol prices or new trade agreements often lead to rapid political adjustments to secure prosperity. What role do you think large business models play in our society today?",
+    "error": null,
+    "latency_sec": 2.862,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 6,
+      "violation_words": 0,
+      "unknown_words": 26,
+      "total_tokens": 49,
+      "content_tokens": 32,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Herausforderungen der modernen Bildung?",
+    "response_de": "Das ist eine komplexe Frage, die viele Aspekte berührt. Meiner Meinung nach ist die digitale Transformation eine der größten Herausforderungen, da Schulen oft nicht über die nötigen technischen Ressourcen verfügen. Zudem ist es essenziell, dass die Bildungssysteme flexibler werden, um der individuellen Selbstwirksamkeit der Lernenden besser gerecht zu werden.",
+    "response_en": "That is a complex question that touches upon many aspects. In my opinion, digital transformation is one of the greatest challenges, as schools often lack the necessary technical resources. Furthermore, it is essential that education systems become more flexible to better accommodate the individual self-efficacy of the learners.",
+    "error": null,
+    "latency_sec": 2.796,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 49,
+      "content_tokens": 24,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie verändert künstliche Intelligenz den Arbeitsmarkt?",
+    "response_de": "Das ist ein komplexes Thema, das derzeit viele Diskussionen auslöst. Ich glaube, dass KI viele Routineaufgaben ersetzt, uns aber gleichzeitig mehr Handlungsspielraum für kreative und strategische Tätigkeiten gibt. Wie beurteilst du diese Entwicklung in deinem eigenen Berufsfeld?",
+    "response_en": "That is a complex topic that is currently sparking many discussions. I believe that AI replaces many routine tasks, but at the same time gives us more room for maneuver for creative and strategic activities. How do you assess this development in your own professional field?",
+    "error": null,
+    "latency_sec": 2.374,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 5,
+      "violation_words": 0,
+      "unknown_words": 16,
+      "total_tokens": 37,
+      "content_tokens": 21,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Verantwortung tragen Unternehmen für die Umwelt?",
+    "response_de": "Das ist eine komplexe und hochaktuelle Frage. Ich bin der Meinung, dass Unternehmen eine enorme Verantwortung tragen, insbesondere wenn sie durch ihr Geschäftsmodell den Klimawandel vorantreiben. Sie sollten daher flexible Maßnahmen ergreifen, um die Umweltbelastung zu reduzieren und nachhaltigere Produktionswege zu etablieren.",
+    "response_en": "That is a complex and highly current question. I believe that companies bear an enormous responsibility, especially if they drive climate change through their business model. They should therefore take flexible measures to reduce environmental impact and establish more sustainable production methods.",
+    "error": null,
+    "latency_sec": 2.464,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 3,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 42,
+      "content_tokens": 22,
+      "violations_sample": []
+    }
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?",
+    "response_de": "Ich finde, dass kulturelle Vielfalt in einer globalisierten Welt absolut essenziell ist, da sie uns hilft, neue Perspektiven einzunehmen. Wenn wir offen für andere Traditionen sind, fördern wir die gegenseitige Toleranz und vermeiden Diskriminierungserfahrungen. Meiner Meinung nach bereichert dieser Austausch unser gesellschaftliches Leben enorm.",
+    "response_en": "I think that cultural diversity is absolutely essential in a globalized world, as it helps us to adopt new perspectives. When we are open to other traditions, we promote mutual tolerance and avoid experiences of discrimination. In my opinion, this exchange enormously enriches our social life.",
+    "error": null,
+    "latency_sec": 2.769,
+    "compliance": {
+      "compliance_pct": 100.0,
+      "ok_words": 7,
+      "violation_words": 0,
+      "unknown_words": 19,
+      "total_tokens": 44,
+      "content_tokens": 26,
+      "violations_sample": []
+    }
+  }
+]

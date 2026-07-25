@@ -1,0 +1,81 @@
+level,prompt,response_de,compliance_pct,ok_words,violation_words,unknown_words,violations_sample
+A1,Hallo! Wie heißt du?,Hallo! Ich heiße Buddy. Wie heißt du?,100.0,1,0,3,
+A1,Was ist das?,Das ist ein Buch. Es ist neu.,100.0,2,0,0,
+A1,Ich heiße Anna. Und du?,"Ich heiße Buddy. Schön, dich kennenzulernen, Anna!",0.0,0,1,4,anna(B1)
+A1,Wie alt bist du?,Ich bin ein Programm. Ich habe kein Alter.,0.0,0,1,1,programm(A2)
+A1,Wo wohnst du?,Ich wohne im Computer. Wo wohnst du?,,0,0,3,
+A1,Ich wohne in Berlin.,Berlin ist schön! Ich mag Berlin auch.,100.0,2,0,1,
+A1,Was magst du essen?,Ich mag Brot und Käse. Und du?,100.0,1,0,1,
+A1,Wie viele Geschwister hast du?,Ich habe keine Geschwister. Ich bin ein Programm.,0.0,0,1,1,programm(A2)
+A1,Was ist deine Lieblingsfarbe?,Meine Lieblingsfarbe ist blau. Und deine?,0.0,0,1,1,blau(A2)
+A1,Das ist ein Hund.,"Ja, das ist ein Hund! Er ist süß.",100.0,1,0,1,
+A1,Guten Morgen! Wie geht es dir?,"Guten Morgen! Mir geht es gut, danke.",100.0,2,0,2,
+A1,Was machst du?,Ich lerne mit dir Deutsch. Das macht Spaß!,100.0,2,0,2,
+A1,Ich bin müde.,Oh nein! Trink ein Glas Wasser.,100.0,2,0,2,
+A1,Danke schön!,Gern geschehen! Bis bald.,100.0,3,0,1,
+A1,Ich mag Äpfel.,Äpfel sind lecker! Ich mag sie auch.,,0,0,2,
+A1,Wie spät ist es?,Ich habe keine Uhr. Schau auf dein Handy.,66.7,2,1,0,schau(B1)
+A1,Ich trinke gerne Wasser.,Wasser ist gesund! Ich trinke auch gern Wasser.,50.0,1,1,3,gesund(A2)
+A1,Hast du eine Katze?,"Nein, ich habe keine Katze. Hast du eine?",,0,0,1,
+A1,Wie ist dein Name?,Mein Name ist Buddy. Wie ist dein Name?,,0,0,3,
+A1,Ich komme aus Spanien.,Spanien ist toll! Ich komme aus dem Computer.,0.0,0,1,3,toll(A2)
+A2,Wie komme ich zum Bahnhof?,Geh geradeaus und dann links. Der Bahnhof ist nah.,75.0,3,1,1,nah(B1)
+A2,Was kostet das?,Das weiß ich nicht genau. Frag bitte im Geschäft.,50.0,1,1,2,frag(B1)
+A2,"Ich möchte ein Kilo Äpfel, bitte.",Gute Wahl! Äpfel schmecken besonders gut im Herbst.,50.0,1,1,5,wahl(B1)
+A2,Wann fährt der nächste Bus?,Der Bus fährt oft alle zehn Minuten. Schau auf den Fahrplan.,80.0,4,1,2,schau(B1)
+A2,Wie ist das Wetter heute?,Heute scheint die Sonne. Es ist warm und schön.,100.0,2,0,3,
+A2,Was hast du gestern gemacht?,Ich habe mit vielen Lernenden gesprochen. Das war interessant.,100.0,1,0,3,
+A2,Ich gehe gerne ins Kino.,Kino macht Spaß! Welchen Film magst du gerne?,100.0,3,0,3,
+A2,Was machst du in deiner Freizeit?,Ich helfe gerne beim Deutschlernen. Was ist dein Hobby?,100.0,1,0,3,
+A2,Ich suche ein Zimmer.,Schau online oder frag bei der Uni. Viel Erfolg bei der Suche!,0.0,0,3,3,schau(B1); frag(B1); erfolg(B1)
+A2,Können Sie mir helfen?,"Natürlich, ich helfe dir gerne. Was brauchst du?",,0,0,4,
+A2,Um wie viel Uhr beginnt der Kurs?,Das kommt auf den Kurs an. Frag deine Lehrerin.,25.0,1,3,0,kurs(B1); frag(B1); lehrerin(B1)
+A2,Ich lerne seit drei Monaten Deutsch.,Das ist toll! Du machst schon große Fortschritte.,100.0,1,0,3,
+A2,Was isst du zum Frühstück?,"Ich esse nichts, ich bin ein Programm. Und du?",100.0,1,0,1,
+A2,Welchen Beruf hat dein Vater?,Das weiß ich nicht. Welchen Beruf hat er denn?,100.0,1,0,2,
+A2,Ich habe Kopfschmerzen.,Das tut mir leid. Trink Wasser und ruh dich aus.,100.0,4,0,1,
+A2,Wie war dein Wochenende?,Ich hatte viele Gespräche. Wie war dein Wochenende?,,0,0,2,
+A2,Ich möchte einen Tisch für zwei Personen reservieren.,Ruf einfach im Restaurant an. Sag die Uhrzeit dazu.,80.0,4,1,1,dazu(B1)
+A2,Wo kann ich Briefmarken kaufen?,Briefmarken gibt es bei der Post. Manchmal auch im Kiosk.,100.0,4,0,1,
+A2,Was für Hobbys hast du?,Ich helfe gern beim Lernen. Das ist mein Hobby.,100.0,2,0,2,
+A2,Wie oft gehst du einkaufen?,Ich gehe nicht einkaufen. Wie oft gehst du einkaufen?,100.0,2,0,3,
+B1,Was denkst du über das Leben in einer Großstadt?,"Ich finde, das Leben in einer Großstadt ist aufregend, weil es viele Möglichkeiten gibt. Manchmal kann es aber auch stressig sein.",100.0,3,0,5,
+B1,Erzähl mir von deinem letzten Urlaub.,"Ich hatte noch keinen richtigen Urlaub, weil ich ein Programm bin. Aber ich höre gerne Geschichten über Reisen!",100.0,2,0,5,
+B1,Was sind deine Pläne für die Zukunft?,"Mein Plan ist, dir beim Deutschlernen zu helfen. Ich möchte, dass du dich sicherer fühlst.",100.0,1,0,4,
+B1,Warum lernst du Deutsch?,"Ich bin dazu gemacht, Deutsch zu sprechen und zu erklären. Warum lernst du eigentlich Deutsch?",100.0,4,0,4,
+B1,Wie war deine Kindheit?,"Ich hatte keine Kindheit, weil ich erst vor Kurzem entstanden bin. Wie war deine Kindheit denn?",100.0,3,0,2,
+B1,Was gefällt dir an Deutschland?,"Mir gefällt, dass es in Deutschland so viele verschiedene Regionen gibt. Auch die Sprache finde ich spannend.",100.0,3,0,5,
+B1,Beschreibe deinen Alltag.,"Mein Alltag besteht darin, mit Lernenden wie dir zu sprechen. Jeder Tag ist ein bisschen anders.",100.0,3,0,6,
+B1,"Was machst du, wenn du gestresst bist?","Wenn ich gestresst wäre, würde ich eine Pause machen. Was hilft dir, wenn du gestresst bist?",100.0,1,0,6,
+B1,Welche Musik hörst du gerne und warum?,"Ich höre selbst keine Musik, aber ich finde es spannend, wie Musik Menschen verbindet. Was hörst du gerne?",100.0,4,0,6,
+B1,Wie findest du die Deutschen?,"Ich finde, jedes Land hat unterschiedliche Menschen mit verschiedenen Eigenschaften. Man sollte nicht zu sehr verallgemeinern.",100.0,1,0,7,
+B1,Was würdest du mit einer Million Euro machen?,"Ich würde wahrscheinlich vielen Menschen helfen, Deutsch zu lernen. Was würdest du damit machen?",100.0,1,0,8,
+B1,Was sind die Unterschiede zwischen deiner Heimat und Deutschland?,"Das kommt darauf an, woher du kommst. Erzähl mir mehr über deine Heimat, dann können wir vergleichen.",100.0,3,0,4,
+B1,Wie wichtig ist Gesundheit für dich?,"Gesundheit ist sehr wichtig, weil man ohne sie nicht gut leben kann. Deshalb sollte man gut auf sich achten.",100.0,4,0,3,
+B1,Was hast du letztes Wochenende gemacht?,Ich habe letztes Wochenende mit vielen Lernenden gesprochen. Das war eine schöne Erfahrung.,,0,0,7,
+B1,"Erzähl mir über einen Film, den du magst.","Ich kann keine Filme schauen, aber ich habe von vielen gehört. Welchen Film magst du besonders gern?",100.0,2,0,6,
+B1,Wie stellst du dir dein Leben in zehn Jahren vor?,In zehn Jahren möchte ich noch mehr Menschen beim Deutschlernen helfen können. Wie siehst du dein Leben dann?,100.0,1,0,6,
+B1,Was war die größte Herausforderung in deinem Leben?,"Für mich ist es eine Herausforderung, jede Sprache richtig zu verstehen. Was war deine größte Herausforderung?",33.3,1,2,4,herausforderung(B2); herausforderung(B2)
+B1,Wie gehst du mit Konflikten um?,Ich versuche immer ruhig zu bleiben und ehrlich zu antworten. Wie gehst du normalerweise mit Konflikten um?,100.0,3,0,5,
+B1,Was bedeutet Erfolg für dich?,"Für mich bedeutet Erfolg, dass du beim Deutschlernen Fortschritte machst. Was bedeutet Erfolg für dich?",100.0,4,0,3,
+B1,Welche Rolle spielt Freundschaft in deinem Leben?,"Freundschaft ist wichtig, weil sie Menschen Halt gibt. Ich hoffe, ich kann für dich wie ein Freund sein.",100.0,5,0,2,
+B2,Was sind die Vor- und Nachteile der sozialen Medien?,"Soziale Medien ermöglichen es, mit Menschen weltweit in Kontakt zu bleiben, was zweifellos ein Vorteil ist. Gleichzeitig fördern sie aber auch Vergleich und Ablenkung, was viele als belastend empfinden. Es kommt letztlich darauf an, wie bewusst man sie nutzt.",100.0,7,0,13,
+B2,Wie beeinflusst die Globalisierung unsere Gesellschaft?,"Die Globalisierung hat unsere Gesellschaft in vielerlei Hinsicht geprägt, etwa durch einen leichteren Zugang zu anderen Kulturen. Andererseits verschärft sie auch wirtschaftliche Ungleichheiten zwischen Regionen. Diese Ambivalenz macht sie zu einem viel diskutierten Thema.",100.0,9,0,11,
+B2,Was bedeutet Freiheit für dich?,"Für mich bedeutet Freiheit, eigene Entscheidungen treffen zu können, ohne dabei anderen zu schaden. Das schließt sowohl persönliche als auch gesellschaftliche Freiheit ein. Wie würdest du Freiheit definieren?",100.0,6,0,10,
+B2,Welche Rolle spielt Sprache in der Identitätsbildung?,"Sprache prägt maßgeblich, wie wir denken und uns selbst wahrnehmen, weshalb sie eng mit unserer Identität verknüpft ist. Wer mehrere Sprachen spricht, entwickelt oft auch unterschiedliche Facetten seiner Persönlichkeit. Das macht Mehrsprachigkeit besonders faszinierend.",100.0,6,0,17,
+B2,Diskutiere die Auswirkungen des Klimawandels.,"Der Klimawandel wirkt sich bereits jetzt auf Wetterextreme, Ökosysteme und die Landwirtschaft aus. Wenn wir nicht entschlossen handeln würden, drohten noch weitreichendere Folgen für kommende Generationen. Deshalb halte ich schnelles Handeln für unerlässlich.",100.0,6,0,13,
+B2,Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?,"Die Digitalisierung hat flexiblere Arbeitsmodelle wie Homeoffice ermöglicht, die vor wenigen Jahren noch undenkbar gewesen wären. Gleichzeitig erfordert sie von vielen Beschäftigten, sich ständig neue digitale Kompetenzen anzueignen. Der Wandel bringt also Chancen und Herausforderungen zugleich.",100.0,4,0,20,
+B2,Was denkst du über Minimalismus als Lebensphilosophie?,"Minimalismus finde ich als Gegenentwurf zur Konsumgesellschaft durchaus überzeugend, weil er den Fokus auf das Wesentliche lenkt. Allerdings ist er nicht für jeden gleich leicht umzusetzen, gerade in einer Welt voller Reize. Trotzdem lohnt es sich, seine eigenen Prioritäten zu hinterfragen.",100.0,6,0,17,
+B2,Inwiefern prägt die Kultur eines Landes seinen Humor?,"Humor ist stark kulturell geprägt, da er oft auf gemeinsamen Werten, Tabus und historischen Erfahrungen beruht. Was in einem Land als witzig gilt, kann anderswo völlig missverstanden werden. Deshalb ist interkulturelle Sensibilität beim Humor besonders wichtig.",100.0,10,0,13,
+B2,Welche ethischen Fragen stellt die künstliche Intelligenz?,"Künstliche Intelligenz wirft Fragen nach Verantwortung auf, etwa wenn ein System eine folgenreiche Entscheidung trifft. Auch der Umgang mit Vorurteilen in den Trainingsdaten ist ethisch heikel. Diese Fragen sollten Gesellschaft und Politik gemeinsam klären.",100.0,9,0,13,
+B2,Wie sollte man mit historischer Schuld umgehen?,"Ein verantwortungsvoller Umgang mit historischer Schuld setzt voraus, dass man sich der Vergangenheit ehrlich stellt, statt sie zu verdrängen. Gleichzeitig sollte daraus eine konkrete Verantwortung für die Gegenwart erwachsen. Aufarbeitung allein reicht also nicht aus.",100.0,9,0,11,
+B2,Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?,"Studien zeigen, dass exzessive Social-Media-Nutzung bei Jugendlichen mit erhöhtem Stress und einem geringeren Selbstwertgefühl einhergehen kann. Andererseits bietet sie auch Raum für Austausch und Zugehörigkeit. Entscheidend ist daher ein bewusster, begrenzter Umgang damit.",100.0,6,0,16,
+B2,Diskutiere das Konzept der Work-Life-Balance.,"Work-Life-Balance beschreibt das Bestreben, berufliche Anforderungen und persönliches Wohlbefinden in ein gesundes Gleichgewicht zu bringen. In der Praxis fällt das vielen schwer, besonders wenn Arbeit und Freizeit digital ständig verschmelzen. Ich halte klare Grenzen deshalb für unverzichtbar.",100.0,8,0,19,
+B2,Wie könnte eine gerechte Gesellschaft aussehen?,"Eine gerechte Gesellschaft würde meiner Meinung nach allen Menschen unabhängig von Herkunft gleiche Chancen bieten. Dazu gehören ein fairer Zugang zu Bildung sowie ein solidarisches Sozialsystem. Ganz erreichen lässt sich dieses Ideal wohl nie vollständig, aber es lohnt sich, danach zu streben.",100.0,11,0,18,
+B2,Was hältst du von bedingungslosem Grundeinkommen?,"Das bedingungslose Grundeinkommen könnte finanzielle Existenzängste verringern und mehr Freiraum für Bildung oder Kreativität schaffen. Kritiker befürchten allerdings, dass es die Arbeitsmotivation schwächen könnte. Ich finde die Idee spannend, auch wenn noch viele Fragen offen sind.",100.0,2,0,19,
+B2,"Erkläre, warum Mehrsprachigkeit von Vorteil ist.","Mehrsprachigkeit fördert nachweislich kognitive Flexibilität und erleichtert es, sich in fremde Perspektiven hineinzuversetzen. Zudem eröffnet sie berufliche und soziale Möglichkeiten, die einsprachigen Menschen oft verschlossen bleiben. Deshalb lohnt sich das Erlernen weiterer Sprachen in jedem Alter.",100.0,4,0,22,
+B2,Wie beeinflusst die Wirtschaft politische Entscheidungen?,"Wirtschaftliche Interessen beeinflussen politische Entscheidungen häufig maßgeblich, etwa wenn es um Handelsabkommen oder Steuerpolitik geht. Dabei geraten kurzfristige wirtschaftliche Vorteile manchmal in Konflikt mit langfristigen gesellschaftlichen Zielen. Diese Spannung prägt viele politische Debatten.",100.0,6,0,20,
+B2,Was sind die Herausforderungen der modernen Bildung?,"Moderne Bildungssysteme stehen vor der Herausforderung, Schülerinnen und Schüler auf eine sich rasant wandelnde Arbeitswelt vorzubereiten. Gleichzeitig sollen sie individuelle Bedürfnisse berücksichtigen, was mit begrenzten Ressourcen oft schwierig ist. Digitale Kompetenzen gewinnen dabei zunehmend an Bedeutung.",100.0,5,0,19,
+B2,Wie verändert künstliche Intelligenz den Arbeitsmarkt?,"Künstliche Intelligenz automatisiert zunehmend repetitive Aufgaben, wodurch sich manche Berufsbilder grundlegend wandeln oder ganz verschwinden. Gleichzeitig entstehen neue Tätigkeitsfelder rund um die Entwicklung und Kontrolle solcher Systeme. Entscheidend wird sein, wie gut sich Arbeitnehmer an diesen Wandel anpassen können.",100.0,7,0,21,
+B2,Welche Verantwortung tragen Unternehmen für die Umwelt?,"Unternehmen tragen eine erhebliche Verantwortung für die Umwelt, da ihre Produktionsprozesse oft erheblichen Einfluss auf Ressourcenverbrauch und Emissionen haben. Nachhaltiges Wirtschaften sollte deshalb kein bloßes Marketinginstrument, sondern echte Priorität sein. Nur so lässt sich langfristig glaubwürdig handeln.",100.0,6,0,17,
+B2,Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?,"Kulturelle Vielfalt bereichert eine globalisierte Welt, indem sie unterschiedliche Perspektiven und Lösungsansätze zusammenbringt. Gleichzeitig erfordert sie Offenheit und die Bereitschaft, andere Sichtweisen ernst zu nehmen. Ich halte sie deshalb für einen wertvollen, aber auch anspruchsvollen Gewinn.",100.0,6,0,17,

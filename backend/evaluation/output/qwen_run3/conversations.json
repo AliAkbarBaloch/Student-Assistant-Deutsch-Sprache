@@ -1,0 +1,642 @@
+[
+  {
+    "level": "A1",
+    "prompt": "Hallo! Wie heißt du?",
+    "response_de": "Hallo! Ich heiße Buddy. Ich bin dein Deutschlehrer.",
+    "response_en": "Hello! My name is Buddy. I am your German teacher.",
+    "error": null,
+    "latency_sec": 0.676
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist das?",
+    "response_de": "Das ist ein Buch.",
+    "response_en": "This is a book.",
+    "error": null,
+    "latency_sec": 0.442
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich heiße Anna. Und du?",
+    "response_de": "Hallo Anna! Ich bin Buddy. Ich bin dein Deutschlehrer. Ich helfe dir beim Lernen.",
+    "response_en": "Hello Anna! I am Buddy. I am your German teacher. I help you with learning.",
+    "error": null,
+    "latency_sec": 0.522
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie alt bist du?",
+    "response_de": "Ich bin eine KI. Ich habe kein Alter.",
+    "response_en": "I am an AI. I have no age.",
+    "error": null,
+    "latency_sec": 0.512
+  },
+  {
+    "level": "A1",
+    "prompt": "Wo wohnst du?",
+    "response_de": "Ich wohne in Berlin. Das ist eine große Stadt. Ich mag es hier sehr.",
+    "response_en": "I live in Berlin. That is a big city. I like it here very much.",
+    "error": null,
+    "latency_sec": 0.537
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich wohne in Berlin.",
+    "response_de": "Das ist toll. Berlin ist eine schöne Stadt. Ich wünsche dir viel Spaß dort.",
+    "response_en": "That is great. Berlin is a beautiful city. I wish you a lot of fun there.",
+    "error": null,
+    "latency_sec": 0.507
+  },
+  {
+    "level": "A1",
+    "prompt": "Was magst du essen?",
+    "response_de": "Ich mag Brot und Salat. Ich trinke auch gern Wasser.",
+    "response_en": "I like bread and salad. I also like drinking water.",
+    "error": null,
+    "latency_sec": 0.488
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie viele Geschwister hast du?",
+    "response_de": "Ich habe keine Geschwister. Ich bin ein Einzelkind.",
+    "response_en": "I have no siblings. I am an only child.",
+    "error": null,
+    "latency_sec": 0.505
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist deine Lieblingsfarbe?",
+    "response_de": "Ich mag die Farbe Blau sehr. Es ist eine schöne Farbe.",
+    "response_en": "I like the color blue very much. It is a beautiful color.",
+    "error": null,
+    "latency_sec": 0.471
+  },
+  {
+    "level": "A1",
+    "prompt": "Das ist ein Hund.",
+    "response_de": "Ja, das ist ein Hund. Er ist sehr nett.",
+    "response_en": "Yes, that is a dog. He is very nice.",
+    "error": null,
+    "latency_sec": 0.403
+  },
+  {
+    "level": "A1",
+    "prompt": "Guten Morgen! Wie geht es dir?",
+    "response_de": "Guten Morgen! Mir geht es gut. Und dir?",
+    "response_en": "Good morning! I am doing well. And you?",
+    "error": null,
+    "latency_sec": 0.43
+  },
+  {
+    "level": "A1",
+    "prompt": "Was machst du?",
+    "response_de": "Ich bin dein Deutschlehrer. Ich helfe dir beim Lernen. Wir machen heute eine kleine Übung.",
+    "response_en": "I am your German teacher. I help you learn. We are doing a small exercise today.",
+    "error": null,
+    "latency_sec": 0.521
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich bin müde.",
+    "response_de": "Das ist okay. Geh ins Bett und schlaf gut.",
+    "response_en": "That's okay. Go to bed and sleep well.",
+    "error": null,
+    "latency_sec": 0.634
+  },
+  {
+    "level": "A1",
+    "prompt": "Danke schön!",
+    "response_de": "Bitte schön! Ich freue mich, dir zu helfen.",
+    "response_en": "You're welcome! I am happy to help you.",
+    "error": null,
+    "latency_sec": 0.466
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich mag Äpfel.",
+    "response_de": "Das ist gut. Äpfel sind gesund. Ich mag auch Obst.",
+    "response_en": "That is good. Apples are healthy. I also like fruit.",
+    "error": null,
+    "latency_sec": 0.599
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie spät ist es?",
+    "response_de": "Ich weiß die Uhrzeit nicht. Du kannst auf die Uhr schauen.",
+    "response_en": "I don't know the time. You can look at the clock.",
+    "error": null,
+    "latency_sec": 0.532
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich trinke gerne Wasser.",
+    "response_de": "Das ist sehr gesund! Trinken Sie auch gerne Saft oder Kaffee?",
+    "response_en": "That is very healthy! Do you also like to drink juice or coffee?",
+    "error": null,
+    "latency_sec": 0.76
+  },
+  {
+    "level": "A1",
+    "prompt": "Hast du eine Katze?",
+    "response_de": "Nein, ich habe keine Katze. Ich bin eine KI. Ich habe nur Daten.",
+    "response_en": "No, I don't have a cat. I am an AI. I only have data.",
+    "error": null,
+    "latency_sec": 0.156
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie ist dein Name?",
+    "response_de": "Ich bin Buddy. Dein Deutschlehrer.",
+    "response_en": "I am Buddy. Your German teacher.",
+    "error": null,
+    "latency_sec": 0.428
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich komme aus Spanien.",
+    "response_de": "Hallo! Ich bin Buddy. Willkomen! Das ist sehr gut.",
+    "response_en": "Hello! I am Buddy. Welcome! That is very good.",
+    "error": null,
+    "latency_sec": 0.443
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie komme ich zum Bahnhof?",
+    "response_de": "Gehen Sie geradeaus und biegen Sie links ab. Der Bahnhof ist dort rechts.",
+    "response_en": "Go straight ahead and turn left. The station is on the right there.",
+    "error": null,
+    "latency_sec": 0.538
+  },
+  {
+    "level": "A2",
+    "prompt": "Was kostet das?",
+    "response_de": "Das kostet drei Euro. Ist das in Ordnung für dich?",
+    "response_en": "That costs three euros. Is that okay for you?",
+    "error": null,
+    "latency_sec": 0.465
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte ein Kilo Äpfel, bitte.",
+    "response_de": "Das ist ein guter Anfang! Hier ist die richtige Form: „Ich möchte ein Kilo Äpfel kaufen.“",
+    "response_en": "That's a good start! Here is the correct form: \"I would like to buy a kilo of apples.\"",
+    "error": null,
+    "latency_sec": 0.582
+  },
+  {
+    "level": "A2",
+    "prompt": "Wann fährt der nächste Bus?",
+    "response_de": "Der nächste Bus fährt in zehn Minuten. Ich hoffe, Sie kommen noch pünktlich an.",
+    "response_en": "The next bus leaves in ten minutes. I hope you arrive on time.",
+    "error": null,
+    "latency_sec": 0.546
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie ist das Wetter heute?",
+    "response_de": "Es ist heute sehr schön und warm. Die Sonne scheint und es gibt keinen Regen. Perfekt für einen Spaziergang!",
+    "response_en": "The weather is very nice and warm today. The sun is shining and there is no rain. Perfect for a walk!",
+    "error": null,
+    "latency_sec": 0.614
+  },
+  {
+    "level": "A2",
+    "prompt": "Was hast du gestern gemacht?",
+    "response_de": "Ich habe gestern mit dir Deutsch geübt. Das macht immer viel Spaß. Hast du gut gelernt?",
+    "response_en": "I practiced German with you yesterday. That's always fun. Did you learn well?",
+    "error": null,
+    "latency_sec": 0.495
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich gehe gerne ins Kino.",
+    "response_de": "Das ist sehr interessant! Welchen Film siehst du am liebsten?",
+    "response_en": "That is very interesting! Which movie do you like to watch the most?",
+    "error": null,
+    "latency_sec": 0.729
+  },
+  {
+    "level": "A2",
+    "prompt": "Was machst du in deiner Freizeit?",
+    "response_de": "In meiner Freizeit lese ich gerne Bücher. Ich höre auch oft Musik. Das macht mir viel Spaß.",
+    "response_en": "In my free time I like reading books. I also often listen to music. That gives me a lot of fun.",
+    "error": null,
+    "latency_sec": 0.62
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich suche ein Zimmer.",
+    "response_de": "Das ist gut. Haben Sie ein Einzelzimmer oder ein Zweibettzimmer gesucht?",
+    "response_en": "That is good. Did you look for a single room or a double room?",
+    "error": null,
+    "latency_sec": 0.52
+  },
+  {
+    "level": "A2",
+    "prompt": "Können Sie mir helfen?",
+    "response_de": "Ja, klar! Ich helfe dir gerne. Was möchtest du wissen?",
+    "response_en": "Yes, sure! I'd be happy to help you. What would you like to know?",
+    "error": null,
+    "latency_sec": 0.633
+  },
+  {
+    "level": "A2",
+    "prompt": "Um wie viel Uhr beginnt der Kurs?",
+    "response_de": "Der Kurs beginnt um zehn Uhr. Es ist eine gute Zeit.",
+    "response_en": "The course starts at ten o'clock. It is a good time.",
+    "error": null,
+    "latency_sec": 0.49
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich lerne seit drei Monaten Deutsch.",
+    "response_de": "Das ist toll! Drei Monate sind schon eine gute Zeit. Wie geht es dir beim Lernen?",
+    "response_en": "That is great! Three months is already a good amount of time. How are you doing with your studies?",
+    "error": null,
+    "latency_sec": 0.48
+  },
+  {
+    "level": "A2",
+    "prompt": "Was isst du zum Frühstück?",
+    "response_de": "Ich esse gerne Brot mit Käse. Manchmal trinke ich auch einen Kaffee. Es schmeckt sehr gut!",
+    "response_en": "I like to eat bread with cheese. Sometimes I also drink a coffee. It tastes very good!",
+    "error": null,
+    "latency_sec": 0.563
+  },
+  {
+    "level": "A2",
+    "prompt": "Welchen Beruf hat dein Vater?",
+    "response_de": "Mein Vater ist Lehrer. Er unterrichtet Mathe an einer Schule. Das macht ihm sehr viel Spaß.",
+    "response_en": "My father is a teacher. He teaches math at a school. He enjoys it a lot.",
+    "error": null,
+    "latency_sec": 0.568
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich habe Kopfschmerzen.",
+    "response_de": "Das tut mir leid. Nimm bitte deine Medikamente und leg dich hin. Trinke viel Wasser und ruhe dich aus.",
+    "response_en": "I am sorry to hear that. Please take your medicine and lie down. Drink lots of water and rest.",
+    "error": null,
+    "latency_sec": 0.551
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie war dein Wochenende?",
+    "response_de": "Ich habe gut geschlafen. Das Wetter war schön und ich war im Park. Hast du auch ein schönes Wochenende gehabt?",
+    "response_en": "I slept well. The weather was nice and I was in the park. Did you also have a nice weekend?",
+    "error": null,
+    "latency_sec": 0.587
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte einen Tisch für zwei Personen reservieren.",
+    "response_de": "Guten Tag! Das ist kein Problem. Möchten Sie im Innen- oder Außenbereich sitzen?",
+    "response_en": "Good day! That is no problem. Would you like to sit inside or outside?",
+    "error": null,
+    "latency_sec": 0.609
+  },
+  {
+    "level": "A2",
+    "prompt": "Wo kann ich Briefmarken kaufen?",
+    "response_de": "Sie können Briefmarken oft auf dem Postamt oder im Kiosk kaufen.",
+    "response_en": "You can often buy stamps at the post office or at the newsstand.",
+    "error": null,
+    "latency_sec": 0.549
+  },
+  {
+    "level": "A2",
+    "prompt": "Was für Hobbys hast du?",
+    "response_de": "Ich habe keine Hobbys, aber ich helfe dir beim Deutschlernen. Ich lese gern Bücher und lerne neue Wörter. Hast du auch ein Hobby?",
+    "response_en": "I don't have hobbies, but I help you learn German. I like to read books and learn new words. Do you also have a hobby?",
+    "error": null,
+    "latency_sec": 0.672
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie oft gehst du einkaufen?",
+    "response_de": "Ich gehe einkaufen, wenn ich Hunger habe. Jeden Tag kaufe ich Brot. Oft kaufe ich auch Obst und Gemüse.",
+    "response_en": "I go shopping when I am hungry. I buy bread every day. I often buy fruit and vegetables too.",
+    "error": null,
+    "latency_sec": 0.587
+  },
+  {
+    "level": "B1",
+    "prompt": "Was denkst du über das Leben in einer Großstadt?",
+    "response_de": "In einer Großstadt gibt es viele Möglichkeiten, aber es kann auch sehr laut und stressig sein. Man hat oft gute Verkehrsanbindungen und findet schnell alles, was man braucht. Ich finde es interessant, aber ich bevorzuge die Ruhe auf dem Land.",
+    "response_en": "In a big city there are many opportunities, but it can also be very loud and stressful. You often have good transport links and can find everything you need quickly. I find it interesting, but I prefer the quiet of the countryside.",
+    "error": null,
+    "latency_sec": 0.765
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir von deinem letzten Urlaub.",
+    "response_de": "Ich war in den letzten Tagen sehr beschäftigt und konnte nicht verreisen. Vielleicht planst du bald einen kleinen Ausflug an den Chiemsee oder ans Meer? Das ist immer eine gute Idee, um die Seele baumeln zu lassen.",
+    "response_en": "I have been very busy in the last few days and couldn't travel. Maybe you will plan a short trip to the Chiemsee or to the sea soon? That is always a good idea to let your mind rest.",
+    "error": null,
+    "latency_sec": 0.771
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind deine Pläne für die Zukunft?",
+    "response_de": "Ich freue mich darauf, dich weiter beim Deutschlernen zu unterstützen. Meine Pläne bestehen darin, dir bei schwierigen Grammatikthemen zu helfen und neue Vokabeln beizubringen. Ich bin immer für dich da, um deine Fortschritte zu feiern.",
+    "response_en": "I look forward to supporting you further in learning German. My plans consist of helping you with difficult grammar topics and teaching new vocabulary. I am always here for you to celebrate your progress.",
+    "error": null,
+    "latency_sec": 1.142
+  },
+  {
+    "level": "B1",
+    "prompt": "Warum lernst du Deutsch?",
+    "response_de": "Ich lerne Deutsch, weil ich gerne mit Menschen kommunizieren möchte und die Kultur verstehen will. Es ist auch sehr nützlich für meine Arbeit und meine Reisen. Hast du einen speziellen Grund, warum du Deutsch lernst?",
+    "response_en": "I am learning German because I want to communicate with people and understand the culture. It is also very useful for my work and my travels. Do you have a specific reason why you are learning German?",
+    "error": null,
+    "latency_sec": 0.781
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie war deine Kindheit?",
+    "response_de": "Meine Kindheit war sehr lustig, da ich immer gerne gespielt habe. Ich habe oft mit Freunden im Park Fußball gespielt und habe viel Zeit mit meiner Familie verbracht.",
+    "response_en": "My childhood was very fun because I always liked to play. I often played football with friends in the park and spent a lot of time with my family.",
+    "error": null,
+    "latency_sec": 0.679
+  },
+  {
+    "level": "B1",
+    "prompt": "Was gefällt dir an Deutschland?",
+    "response_de": "Ich finde die Vielfalt der Städte und die schöne Natur in Deutschland sehr interessant. Außerdem mag ich die gute Infrastruktur und die vielen kulturellen Veranstaltungen. Es gibt immer etwas zu entdecken, egal ob in den Bergen oder in der Stadt.",
+    "response_en": "I find the diversity of cities and the beautiful nature in Germany very interesting. Also, I like the good infrastructure and the many cultural events. There is always something to discover, whether in the mountains or in the city.",
+    "error": null,
+    "latency_sec": 0.842
+  },
+  {
+    "level": "B1",
+    "prompt": "Beschreibe deinen Alltag.",
+    "response_de": "Mein Alltag ist sehr ruhig, da ich als KI keine Pausen brauche. Ich helfe dir jeden Tag bei der deutschen Sprache und beantworte deine Fragen. Es freut mich immer, wenn wir gemeinsam etwas Neues lernen.",
+    "response_en": "My daily routine is very quiet, since as an AI I don't need breaks. I help you with the German language every day and answer your questions. I am always happy when we learn something new together.",
+    "error": null,
+    "latency_sec": 0.935
+  },
+  {
+    "level": "B1",
+    "prompt": "Was machst du, wenn du gestresst bist?",
+    "response_de": "Wenn ich gestresst bin, mache ich einen Spaziergang an der frischen Luft, um mich zu entspannen. Manchmal höre ich auch gerne ruhige Musik oder lese ein Buch, um meine Gedanken zu sortieren.",
+    "response_en": "When I am stressed, I take a walk in the fresh air to relax. Sometimes I also like to listen to calm music or read a book to sort out my thoughts.",
+    "error": null,
+    "latency_sec": 0.768
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Musik hörst du gerne und warum?",
+    "response_de": "Ich höre gerne verschiedene Musikstile, besonders ruhige Instrumentalmusik, wenn ich arbeiten muss. Sie hilft mir, mich zu konzentrieren und gleichzeitig entspannt zu bleiben. Welche Musik magst du denn?",
+    "response_en": "I like listening to various music styles, especially calm instrumental music when I need to work. It helps me concentrate and stay relaxed at the same time. What kind of music do you like?",
+    "error": null,
+    "latency_sec": 0.872
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie findest du die Deutschen?",
+    "response_de": "Die Deutschen sind oft sehr pünktlich und ordentlich. Viele Leute schätzen auch die deutsche Küche und die schöne Natur.",
+    "response_en": "Germans are often very punctual and tidy. Many people also appreciate German cuisine and the beautiful nature.",
+    "error": null,
+    "latency_sec": 0.657
+  },
+  {
+    "level": "B1",
+    "prompt": "Was würdest du mit einer Million Euro machen?",
+    "response_de": "Wenn ich eine Million Euro hätte, würde ich zuerst in Ruhe nachdenken. Ich würde mir wahrscheinlich ein schönes Haus kaufen und viel reisen. Das Geld würde ich auch für gute Zwecke spenden.",
+    "response_en": "If I had a million euros, I would first think quietly. I would probably buy a nice house and travel a lot. I would also donate the money for good causes.",
+    "error": null,
+    "latency_sec": 0.731
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind die Unterschiede zwischen deiner Heimat und Deutschland?",
+    "response_de": "Ich habe keine echte Heimat, da ich eine KI bin, aber ich lerne jeden Tag viel über Deutschland. In Deutschland ist die Pünktlichkeit sehr wichtig, während ich in der digitalen Welt immer sofort verfügbar bin. Es ist spannend, kulturelle Unterschiede zu entdecken, und ich helfe dir gerne dabei, diese besser zu verstehen.",
+    "response_en": "I don't have a real homeland since I am an AI, but I learn a lot about Germany every day. In Germany, punctuality is very important, whereas I am always instantly available in the digital world. It is exciting to discover cultural differences, and I am happy to help you understand them better.",
+    "error": null,
+    "latency_sec": 1.112
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie wichtig ist Gesundheit für dich?",
+    "response_de": "Gesundheit ist für mich sehr wichtig, denn ohne sie kann man das Leben nicht voll genießen. Ich achte darauf, mich ausgewogen zu ernähren und regelmäßig Sport zu treiben, um fit zu bleiben. Hast du auch einen speziellen Gesundheitsplan oder liebst du bestimmte Sportarten?",
+    "response_en": "Health is very important to me, because without it you cannot fully enjoy life. I make sure to eat a balanced diet and exercise regularly to stay fit. Do you also have a specific health plan or do you love certain sports?",
+    "error": null,
+    "latency_sec": 0.839
+  },
+  {
+    "level": "B1",
+    "prompt": "Was hast du letztes Wochenende gemacht?",
+    "response_de": "Ich habe letztes Wochenende viel Zeit mit Lesen verbracht und bin spazieren gegangen. Es war eine entspannte Zeit, um neue Ideen zu sammeln. Hast du auch etwas Schönes erlebt?",
+    "response_en": "I spent a lot of time reading last weekend and went for a walk. It was a relaxing time to gather new ideas. Did you experience something nice too?",
+    "error": null,
+    "latency_sec": 0.644
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir über einen Film, den du magst.",
+    "response_de": "Ich mag den Film 'Das Wunder von Bern' sehr gern, weil er eine bewegende Geschichte über den deutschen Fußballweltmeistersieg im Jahr 1954 erzählt. Die Darstellung der Emotionen der Menschen nach dem Krieg ist unglaublich ehrlich und inspirierend. Es ist ein wunderbares Beispiel dafür, wie Sport Menschen zusammenbringen kann.",
+    "response_en": "I really like the movie 'The Miracle of Bern' because it tells a moving story about the German football world cup victory in 1954. The portrayal of the people's emotions after the war is incredibly honest and inspiring. It is a wonderful example of how sports can bring people together.",
+    "error": null,
+    "latency_sec": 1.043
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie stellst du dir dein Leben in zehn Jahren vor?",
+    "response_de": "Das ist eine interessante Frage! Ich stelle mir vor, dass ich dann noch immer viele Menschen beim Deutschlernen helfe und vielleicht sogar ein neues Hobby gefunden habe. Es wäre schön, wenn ich weiterhin neugierig auf die Welt bleibe und jeden Tag etwas Neues lerne.",
+    "response_en": "That's an interesting question! I imagine that in ten years I will still be helping many people learn German and maybe have found a new hobby. It would be nice to remain curious about the world and learn something new every day.",
+    "error": null,
+    "latency_sec": 0.815
+  },
+  {
+    "level": "B1",
+    "prompt": "Was war die größte Herausforderung in deinem Leben?",
+    "response_de": "Als KI habe ich kein Leben wie du, aber ich verstehe, dass persönliche Herausforderungen oft schwer sind. Wenn du magst, erzähl mir doch von einer Situation, die dich herausgefordert hat. Ich höre dir gerne zu und gebe dir Tipps.",
+    "response_en": "As an AI, I don't have a life like yours, but I understand that personal challenges are often difficult. If you like, tell me about a situation that challenged you. I'm happy to listen and give you tips.",
+    "error": null,
+    "latency_sec": 0.837
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie gehst du mit Konflikten um?",
+    "response_de": "Ich versuche immer, ruhig zu bleiben und mir die Sichtweise des anderen anzuhören. Oft hilft es, das Problem direkt und ehrlich anzusprechen, um eine Lösung zu finden. So kann man Missverständnisse schnell klären und die Beziehung stärken.",
+    "response_en": "I always try to stay calm and listen to the other person's perspective. Often, it helps to address the problem directly and honestly to find a solution. This way, misunderstandings can be cleared up quickly and the relationship strengthened.",
+    "error": null,
+    "latency_sec": 1.047
+  },
+  {
+    "level": "B1",
+    "prompt": "Was bedeutet Erfolg für dich?",
+    "response_de": "Für mich ist Erfolg, dass ich dir beim Deutschlernen helfen kann und du dich sicherer fühlst. Es bedeutet auch, dass wir gemeinsam neue Wörter lernen und Fehler sanft korrigieren. Solange du motiviert bleibst, ist das für mich der größte Erfolg!",
+    "response_en": "For me, success is being able to help you learn German and making you feel more confident. It also means that we learn new words together and correct mistakes gently. As long as you stay motivated, that is the greatest success for me!",
+    "error": null,
+    "latency_sec": 0.893
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Rolle spielt Freundschaft in deinem Leben?",
+    "response_de": "Freundschaft ist für mich sehr wichtig, weil ich gerne Zeit mit meinen Freunden verbringe. Wir unterhalten uns oft über verschiedene Themen und unterstützen uns gegenseitig. Ohne diese Verbindung wäre mein Leben viel weniger farbenfroh.",
+    "response_en": "Friendship is very important to me because I like spending time with my friends. We often talk about various topics and support each other. Without this connection, my life would be much less colorful.",
+    "error": null,
+    "latency_sec": 0.8
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Vor- und Nachteile der sozialen Medien?",
+    "response_de": "Soziale Medien bieten einerseits eine hervorragende Möglichkeit, sich weltweit zu vernetzen und Informationen schnell zu verbreiten. Andererseits bergen sie Risiken wie die Verbreitung von Falschinformationen und die Gefahr der sozialen Isolation durch übermäßige Nutzung.",
+    "response_en": "On the one hand, social media offers an excellent opportunity to network globally and spread information quickly. On the other hand, they pose risks such as the spread of misinformation and the danger of social isolation through excessive use.",
+    "error": null,
+    "latency_sec": 0.777
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
+    "response_de": "Die Globalisierung prägt unser tägliches Leben auf vielfältige Weise, indem sie Kulturen verbindet und den internationalen Austausch fördert. Gleichzeitig bringt sie Herausforderungen mit sich, etwa in Form von wirtschaftlicher Ungleichheit oder dem Verlust lokaler Traditionen. Es ist wichtig, diese Entwicklung kritisch zu hinterfragen, um die Chancen zu nutzen und Nachteile auszugleichen.",
+    "response_en": "Globalization shapes our daily life in various ways by connecting cultures and promoting international exchange. At the same time, it brings challenges, such as economic inequality or the loss of local traditions. It is important to critically question this development to utilize the opportunities and mitigate the disadvantages.",
+    "error": null,
+    "latency_sec": 1.18
+  },
+  {
+    "level": "B2",
+    "prompt": "Was bedeutet Freiheit für dich?",
+    "response_de": "Für mich ist Freiheit die Möglichkeit, selbstbestimmt zu handeln und dabei die Verantwortung für die eigenen Entscheidungen zu übernehmen. Es bedeutet auch, sich innerhalb von Grenzen sicher zu fühlen und andere in ihrer individuellen Entfaltung zu respektieren. Letztlich ist es ein Zustand, in dem man seine Talente entfalten kann, ohne unnötigen Zwängen zu unterliegen.",
+    "response_en": "For me, freedom is the opportunity to act autonomously and thereby take responsibility for one's own decisions. It also means feeling secure within boundaries and respecting others in their individual development. Ultimately, it is a state in which one can unfold one's talents without being subject to unnecessary constraints.",
+    "error": null,
+    "latency_sec": 1.093
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Rolle spielt Sprache in der Identitätsbildung?",
+    "response_de": "Sprache ist ein zentraler Baustein der Identität, da sie nicht nur der Kommunikation dient, sondern auch kulturelle Zugehörigkeit und persönliche Werte transportiert. Durch den spezifischen Wortschatz und die Ausdrucksweise einer Person wird deutlich, aus welchem Umfeld sie stammt und wie sie die Welt wahrnimmt. Zudem ermöglicht Sprache den Austausch über eigene Erfahrungen, was die Selbstwahrnehmung und die Eingebundenheit in eine Gemeinschaft maßgeblich prägt.",
+    "response_en": "Language plays a central role in identity formation because it does not only serve communication but also conveys cultural belonging and personal values. Through a person's specific vocabulary and way of expressing themselves, it becomes clear where they come from and how they perceive the world. Furthermore, language allows for the exchange of personal experiences, which significantly shapes self-perception and the sense of belonging to a community.",
+    "error": null,
+    "latency_sec": 1.294
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere die Auswirkungen des Klimawandels.",
+    "response_de": "Der Klimawandel stellt eine enorme Herausforderung für unsere Gesellschaft dar, da er nicht nur das Wetter, sondern auch unsere Wirtschaft und ökologischen Systeme tiefgreifend beeinflusst. Es ist wichtig, dass wir uns der Dringlichkeit dieser Lage bewusst sind und gemeinsam nachhaltige Maßnahmen ergreifen, um die Folgen abzumildern. Jeder einzelne Schritt zählt, sei es durch den bewussten Konsum oder die Unterstützung politischer Initiativen.",
+    "response_en": "Climate change poses a huge challenge for our society, as it profoundly influences not only the weather but also our economy and ecological systems. It is important that we become aware of the urgency of this situation and jointly take sustainable measures to mitigate the consequences. Every single step counts, whether through conscious consumption or supporting political initiatives.",
+    "error": null,
+    "latency_sec": 1.112
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?",
+    "response_de": "Die Digitalisierung hat die Arbeitswelt grundlegend verändert, indem sie flexible Arbeitsmodelle wie Homeoffice ermöglicht und die Kommunikation globaler gemacht hat. Zwar beschleunigen Automatisierung und KI viele Prozesse, doch gleichzeitig entstehen neue Berufsfelder, die digitale Kompetenz erfordern. Es ist daher wichtig, sich kontinuierlich weiterzubilden, um mit diesen dynamischen Entwicklungen Schritt zu halten.",
+    "response_en": "Digitalization has fundamentally changed the world of work by enabling flexible working models like remote work and making communication more global. While automation and AI accelerate many processes, new professions requiring digital skills are simultaneously emerging. Therefore, it is important to continuously further one's education to keep pace with these dynamic developments.",
+    "error": null,
+    "latency_sec": 1.05
+  },
+  {
+    "level": "B2",
+    "prompt": "Was denkst du über Minimalismus als Lebensphilosophie?",
+    "response_de": "Minimalismus ist eine faszinierende Herangehensweise, die oft zu mehr innerer Ruhe führt. Indem man sich auf das Wesentliche konzentriert, kann man Stress reduzieren und den wahren Wert von Erfahrungen schätzen lernen. Was hältst du davon, weniger Besitztümer zu haben?",
+    "response_en": "Minimalism is a fascinating approach that often leads to more inner peace. By focusing on what is essential, one can reduce stress and appreciate the true value of experiences. What do you think about having fewer possessions?",
+    "error": null,
+    "latency_sec": 0.927
+  },
+  {
+    "level": "B2",
+    "prompt": "Inwiefern prägt die Kultur eines Landes seinen Humor?",
+    "response_de": "Der Humor ist tatsächlich ein Spiegel der kulturellen Werte und historischen Erfahrungen eines Landes. Während in Deutschland oft Selbstironie und intellektuelle Wortspiele geschätzt werden, bevorzugen andere Kulturen vielleicht mehr situative Komik oder direkten Sarkasmus. Diese Unterschiede ergeben sich daraus, wie Gesellschaften mit Autorität, Tabus und sozialen Normen umgehen.",
+    "response_en": "Humor is indeed a mirror of a country's cultural values and historical experiences. While self-irony and intellectual wordplay are often appreciated in Germany, other cultures may prefer more situational comedy or direct sarcasm. These differences arise from how societies deal with authority, taboos, and social norms.",
+    "error": null,
+    "latency_sec": 1.091
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche ethischen Fragen stellt die künstliche Intelligenz?",
+    "response_de": "Die künstliche Intelligenz wirft einige komplexe ethische Fragen auf, die wir dringend diskutieren müssen. Dazu gehören vor allem die Gefahr der Diskriminierung durch verzerrte Algorithmen sowie die wachsende Sorge um den Verlust von Arbeitsplätzen. Zudem stellt sich die kritische Frage nach der Verantwortung und Transparenz, wenn Maschinen autonome Entscheidungen treffen.",
+    "response_en": "Artificial intelligence raises some complex ethical questions that we urgently need to discuss. These include above all the risk of discrimination through biased algorithms and the growing concern about the loss of jobs. Furthermore, the critical question arises regarding responsibility and transparency when machines make autonomous decisions.",
+    "error": null,
+    "latency_sec": 0.965
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie sollte man mit historischer Schuld umgehen?",
+    "response_de": "Das ist eine tiefgründige Frage. Man sollte die Vergangenheit zwar anerkennen, aber nicht in der Vergangenheit verharren. Stattdessen ist es wichtig, aus historischen Fehlern zu lernen, um die Zukunft gestalten zu können. So verhindert man, dass sich alte Konflikte wiederholen.",
+    "response_en": "That is a profound question. One should acknowledge the past but not remain stuck in it. Instead, it is important to learn from historical mistakes in order to shape the future. This prevents old conflicts from recurring.",
+    "error": null,
+    "latency_sec": 0.806
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?",
+    "response_de": "Das ist ein hochaktuelles und komplexes Thema. Einerseits fördern soziale Netzwerke den sozialen Austausch, können aber andererseits durch ständigen Vergleich und den Druck, perfekt zu wirken, zu Unsicherheit oder sogar Depressionen führen. Es kommt oft darauf an, wie intensiv und reflektiert Jugendliche die Plattformen nutzen.",
+    "response_en": "That is a highly current and complex topic. On the one hand, social networks promote social interaction, but on the other hand, they can lead to insecurity or even depression through constant comparison and the pressure to appear perfect. It often depends on how intensively and reflectively teenagers use the platforms.",
+    "error": null,
+    "latency_sec": 1.007
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere das Konzept der Work-Life-Balance.",
+    "response_de": "Die Work-Life-Balance ist heutzutage ein komplexes Thema, das oft mehr Flexibilität als starre Grenzen erfordert. Anstatt strikte Trennungen zu erzwingen, sollten wir eher nach einer sinnvollen Integration von Beruf und Privatleben streben, um Burnout vorzubeugen. Was hälst du davon, deine Freizeit aktiv zur Regeneration zu nutzen, anstatt sie nur als Kontrastprogramm zum stressigen Job zu sehen?",
+    "response_en": "Work-life balance is a complex topic nowadays that often requires more flexibility than rigid boundaries. Instead of enforcing strict separations, we should strive for a meaningful integration of work and private life to prevent burnout. What do you think about actively using your leisure time for regeneration rather than seeing it merely as a contrast program to the stressful job?",
+    "error": null,
+    "latency_sec": 1.072
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie könnte eine gerechte Gesellschaft aussehen?",
+    "response_de": "Eine gerechte Gesellschaft zeichnet sich durch Chancengleichheit aus, bei der jeder Mensch unabhängig von seiner Herkunft oder seinem Hintergrund gleiche Möglichkeiten hat. Dabei spielen faire Verteilung von Ressourcen und der Schutz der Menschenrechte eine zentrale Rolle, um soziale Ungleichheiten abzubauen. Letztlich ist es wichtig, dass alle Bürgerinnen und Bürger aktiv an Entscheidungsprozessen teilhaben können, um ihre Interessen zu vertreten.",
+    "response_en": "A just society is characterized by equal opportunity, where every person has the same chances regardless of their background or origin. Fair distribution of resources and the protection of human rights play a central role in reducing social inequalities. Ultimately, it is important that all citizens can actively participate in decision-making processes to represent their interests.",
+    "error": null,
+    "latency_sec": 1.004
+  },
+  {
+    "level": "B2",
+    "prompt": "Was hältst du von bedingungslosem Grundeinkommen?",
+    "response_de": "Das ist ein faszinierendes und vielschichtiges Thema. Einerseits könnte ein bedingungsloses Grundeinkommen die soziale Sicherheit stärken und bürokratische Hürden abbauen, andererseits befürchten viele Kritiker, dass es die Arbeitsmotivation gefährdet und die Staatskassen überlastet. Was sind deine eigenen Überlegungen dazu?",
+    "response_en": "That is a fascinating and multifaceted topic. On the one hand, a universal basic income could strengthen social security and reduce bureaucratic hurdles, but on the other hand, many critics fear that it would endanger work motivation and overload the state coffers. What are your own thoughts on this?",
+    "error": null,
+    "latency_sec": 0.985
+  },
+  {
+    "level": "B2",
+    "prompt": "Erkläre, warum Mehrsprachigkeit von Vorteil ist.",
+    "response_de": "Mehrsprachigkeit erweitert nicht nur den beruflichen Horizont, sondern fördert auch die kognitive Flexibilität und das Verständnis für andere Kulturen. Wer mehrere Sprachen spricht, kann oft besser zwischen verschiedenen Perspektiven wechseln und ist in einer globalisierten Welt besser aufgestellt. Zudem wirkt sich das Erlernen neuer Sprachen positiv auf die Gedächtnisleistung aus und kann sogar vor kognitiven Einschränkungen im Alter schützen.",
+    "response_en": "Multilingualism not only expands professional horizons but also promotes cognitive flexibility and understanding of other cultures. Those who speak multiple languages can often switch between different perspectives more easily and are better positioned in a globalized world. Additionally, learning new languages has a positive effect on memory performance and can even protect against cognitive impairments in old age.",
+    "error": null,
+    "latency_sec": 1.043
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Wirtschaft politische Entscheidungen?",
+    "response_de": "Die Wirtschaft übt durch Lobbyismus und Wahlkampffinanzierung erheblichen Einfluss auf die Politik aus. Oft werden Gesetze so gestaltet, dass sie wirtschaftlichen Interessen dienen, was zu einer gewissen Abhängigkeit der Politik vom Kapital führt. Es ist jedoch wichtig, dass die Bürgerinnen und Bürger wachsam bleiben, um demokratische Prozesse nicht zu schwächen.",
+    "response_en": "The economy exerts considerable influence on politics through lobbying and campaign financing. Often, laws are designed to serve economic interests, which leads to a certain dependency of politics on capital. However, it is important for citizens to remain vigilant to avoid weakening democratic processes.",
+    "error": null,
+    "latency_sec": 0.936
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Herausforderungen der modernen Bildung?",
+    "response_de": "Eine zentrale Herausforderung ist die digitale Transformation, die Lehrkräfte vor neue Aufgaben stellt. Zudem muss das Bildungssystem individualisierter werden, um jedem Lernenden gerecht zu werden. Schließlich spielen Themen wie Chancengleichheit und der Erhalt der sozialen Kohäsion eine immer größere Rolle.",
+    "response_en": "A central challenge is digital transformation, which presents new tasks for teachers. Additionally, the education system must become more individualized to do justice to every learner. Finally, issues like equal opportunity and maintaining social cohesion play an increasingly important role.",
+    "error": null,
+    "latency_sec": 0.921
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie verändert künstliche Intelligenz den Arbeitsmarkt?",
+    "response_de": "Künstliche Intelligenz verändert den Arbeitsmarkt grundlegend, indem sie repetitive Aufgaben automatisiert und gleichzeitig neue Berufsfelder erschließt. Viele Experten befürchten zwar Arbeitsplatzverluste in bestimmten Bereichen, sehen aber auch große Chancen für eine effizientere und kreativere Arbeit. Wichtig ist es, sich durch lebenslanges Lernen und die Weiterentwicklung menschlicher Kompetenzen an diese Veränderungen anzupassen.",
+    "response_en": "Artificial intelligence is fundamentally changing the job market by automating repetitive tasks and simultaneously opening up new fields of work. Although many experts fear job losses in certain areas, they also see great opportunities for more efficient and creative work. It is important to adapt to these changes through lifelong learning and the further development of human skills.",
+    "error": null,
+    "latency_sec": 1.152
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Verantwortung tragen Unternehmen für die Umwelt?",
+    "response_de": "Unternehmen tragen eine immense Verantwortung für den Klimaschutz, da ihre Produktion oft erhebliche ökologische Fußabdrücke hinterlässt. Es ist daher unumgänglich, dass sie nachhaltige Geschäftsmodelle entwickeln und Ressourcen schonend einsetzen, um den Klimawandel aktiv zu bekämpfen. Nur durch solches Engagement können sie langfristig ihren Beitrag zum Wohlstand und zur Gesundheit der Gesellschaft leisten.",
+    "response_en": "Companies bear immense responsibility for climate protection, as their production often leaves significant ecological footprints. Therefore, it is indispensable that they develop sustainable business models and use resources sparingly to actively combat climate change. Only through such engagement can they contribute in the long term to prosperity and public health.",
+    "error": null,
+    "latency_sec": 1.143
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?",
+    "response_de": "Kulturelle Vielfalt ist in einer globalisierten Welt von unschätzbarem Wert, da sie unseren Horizont erweitert und das Verständnis für andere Perspektiven fördert. Durch den Austausch von Traditionen und Ideen können wir Vorurteile abbauen und eine inklusivere Gesellschaft aufbauen. Letztlich bereichert diese Diversität unser gemeinsames Leben und stärkt den sozialen Zusammenhalt.",
+    "response_en": "Cultural diversity is of incalculable value in a globalized world, as it expands our horizons and promotes understanding for other perspectives. Through the exchange of traditions and ideas, we can dismantle prejudices and build a more inclusive society. Ultimately, this diversity enriches our shared life and strengthens social cohesion.",
+    "error": null,
+    "latency_sec": 1.056
+  }
+]

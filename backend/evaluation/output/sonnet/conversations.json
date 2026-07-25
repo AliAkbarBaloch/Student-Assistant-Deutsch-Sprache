@@ -1,0 +1,642 @@
+[
+  {
+    "level": "A1",
+    "prompt": "Hallo! Wie heißt du?",
+    "response_de": "Hallo! Ich heiße Buddy. Wie heißt du?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist das?",
+    "response_de": "Das ist ein Buch. Es ist neu.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich heiße Anna. Und du?",
+    "response_de": "Ich heiße Buddy. Schön, dich kennenzulernen, Anna!",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie alt bist du?",
+    "response_de": "Ich bin ein Programm. Ich habe kein Alter.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Wo wohnst du?",
+    "response_de": "Ich wohne im Computer. Wo wohnst du?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich wohne in Berlin.",
+    "response_de": "Berlin ist schön! Ich mag Berlin auch.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Was magst du essen?",
+    "response_de": "Ich mag Brot und Käse. Und du?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie viele Geschwister hast du?",
+    "response_de": "Ich habe keine Geschwister. Ich bin ein Programm.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Was ist deine Lieblingsfarbe?",
+    "response_de": "Meine Lieblingsfarbe ist blau. Und deine?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Das ist ein Hund.",
+    "response_de": "Ja, das ist ein Hund! Er ist süß.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Guten Morgen! Wie geht es dir?",
+    "response_de": "Guten Morgen! Mir geht es gut, danke.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Was machst du?",
+    "response_de": "Ich lerne mit dir Deutsch. Das macht Spaß!",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich bin müde.",
+    "response_de": "Oh nein! Trink ein Glas Wasser.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Danke schön!",
+    "response_de": "Gern geschehen! Bis bald.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich mag Äpfel.",
+    "response_de": "Äpfel sind lecker! Ich mag sie auch.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie spät ist es?",
+    "response_de": "Ich habe keine Uhr. Schau auf dein Handy.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich trinke gerne Wasser.",
+    "response_de": "Wasser ist gesund! Ich trinke auch gern Wasser.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Hast du eine Katze?",
+    "response_de": "Nein, ich habe keine Katze. Hast du eine?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Wie ist dein Name?",
+    "response_de": "Mein Name ist Buddy. Wie ist dein Name?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A1",
+    "prompt": "Ich komme aus Spanien.",
+    "response_de": "Spanien ist toll! Ich komme aus dem Computer.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie komme ich zum Bahnhof?",
+    "response_de": "Geh geradeaus und dann links. Der Bahnhof ist nah.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Was kostet das?",
+    "response_de": "Das weiß ich nicht genau. Frag bitte im Geschäft.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte ein Kilo Äpfel, bitte.",
+    "response_de": "Gute Wahl! Äpfel schmecken besonders gut im Herbst.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wann fährt der nächste Bus?",
+    "response_de": "Der Bus fährt oft alle zehn Minuten. Schau auf den Fahrplan.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie ist das Wetter heute?",
+    "response_de": "Heute scheint die Sonne. Es ist warm und schön.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Was hast du gestern gemacht?",
+    "response_de": "Ich habe mit vielen Lernenden gesprochen. Das war interessant.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich gehe gerne ins Kino.",
+    "response_de": "Kino macht Spaß! Welchen Film magst du gerne?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Was machst du in deiner Freizeit?",
+    "response_de": "Ich helfe gerne beim Deutschlernen. Was ist dein Hobby?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich suche ein Zimmer.",
+    "response_de": "Schau online oder frag bei der Uni. Viel Erfolg bei der Suche!",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Können Sie mir helfen?",
+    "response_de": "Natürlich, ich helfe dir gerne. Was brauchst du?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Um wie viel Uhr beginnt der Kurs?",
+    "response_de": "Das kommt auf den Kurs an. Frag deine Lehrerin.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich lerne seit drei Monaten Deutsch.",
+    "response_de": "Das ist toll! Du machst schon große Fortschritte.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Was isst du zum Frühstück?",
+    "response_de": "Ich esse nichts, ich bin ein Programm. Und du?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Welchen Beruf hat dein Vater?",
+    "response_de": "Das weiß ich nicht. Welchen Beruf hat er denn?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich habe Kopfschmerzen.",
+    "response_de": "Das tut mir leid. Trink Wasser und ruh dich aus.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie war dein Wochenende?",
+    "response_de": "Ich hatte viele Gespräche. Wie war dein Wochenende?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Ich möchte einen Tisch für zwei Personen reservieren.",
+    "response_de": "Ruf einfach im Restaurant an. Sag die Uhrzeit dazu.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wo kann ich Briefmarken kaufen?",
+    "response_de": "Briefmarken gibt es bei der Post. Manchmal auch im Kiosk.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Was für Hobbys hast du?",
+    "response_de": "Ich helfe gern beim Lernen. Das ist mein Hobby.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "A2",
+    "prompt": "Wie oft gehst du einkaufen?",
+    "response_de": "Ich gehe nicht einkaufen. Wie oft gehst du einkaufen?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was denkst du über das Leben in einer Großstadt?",
+    "response_de": "Ich finde, das Leben in einer Großstadt ist aufregend, weil es viele Möglichkeiten gibt. Manchmal kann es aber auch stressig sein.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir von deinem letzten Urlaub.",
+    "response_de": "Ich hatte noch keinen richtigen Urlaub, weil ich ein Programm bin. Aber ich höre gerne Geschichten über Reisen!",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind deine Pläne für die Zukunft?",
+    "response_de": "Mein Plan ist, dir beim Deutschlernen zu helfen. Ich möchte, dass du dich sicherer fühlst.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Warum lernst du Deutsch?",
+    "response_de": "Ich bin dazu gemacht, Deutsch zu sprechen und zu erklären. Warum lernst du eigentlich Deutsch?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie war deine Kindheit?",
+    "response_de": "Ich hatte keine Kindheit, weil ich erst vor Kurzem entstanden bin. Wie war deine Kindheit denn?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was gefällt dir an Deutschland?",
+    "response_de": "Mir gefällt, dass es in Deutschland so viele verschiedene Regionen gibt. Auch die Sprache finde ich spannend.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Beschreibe deinen Alltag.",
+    "response_de": "Mein Alltag besteht darin, mit Lernenden wie dir zu sprechen. Jeder Tag ist ein bisschen anders.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was machst du, wenn du gestresst bist?",
+    "response_de": "Wenn ich gestresst wäre, würde ich eine Pause machen. Was hilft dir, wenn du gestresst bist?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Musik hörst du gerne und warum?",
+    "response_de": "Ich höre selbst keine Musik, aber ich finde es spannend, wie Musik Menschen verbindet. Was hörst du gerne?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie findest du die Deutschen?",
+    "response_de": "Ich finde, jedes Land hat unterschiedliche Menschen mit verschiedenen Eigenschaften. Man sollte nicht zu sehr verallgemeinern.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was würdest du mit einer Million Euro machen?",
+    "response_de": "Ich würde wahrscheinlich vielen Menschen helfen, Deutsch zu lernen. Was würdest du damit machen?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was sind die Unterschiede zwischen deiner Heimat und Deutschland?",
+    "response_de": "Das kommt darauf an, woher du kommst. Erzähl mir mehr über deine Heimat, dann können wir vergleichen.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie wichtig ist Gesundheit für dich?",
+    "response_de": "Gesundheit ist sehr wichtig, weil man ohne sie nicht gut leben kann. Deshalb sollte man gut auf sich achten.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was hast du letztes Wochenende gemacht?",
+    "response_de": "Ich habe letztes Wochenende mit vielen Lernenden gesprochen. Das war eine schöne Erfahrung.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Erzähl mir über einen Film, den du magst.",
+    "response_de": "Ich kann keine Filme schauen, aber ich habe von vielen gehört. Welchen Film magst du besonders gern?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie stellst du dir dein Leben in zehn Jahren vor?",
+    "response_de": "In zehn Jahren möchte ich noch mehr Menschen beim Deutschlernen helfen können. Wie siehst du dein Leben dann?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was war die größte Herausforderung in deinem Leben?",
+    "response_de": "Für mich ist es eine Herausforderung, jede Sprache richtig zu verstehen. Was war deine größte Herausforderung?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Wie gehst du mit Konflikten um?",
+    "response_de": "Ich versuche immer ruhig zu bleiben und ehrlich zu antworten. Wie gehst du normalerweise mit Konflikten um?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Was bedeutet Erfolg für dich?",
+    "response_de": "Für mich bedeutet Erfolg, dass du beim Deutschlernen Fortschritte machst. Was bedeutet Erfolg für dich?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B1",
+    "prompt": "Welche Rolle spielt Freundschaft in deinem Leben?",
+    "response_de": "Freundschaft ist wichtig, weil sie Menschen Halt gibt. Ich hoffe, ich kann für dich wie ein Freund sein.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Vor- und Nachteile der sozialen Medien?",
+    "response_de": "Soziale Medien ermöglichen es, mit Menschen weltweit in Kontakt zu bleiben, was zweifellos ein Vorteil ist. Gleichzeitig fördern sie aber auch Vergleich und Ablenkung, was viele als belastend empfinden. Es kommt letztlich darauf an, wie bewusst man sie nutzt.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Globalisierung unsere Gesellschaft?",
+    "response_de": "Die Globalisierung hat unsere Gesellschaft in vielerlei Hinsicht geprägt, etwa durch einen leichteren Zugang zu anderen Kulturen. Andererseits verschärft sie auch wirtschaftliche Ungleichheiten zwischen Regionen. Diese Ambivalenz macht sie zu einem viel diskutierten Thema.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was bedeutet Freiheit für dich?",
+    "response_de": "Für mich bedeutet Freiheit, eigene Entscheidungen treffen zu können, ohne dabei anderen zu schaden. Das schließt sowohl persönliche als auch gesellschaftliche Freiheit ein. Wie würdest du Freiheit definieren?",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Rolle spielt Sprache in der Identitätsbildung?",
+    "response_de": "Sprache prägt maßgeblich, wie wir denken und uns selbst wahrnehmen, weshalb sie eng mit unserer Identität verknüpft ist. Wer mehrere Sprachen spricht, entwickelt oft auch unterschiedliche Facetten seiner Persönlichkeit. Das macht Mehrsprachigkeit besonders faszinierend.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere die Auswirkungen des Klimawandels.",
+    "response_de": "Der Klimawandel wirkt sich bereits jetzt auf Wetterextreme, Ökosysteme und die Landwirtschaft aus. Wenn wir nicht entschlossen handeln würden, drohten noch weitreichendere Folgen für kommende Generationen. Deshalb halte ich schnelles Handeln für unerlässlich.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie hat sich die Arbeitswelt durch die Digitalisierung verändert?",
+    "response_de": "Die Digitalisierung hat flexiblere Arbeitsmodelle wie Homeoffice ermöglicht, die vor wenigen Jahren noch undenkbar gewesen wären. Gleichzeitig erfordert sie von vielen Beschäftigten, sich ständig neue digitale Kompetenzen anzueignen. Der Wandel bringt also Chancen und Herausforderungen zugleich.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was denkst du über Minimalismus als Lebensphilosophie?",
+    "response_de": "Minimalismus finde ich als Gegenentwurf zur Konsumgesellschaft durchaus überzeugend, weil er den Fokus auf das Wesentliche lenkt. Allerdings ist er nicht für jeden gleich leicht umzusetzen, gerade in einer Welt voller Reize. Trotzdem lohnt es sich, seine eigenen Prioritäten zu hinterfragen.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Inwiefern prägt die Kultur eines Landes seinen Humor?",
+    "response_de": "Humor ist stark kulturell geprägt, da er oft auf gemeinsamen Werten, Tabus und historischen Erfahrungen beruht. Was in einem Land als witzig gilt, kann anderswo völlig missverstanden werden. Deshalb ist interkulturelle Sensibilität beim Humor besonders wichtig.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche ethischen Fragen stellt die künstliche Intelligenz?",
+    "response_de": "Künstliche Intelligenz wirft Fragen nach Verantwortung auf, etwa wenn ein System eine folgenreiche Entscheidung trifft. Auch der Umgang mit Vorurteilen in den Trainingsdaten ist ethisch heikel. Diese Fragen sollten Gesellschaft und Politik gemeinsam klären.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie sollte man mit historischer Schuld umgehen?",
+    "response_de": "Ein verantwortungsvoller Umgang mit historischer Schuld setzt voraus, dass man sich der Vergangenheit ehrlich stellt, statt sie zu verdrängen. Gleichzeitig sollte daraus eine konkrete Verantwortung für die Gegenwart erwachsen. Aufarbeitung allein reicht also nicht aus.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die psychologischen Auswirkungen von Social Media auf Jugendliche?",
+    "response_de": "Studien zeigen, dass exzessive Social-Media-Nutzung bei Jugendlichen mit erhöhtem Stress und einem geringeren Selbstwertgefühl einhergehen kann. Andererseits bietet sie auch Raum für Austausch und Zugehörigkeit. Entscheidend ist daher ein bewusster, begrenzter Umgang damit.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Diskutiere das Konzept der Work-Life-Balance.",
+    "response_de": "Work-Life-Balance beschreibt das Bestreben, berufliche Anforderungen und persönliches Wohlbefinden in ein gesundes Gleichgewicht zu bringen. In der Praxis fällt das vielen schwer, besonders wenn Arbeit und Freizeit digital ständig verschmelzen. Ich halte klare Grenzen deshalb für unverzichtbar.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie könnte eine gerechte Gesellschaft aussehen?",
+    "response_de": "Eine gerechte Gesellschaft würde meiner Meinung nach allen Menschen unabhängig von Herkunft gleiche Chancen bieten. Dazu gehören ein fairer Zugang zu Bildung sowie ein solidarisches Sozialsystem. Ganz erreichen lässt sich dieses Ideal wohl nie vollständig, aber es lohnt sich, danach zu streben.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was hältst du von bedingungslosem Grundeinkommen?",
+    "response_de": "Das bedingungslose Grundeinkommen könnte finanzielle Existenzängste verringern und mehr Freiraum für Bildung oder Kreativität schaffen. Kritiker befürchten allerdings, dass es die Arbeitsmotivation schwächen könnte. Ich finde die Idee spannend, auch wenn noch viele Fragen offen sind.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Erkläre, warum Mehrsprachigkeit von Vorteil ist.",
+    "response_de": "Mehrsprachigkeit fördert nachweislich kognitive Flexibilität und erleichtert es, sich in fremde Perspektiven hineinzuversetzen. Zudem eröffnet sie berufliche und soziale Möglichkeiten, die einsprachigen Menschen oft verschlossen bleiben. Deshalb lohnt sich das Erlernen weiterer Sprachen in jedem Alter.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie beeinflusst die Wirtschaft politische Entscheidungen?",
+    "response_de": "Wirtschaftliche Interessen beeinflussen politische Entscheidungen häufig maßgeblich, etwa wenn es um Handelsabkommen oder Steuerpolitik geht. Dabei geraten kurzfristige wirtschaftliche Vorteile manchmal in Konflikt mit langfristigen gesellschaftlichen Zielen. Diese Spannung prägt viele politische Debatten.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Was sind die Herausforderungen der modernen Bildung?",
+    "response_de": "Moderne Bildungssysteme stehen vor der Herausforderung, Schülerinnen und Schüler auf eine sich rasant wandelnde Arbeitswelt vorzubereiten. Gleichzeitig sollen sie individuelle Bedürfnisse berücksichtigen, was mit begrenzten Ressourcen oft schwierig ist. Digitale Kompetenzen gewinnen dabei zunehmend an Bedeutung.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie verändert künstliche Intelligenz den Arbeitsmarkt?",
+    "response_de": "Künstliche Intelligenz automatisiert zunehmend repetitive Aufgaben, wodurch sich manche Berufsbilder grundlegend wandeln oder ganz verschwinden. Gleichzeitig entstehen neue Tätigkeitsfelder rund um die Entwicklung und Kontrolle solcher Systeme. Entscheidend wird sein, wie gut sich Arbeitnehmer an diesen Wandel anpassen können.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Welche Verantwortung tragen Unternehmen für die Umwelt?",
+    "response_de": "Unternehmen tragen eine erhebliche Verantwortung für die Umwelt, da ihre Produktionsprozesse oft erheblichen Einfluss auf Ressourcenverbrauch und Emissionen haben. Nachhaltiges Wirtschaften sollte deshalb kein bloßes Marketinginstrument, sondern echte Priorität sein. Nur so lässt sich langfristig glaubwürdig handeln.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  },
+  {
+    "level": "B2",
+    "prompt": "Wie wichtig ist kulturelle Vielfalt in einer globalisierten Welt?",
+    "response_de": "Kulturelle Vielfalt bereichert eine globalisierte Welt, indem sie unterschiedliche Perspektiven und Lösungsansätze zusammenbringt. Gleichzeitig erfordert sie Offenheit und die Bereitschaft, andere Sichtweisen ernst zu nehmen. Ich halte sie deshalb für einen wertvollen, aber auch anspruchsvollen Gewinn.",
+    "response_en": "",
+    "error": null,
+    "latency_sec": null
+  }
+]

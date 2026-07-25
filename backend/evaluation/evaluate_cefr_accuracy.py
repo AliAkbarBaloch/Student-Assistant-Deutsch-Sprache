@@ -178,14 +178,14 @@ assert all(len(v) == _PROMPTS_PER_LEVEL for v in TEST_PROMPTS.values()), (
 # ==============================================================================
 
 def load_word_map() -> dict[str, str]:
-    """Load the CEFR CSV into a word -> level mapping (A1/A2/B1 only, exact
-    strings as they appear in the CSV - no stemming/prefix logic applied)."""
+    """Load the CEFR CSV into a word -> level mapping (exact strings as they
+    appear in the CSV - no stemming/prefix logic applied)."""
     word_map: dict[str, str] = {}
     with _CSV_PATH.open(encoding="utf-8") as f:
         for row in csv_module.DictReader(f):
             lvl  = row.get("level", "").strip().upper()
             stem = row.get("stem", "").strip().lower()
-            if lvl in ("A1", "A2", "B1") and stem:
+            if lvl in ("A1", "A2", "B1", "B2") and stem:
                 word_map[stem] = lvl
     return word_map
 
@@ -393,8 +393,11 @@ def print_report(summary: dict) -> None:
     avg = f"{o['avg_compliance_pct']}" if o["avg_compliance_pct"] is not None else "N/A"
     print(f"{'OVERALL':<8}{o['responses_scored']}/{o['responses_total']:<7}{avg:<10}")
     print("=" * 60)
-    print("Note: B2 has no vocabulary restriction in the app, so a lower")
-    print("compliance % there is expected and not a bug.")
+    print("Note: B2 is the top of this 4-level scale (A1-B2), so no word in the")
+    print("dictionary can outrank a B2 target - B2 compliance is 100% by")
+    print("construction regardless of dataset content. What the B2 dictionary")
+    print("entries change is coverage: more of the model's B2 vocabulary is now")
+    print("recognised at all, rather than falling into the unscored 'unknown' bucket.")
     if "avg_latency_sec" in o:
         print()
         print(f"Avg latency per response: {o['avg_latency_sec']}s "
