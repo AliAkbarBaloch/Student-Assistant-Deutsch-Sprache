@@ -1,0 +1,39 @@
+{
+  "A1": {
+    "responses_scored": 16,
+    "responses_total": 20,
+    "avg_compliance_pct": 100.0,
+    "min_compliance_pct": 100.0,
+    "max_compliance_pct": 100.0
+  },
+  "A2": {
+    "responses_scored": 16,
+    "responses_total": 20,
+    "avg_compliance_pct": 100.0,
+    "min_compliance_pct": 100.0,
+    "max_compliance_pct": 100.0
+  },
+  "B1": {
+    "responses_scored": 20,
+    "responses_total": 20,
+    "avg_compliance_pct": 100.0,
+    "min_compliance_pct": 100.0,
+    "max_compliance_pct": 100.0
+  },
+  "B2": {
+    "responses_scored": 20,
+    "responses_total": 20,
+    "avg_compliance_pct": 100.0,
+    "min_compliance_pct": 100.0,
+    "max_compliance_pct": 100.0
+  },
+  "OVERALL": {
+    "responses_scored": 72,
+    "responses_total": 80,
+    "avg_compliance_pct": 100.0,
+    "total_latency_sec": 13.2,
+    "avg_latency_sec": 0.17,
+    "min_latency_sec": 0.12,
+    "max_latency_sec": 0.47
+  }
+}
