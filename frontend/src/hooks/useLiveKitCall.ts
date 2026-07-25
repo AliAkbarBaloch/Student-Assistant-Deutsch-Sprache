@@ -33,10 +33,16 @@ export function useLiveKitCall(
   const agentBufRef   = useRef("");
   const agentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // TranscriptionReceived redelivers the participant's recent segment buffer on
+  // every event, not just new ones — so an already-emitted final segment id can
+  // reappear and must be skipped, or its text gets shown/recorded twice.
+  const seenSegmentIdsRef = useRef<Set<string>>(new Set());
+
   const [callState, setCallState] = useState<CallState>("idle");
 
   const connect = useCallback(async (url: string, token: string) => {
     setCallState("listening");
+    seenSegmentIdsRef.current.clear();
 
     const room = new Room({
       audioCaptureDefaults: {
@@ -68,9 +74,15 @@ export function useLiveKitCall(
       (segments: TranscriptionSegment[], participant) => {
         if (!onTranscriptRef.current) return;
 
-        // Only process final segments (skip partial/streaming ones)
-        const finalText = segments
-          .filter((s) => s.final)
+        // Only process final segments not already emitted (skip partial/streaming
+        // ones and re-deliveries of segments we've already handled)
+        const newFinalSegments = segments.filter(
+          (s) => s.final && !seenSegmentIdsRef.current.has(s.id),
+        );
+        if (newFinalSegments.length === 0) return;
+        newFinalSegments.forEach((s) => seenSegmentIdsRef.current.add(s.id));
+
+        const finalText = newFinalSegments
           .map((s) => s.text)
           .join(" ")
           .trim();
@@ -120,6 +132,7 @@ export function useLiveKitCall(
       onTranscriptRef.current(agentBufRef.current, "assistant");
     }
     agentBufRef.current = "";
+    seenSegmentIdsRef.current.clear();
 
     trackRef.current?.stop();
     trackRef.current = null;

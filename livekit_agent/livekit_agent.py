@@ -83,7 +83,15 @@ server = AgentServer()
 
 
 def prewarm(proc: JobProcess) -> None:
-    proc.userdata["vad"] = silero.VAD.load()
+    # Defaults (min_speech_duration=0.05s, activation_threshold=0.5) are permissive
+    # enough that a short noise blip (breath, mic pop, background sound) triggers a
+    # "speech" segment that gets forwarded to the STT, which then hallucinates
+    # plausible-sounding text for audio that was never real speech. Raising both
+    # keeps genuinely short utterances ("Ja", "Nein") working while filtering noise.
+    proc.userdata["vad"] = silero.VAD.load(
+        min_speech_duration=0.2,
+        activation_threshold=0.6,
+    )
 
 
 server.setup_fnc = prewarm
