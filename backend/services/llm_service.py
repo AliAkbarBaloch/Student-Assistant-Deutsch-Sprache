@@ -9,7 +9,7 @@ from typing import Optional
 import openai
 from openai import OpenAI
 
-from services.vocab_service import CefrLevel, get_level_description, get_sample_for_prompt
+from services.vocab_service import CefrLevel, get_level_description, get_vocab_instruction
 
 _BASE_PROMPT = """
 Du bist "Buddy", ein freundlicher KI-Deutschlehrer in der App "Deutsch Buddy".
@@ -76,16 +76,9 @@ def _create_with_fallback(client: OpenAI, messages: list, temperature: float, ma
 
 
 def _build_system_prompt(level: CefrLevel) -> str:
-    level_desc  = get_level_description(level)
-    stem_sample = get_sample_for_prompt(level)
+    level_desc = get_level_description(level)
     prompt = _BASE_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
-    if stem_sample:
-        prompt += (
-            f"\n\nERLAUBTE WÖRTER (Wortgruppen für {level}):\n"
-            f"Verwende NUR Wörter aus diesen Stämmen und ihren üblichen Formen: "
-            f"{stem_sample}\n"
-            f"Vermeide alle Wörter, die nicht zu diesem Niveau passen."
-        )
+    prompt += get_vocab_instruction(level)
     return prompt
 
 
@@ -100,12 +93,10 @@ def build_streaming_messages(
     if cefr not in ("A1", "A2", "B1", "B2"):
         cefr = "B1"
 
-    level_desc  = get_level_description(cefr)  # type: ignore[arg-type]
-    stem_sample = get_sample_for_prompt(cefr)   # type: ignore[arg-type]
+    level_desc = get_level_description(cefr)  # type: ignore[arg-type]
 
     prompt = _STREAMING_PROMPT + f"\n\nSPRACHNIVEAU DES NUTZERS:\n{level_desc}"
-    if stem_sample:
-        prompt += f"\n\nERLAUBTE WÖRTER (Wortgruppen für {cefr}): {stem_sample}"
+    prompt += get_vocab_instruction(cefr)  # type: ignore[arg-type]
 
     messages: list[dict] = [{"role": "system", "content": prompt}]
     messages.extend(history[-(2 * _MAX_HISTORY_TURNS):])

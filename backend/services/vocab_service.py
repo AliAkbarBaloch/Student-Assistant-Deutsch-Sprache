@@ -1,6 +1,6 @@
 # Loads the CEFR vocabulary CSV and provides helpers used to ground the LLM's
-# word choices. Levels are cumulative: A2 includes A1 stems, B1 includes A1+A2, etc.
-# B2 is unrestricted — no vocabulary filter applied.
+# word choices. Levels are cumulative: A2 includes A1 stems, B1 includes A1+A2,
+# B2 includes A1+A2+B1+B2.
 from __future__ import annotations
 
 import csv
@@ -32,17 +32,15 @@ _CUMULATIVE: dict[str, FrozenSet[str]] = {
     "A1": frozenset(_LEVEL_STEMS["A1"]),
     "A2": frozenset(_LEVEL_STEMS["A1"] | _LEVEL_STEMS["A2"]),
     "B1": frozenset(_LEVEL_STEMS["A1"] | _LEVEL_STEMS["A2"] | _LEVEL_STEMS["B1"]),
-    "B2": frozenset(_LEVEL_STEMS["A1"] | _LEVEL_STEMS["A2"] | _LEVEL_STEMS["B1"]),
+    "B2": frozenset(_LEVEL_STEMS["A1"] | _LEVEL_STEMS["A2"] | _LEVEL_STEMS["B1"] | _LEVEL_STEMS["B2"]),
 }
 
 _SAMPLE_SIZE = 200  # how many stems to inject into the prompt
 
 
 def get_sample_for_prompt(level: CefrLevel, seed: int = 42) -> str:
-    """Return a comma-separated sample of stems for the given level.
-    B2 returns empty string — no vocabulary restriction at that level."""
-    if level == "B2":
-        return ""
+    """Return a comma-separated sample of stems for the given level, drawn
+    from the cumulative stem set (all levels at or below `level`)."""
     stems  = sorted(_CUMULATIVE[level])
     rng    = random.Random(seed)
     sample = rng.sample(stems, min(_SAMPLE_SIZE, len(stems)))
@@ -79,4 +77,32 @@ def get_level_description(level: CefrLevel) -> str:
     }
     return descriptions[level]
 
+
+def get_vocab_instruction(level: CefrLevel) -> str:
+    """Return the permitted-vocabulary block to append to the system prompt,
+    or "" if there are no stems to inject.
+
+    A1/A2/B1 get a hard restriction ("use ONLY these stems") since the goal
+    at those levels is to keep the learner inside a narrow, known set. B2
+    gets the same stem sample but framed as encouragement rather than a
+    ceiling, so the model still has room for the varied, idiomatic language
+    a B2 learner is expected to handle.
+    """
+    stem_sample = get_sample_for_prompt(level)
+    if not stem_sample:
+        return ""
+    if level == "B2":
+        return (
+            f"\n\nB2-WORTSCHATZ (Wortstämme, die dieses Niveau kennzeichnen):\n"
+            f"Bevorzuge, wo passend, Wörter aus diesen Stämmen und ihren üblichen Formen: "
+            f"{stem_sample}\n"
+            f"Du darfst darüber hinaus jedes andere Wort verwenden, das für ein "
+            f"vielseitiges, natürliches B2-Gespräch angemessen ist."
+        )
+    return (
+        f"\n\nERLAUBTE WÖRTER (Wortstämme für {level}):\n"
+        f"Verwende NUR Wörter aus diesen Stämmen und ihren üblichen Formen: "
+        f"{stem_sample}\n"
+        f"Vermeide alle Wörter, die nicht zu diesem Niveau passen."
+    )
 
